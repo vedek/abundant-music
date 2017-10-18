@@ -21,14 +21,15 @@ var PercussionMotifMode = {
 addPossibleValuesFunction(PercussionMotifMode, PercussionMotifMode.RYTHM_AND_ZONES, PercussionMotifMode.ELEMENTS);
 
 
-function AbstractPercussionMotif() {
-    this.id = "";
-    this.seed = 12345;
-    this.useExternalSeed = false;
+class AbstractPercussionMotif {
+    constructor () {
+        this.id = "";
+        this.seed = 12345;
+        this.useExternalSeed = false;
 
-    this._constructorName = "AbstractPercussionMotif";
+        this._constructorName = "AbstractPercussionMotif";
+    }
 }
-
 
 class PercussionMotif extends AbstractPercussionMotif {
     constructor() {

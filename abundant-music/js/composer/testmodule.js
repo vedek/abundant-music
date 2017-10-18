@@ -3407,76 +3407,77 @@ function createModuleGeneratorData(genInfo, sectionInfos) {
 }
 
 
-function SimpleModuleGeneratorData() {
+class SimpleModuleGeneratorData {
+    constructor() {
 
-    this.baseTempo = 120;
+        this.baseTempo = 120;
 
-    this.indexInfos = [];
+        this.indexInfos = [];
 
-    this.tempoInfos = []; // Absolute tempos
+        this.tempoInfos = []; // Absolute tempos
 
-//    this.globalTempoChangeInfos = [];
-    this.sequentialTempoChangeInfos = []; // Is indexed by tempoChangePatternInfos
-    this.sequentialTempoChangePatternInfos = []; // Is indexed by a property
-    this.parallelTempoChangeInfos = []; // Is indexed by tempoChangePatternInfos
-    this.parallelTempoChangePatternInfos = []; // Is indexed by a property
+    //    this.globalTempoChangeInfos = [];
+        this.sequentialTempoChangeInfos = []; // Is indexed by tempoChangePatternInfos
+        this.sequentialTempoChangePatternInfos = []; // Is indexed by a property
+        this.parallelTempoChangeInfos = []; // Is indexed by tempoChangePatternInfos
+        this.parallelTempoChangePatternInfos = []; // Is indexed by a property
 
-    this.sequentialMelodyEffectChangeInfos = []; // Is indexed by tempoChangePatternInfos
-    this.sequentialMelodyEffectChangePatternInfos = []; // Is indexed by a property
-    this.sequentialInner1EffectChangeInfos = []; // Is indexed by tempoChangePatternInfos
-    this.sequentialInner1EffectChangePatternInfos = []; // Is indexed by a property
-    this.sequentialInner2EffectChangeInfos = []; // Is indexed by tempoChangePatternInfos
-    this.sequentialInner2EffectChangePatternInfos = []; // Is indexed by a property
-    this.sequentialBassEffectChangeInfos = []; // Is indexed by tempoChangePatternInfos
-    this.sequentialBassEffectChangePatternInfos = []; // Is indexed by a property
-    this.sequentialPercussionEffectChangeInfos = []; // Is indexed by tempoChangePatternInfos
-    this.sequentialPercussionEffectChangePatternInfos = []; // Is indexed by a property
+        this.sequentialMelodyEffectChangeInfos = []; // Is indexed by tempoChangePatternInfos
+        this.sequentialMelodyEffectChangePatternInfos = []; // Is indexed by a property
+        this.sequentialInner1EffectChangeInfos = []; // Is indexed by tempoChangePatternInfos
+        this.sequentialInner1EffectChangePatternInfos = []; // Is indexed by a property
+        this.sequentialInner2EffectChangeInfos = []; // Is indexed by tempoChangePatternInfos
+        this.sequentialInner2EffectChangePatternInfos = []; // Is indexed by a property
+        this.sequentialBassEffectChangeInfos = []; // Is indexed by tempoChangePatternInfos
+        this.sequentialBassEffectChangePatternInfos = []; // Is indexed by a property
+        this.sequentialPercussionEffectChangeInfos = []; // Is indexed by tempoChangePatternInfos
+        this.sequentialPercussionEffectChangePatternInfos = []; // Is indexed by a property
 
 
-    this.renderAmountInfos = [];
+        this.renderAmountInfos = [];
 
-    this.suspendInfos = [];
+        this.suspendInfos = [];
 
-    this.harmonyExtraInfos = [];
+        this.harmonyExtraInfos = [];
 
-    this.harmonyInfos = [];
+        this.harmonyInfos = [];
 
-    this.phraseInfos = [];
+        this.phraseInfos = [];
 
-    this.harmonyRythmInfos = [];
+        this.harmonyRythmInfos = [];
 
-    this.melodyShapeInfos = [];
+        this.melodyShapeInfos = [];
 
-    this.bassShapeInfos = [];
+        this.bassShapeInfos = [];
 
-    this.melodyChannelInstruments = [];
-    this.inner1ChannelInstruments = [];
-    this.inner2ChannelInstruments = [];
-    this.bassChannelInstruments = [];
+        this.melodyChannelInstruments = [];
+        this.inner1ChannelInstruments = [];
+        this.inner2ChannelInstruments = [];
+        this.bassChannelInstruments = [];
 
-    this.percussionMotifInfos = [];
+        this.percussionMotifInfos = [];
 
-    this.fillStartIndex = 2;
+        this.fillStartIndex = 2;
 
-    this.percussionMotifDistributionInfos = [];
-    this.percussionFillMotifDistributionInfos = [];
+        this.percussionMotifDistributionInfos = [];
+        this.percussionFillMotifDistributionInfos = [];
 
-    this.motifInfos = [];
+        this.motifInfos = [];
 
-    this.bassStartIndex = 4;
-    this.harmonyStartIndex = 8;
+        this.bassStartIndex = 4;
+        this.harmonyStartIndex = 8;
 
-    this.melodyChannelDistributionInfos = [];
-    this.inner1ChannelDistributionInfos = [];
-    this.inner2ChannelDistributionInfos = [];
-    this.bassChannelDistributionInfos = [];
+        this.melodyChannelDistributionInfos = [];
+        this.inner1ChannelDistributionInfos = [];
+        this.inner2ChannelDistributionInfos = [];
+        this.bassChannelDistributionInfos = [];
 
-    this.melodyMotifDistributionInfos = [];
-    this.inner1MotifDistributionInfos = [];
-    this.inner2MotifDistributionInfos = [];
-    this.bassMotifDistributionInfos = [];
+        this.melodyMotifDistributionInfos = [];
+        this.inner1MotifDistributionInfos = [];
+        this.inner2MotifDistributionInfos = [];
+        this.bassMotifDistributionInfos = [];
+    }
 }
-
 
 class SimpleModuleGeneratorSectionInfo {
     constructor(options) {

@@ -228,23 +228,27 @@ class MidiRenderer {
     }
 }
 
-function MidiChannelMap() {
-    this.id = "";
-    this.renderChannel = "";
-    this.program = MidiProgram.ACOUSTIC_GRAND_PIANO;
-    this.channel = 0;
-    this.initialControllerMessages = [];
-    this._constructorName = "MidiChannelMap";
+class MidiChannelMap {
+    constructor() {
+        this.id = "";
+        this.renderChannel = "";
+        this.program = MidiProgram.ACOUSTIC_GRAND_PIANO;
+        this.channel = 0;
+        this.initialControllerMessages = [];
+        this._constructorName = "MidiChannelMap";
+    }
 }
 
-function MidiControlChannelMap() {
-    this.id = "";
-    this.controlChannel = "";
-    this.channel = 0;
-    this.amplitude = 1.0;
-    this.bias = 0.0;
-    this.controllerType = MidiControllerType.VOLUME;
-    this._constructorName = "MidiControlChannelMap";
+class MidiControlChannelMap {
+    constructor() {
+        this.id = "";
+        this.controlChannel = "";
+        this.channel = 0;
+        this.amplitude = 1.0;
+        this.bias = 0.0;
+        this.controllerType = MidiControllerType.VOLUME;
+        this._constructorName = "MidiControlChannelMap";
+    }
 }
 
 

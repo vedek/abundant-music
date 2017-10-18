@@ -1,7 +1,9 @@
 
-function EditorFunctionOrVariable() {
-    this.id = "";
-    this._constructorName = "EditorFunctionOrVariable";
+class EditorFunctionOrVariable {
+    constructor() {
+        this.id = "";
+        this._constructorName = "EditorFunctionOrVariable";
+    }
 }
 
 

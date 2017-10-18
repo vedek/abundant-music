@@ -296,20 +296,22 @@ var SongPartType = {
 addPossibleValuesFunction(SongPartType, SongPartType.VERSE_1, SongPartType.MISC_2);
 
 
-function MotifRythmInfo(options) {
-    this.noteCountRange = [0.25, 1.0]; // Notes per beat
+class MotifRythmInfo {
+    constructor (options) {
+        this.noteCountRange = [0.25, 1.0]; // Notes per beat
 
-    this.zone1Prob = 0.5;
-    this.zone1TripletLikelihood = getValueOrDefault(options, "zone1TripletLikelihood", 0.5);
-    this.zone1DotSecondLikelihood = getValueOrDefault(options, "zone1DotSecondLikelihood", 0.5);
-    this.zone1DotFirstLikelihood = getValueOrDefault(options, "zone1DotFirstLikelihood", 2);
-    this.zone1DotNormalDotLikelihood = getValueOrDefault(options, "zone1DotNormalDotLikelihood", 0.5);
-    this.zone1NormalDotDotLikelihood = getValueOrDefault(options, "zone1NormalDotDotLikelihood", 0.5);
-    this.zone1DotDotNormalLikelihood = getValueOrDefault(options, "zone1DotDotNormalLikelihood", 0.5);
-    this.zone1StartPosRange = getValueOrDefault(options, "zone1StartPosRange", [0, 0]);
-    this.zone1EndPosRange = getValueOrDefault(options, "zone1EndPosRange", [0.75, 0.75]);
+        this.zone1Prob = 0.5;
+        this.zone1TripletLikelihood = getValueOrDefault(options, "zone1TripletLikelihood", 0.5);
+        this.zone1DotSecondLikelihood = getValueOrDefault(options, "zone1DotSecondLikelihood", 0.5);
+        this.zone1DotFirstLikelihood = getValueOrDefault(options, "zone1DotFirstLikelihood", 2);
+        this.zone1DotNormalDotLikelihood = getValueOrDefault(options, "zone1DotNormalDotLikelihood", 0.5);
+        this.zone1NormalDotDotLikelihood = getValueOrDefault(options, "zone1NormalDotDotLikelihood", 0.5);
+        this.zone1DotDotNormalLikelihood = getValueOrDefault(options, "zone1DotDotNormalLikelihood", 0.5);
+        this.zone1StartPosRange = getValueOrDefault(options, "zone1StartPosRange", [0, 0]);
+        this.zone1EndPosRange = getValueOrDefault(options, "zone1EndPosRange", [0.75, 0.75]);
 
-    this._constructorName = "MotifRythmInfo";
+        this._constructorName = "MotifRythmInfo";
+    }
 }
 
 
@@ -339,37 +341,28 @@ var MelodyOffsetLevel = {
 addPossibleValuesFunction(MelodyOffsetLevel, MelodyOffsetLevel.VERY_LOW, MelodyOffsetLevel.VERY_HIGH);
 
 
-function RenderAmountStrengthMap() {
-    this.veryWeak = [0.02];
-    this.weak = [0.15];
-    this.medium = [0.4];
-    this.strong = [0.7];
-    this.veryStrong = [1.0];
-    this._constructorName = "RenderAmountStrengthMap";
+class RenderAmountStrengthMap {
+    constructor() {
+        this.veryWeak = [0.02];
+        this.weak = [0.15];
+        this.medium = [0.4];
+        this.strong = [0.7];
+        this.veryStrong = [1.0];
+        this._constructorName = "RenderAmountStrengthMap";
+    }
 }
 
 
 
-function IndexPropertyIndex() {
-    this.indexProperty = PhraseGroupIndexProperty.HARMONY_RYTHM;
-    this.otherPartType = SongPartType.VERSE_1;
-    this._constructorName = "IndexPropertyIndex";
+class IndexPropertyIndex {
+    constructor() {
+        this.indexProperty = PhraseGroupIndexProperty.HARMONY_RYTHM;
+        this.otherPartType = SongPartType.VERSE_1;
+        this._constructorName = "IndexPropertyIndex";
+    }
 }
 
 
-function SongPartTypeOverrideInfo(options) {
-    AbstractSongPartStructureInfo.call(this, options);
-
-    this.customPhraseTypes = [PhraseHarmonyElementType.INCOMPLETE, PhraseHarmonyElementType.COMPLETE];
-
-    this.sameGroupIndexSames = getValueOrDefault(options, "sameGroupIndexSames", []); // Forcing some index properties to be same
-    this.sameGroupIndexDifferents = getValueOrDefault(options, "sameGroupIndexDifferents", []); // Forcing some index properties to be different
-    this.differentGroupIndexSameInfos = []; // IndexPropertyIndex
-    this.differentGroupIndexDifferentInfos = []; // IndexPropertyIndex
-
-    this._constructorName = "SongPartTypeOverrideInfo";
-}
-//SongPartTypeOverrideInfo.prototype = new AbstractSongPartStructureInfo();
 
 
 var PhraseGroupIndexProperty = {
@@ -514,91 +507,108 @@ var SongPartStrength = {
 addPossibleValuesFunction(SongPartStrength, SongPartStrength.DEFAULT, SongPartStrength.VERY_STRONG);
 
 
-function AbstractSongPartStructureInfo() {
-    this.partType = SongPartType.VERSE_1;
+class AbstractSongPartStructureInfo {
+    constructor() {
+        this.partType = SongPartType.VERSE_1;
 
-    this.harmonyRythmCountOverrides = [];
-    this.harmonyTotalLengthOverrides = [];
+        this.harmonyRythmCountOverrides = [];
+        this.harmonyTotalLengthOverrides = [];
 
-    this.overridePhraseGroupType = false;
-    this.phraseGroupType = SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT_SHORTEN;
-    this.overrideMajorModulationTarget = false;
-    this.majorModulationTarget = DynamicHarmonyModulationTarget.DOMINANT;
-    this.overrideMinorModulationTarget = false;
-    this.minorModulationTarget = DynamicHarmonyModulationTarget.DOMINANT;
+        this.overridePhraseGroupType = false;
+        this.phraseGroupType = SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT_SHORTEN;
+        this.overrideMajorModulationTarget = false;
+        this.majorModulationTarget = DynamicHarmonyModulationTarget.DOMINANT;
+        this.overrideMinorModulationTarget = false;
+        this.minorModulationTarget = DynamicHarmonyModulationTarget.DOMINANT;
 
-    this.overrideScaleBaseNote = false;
-    this.scaleBaseNote = 60;
-    this.overrideScaleType = false;
-    this.scaleType = ScaleType.MAJOR;
+        this.overrideScaleBaseNote = false;
+        this.scaleBaseNote = 60;
+        this.overrideScaleType = false;
+        this.scaleType = ScaleType.MAJOR;
 
-    // For custom harmony
-    this.harmonyElementIndices = [];
+        // For custom harmony
+        this.harmonyElementIndices = [];
 
-    // For custom melody and bass curves
-    this.customMelodyCurveIndices = [];
-    this.customBassCurveIndices = [];
+        // For custom melody and bass curves
+        this.customMelodyCurveIndices = [];
+        this.customBassCurveIndices = [];
 
-    // For custom render elements
-    this.extraMelodyRenderElementIndices = [];
-    this.extraInner1RenderElementIndices = [];
-    this.extraInner2RenderElementIndices = [];
-    this.extraBassRenderElementIndices = [];
-    this.extraPercussionRenderElementIndices = [];
-
-
-    // Forcing indices
-    this.melodyShapeIndexOverride = [];
-    this.bassShapeIndexOverride = [];
-    this.harmonyIndexOverride = [];
-    this.harmonyRythmIndexOverride = [];
-    this.suspendIndexOverride = [];
-    this.melodyChannelDistributionIndexOverride = [];
-    this.inner1ChannelDistributionIndexOverride = [];
-    this.inner2ChannelDistributionIndexOverride = [];
-    this.bassChannelDistributionIndexOverride = [];
-    this.melodyMotifDistributionIndexOverride = [];
-    this.inner1MotifDistributionIndexOverride = [];
-    this.inner2MotifDistributionIndexOverride = [];
-    this.bassMotifDistributionIndexOverride = [];
-    this.percussionMotifDistributionIndexOverride = [];
-    this.percussionFillMotifDistributionIndexOverride = [];
-    this.harmonyExtraIndexOverride = [];
+        // For custom render elements
+        this.extraMelodyRenderElementIndices = [];
+        this.extraInner1RenderElementIndices = [];
+        this.extraInner2RenderElementIndices = [];
+        this.extraBassRenderElementIndices = [];
+        this.extraPercussionRenderElementIndices = [];
 
 
-    this.renderAmountIndexOverride = [];
-    this.tempoIndexOverride = [];
-    this.sequentialTempoChangeIndexOverride = [];
-    this.parallelTempoChangeIndexOverride = [];
-    this.sequentialMelodyEffectChangeIndexOverride = [];
-    this.sequentialInner1EffectChangeIndexOverride = [];
-    this.sequentialInner2EffectChangeIndexOverride = [];
-    this.sequentialBassEffectChangeIndexOverride = [];
-    this.sequentialPercussionEffectChangeIndexOverride = [];
+        // Forcing indices
+        this.melodyShapeIndexOverride = [];
+        this.bassShapeIndexOverride = [];
+        this.harmonyIndexOverride = [];
+        this.harmonyRythmIndexOverride = [];
+        this.suspendIndexOverride = [];
+        this.melodyChannelDistributionIndexOverride = [];
+        this.inner1ChannelDistributionIndexOverride = [];
+        this.inner2ChannelDistributionIndexOverride = [];
+        this.bassChannelDistributionIndexOverride = [];
+        this.melodyMotifDistributionIndexOverride = [];
+        this.inner1MotifDistributionIndexOverride = [];
+        this.inner2MotifDistributionIndexOverride = [];
+        this.bassMotifDistributionIndexOverride = [];
+        this.percussionMotifDistributionIndexOverride = [];
+        this.percussionFillMotifDistributionIndexOverride = [];
+        this.harmonyExtraIndexOverride = [];
 
+
+        this.renderAmountIndexOverride = [];
+        this.tempoIndexOverride = [];
+        this.sequentialTempoChangeIndexOverride = [];
+        this.parallelTempoChangeIndexOverride = [];
+        this.sequentialMelodyEffectChangeIndexOverride = [];
+        this.sequentialInner1EffectChangeIndexOverride = [];
+        this.sequentialInner2EffectChangeIndexOverride = [];
+        this.sequentialBassEffectChangeIndexOverride = [];
+        this.sequentialPercussionEffectChangeIndexOverride = [];
+
+    }
+}
+
+class SongPartTypeOverrideInfo extends AbstractSongPartStructureInfo {
+    constructor(options) {
+        super(options);
+
+        this.customPhraseTypes = [PhraseHarmonyElementType.INCOMPLETE, PhraseHarmonyElementType.COMPLETE];
+
+        this.sameGroupIndexSames = getValueOrDefault(options, "sameGroupIndexSames", []); // Forcing some index properties to be same
+        this.sameGroupIndexDifferents = getValueOrDefault(options, "sameGroupIndexDifferents", []); // Forcing some index properties to be different
+        this.differentGroupIndexSameInfos = []; // IndexPropertyIndex
+        this.differentGroupIndexDifferentInfos = []; // IndexPropertyIndex
+
+        this._constructorName = "SongPartTypeOverrideInfo";
+    }
 }
 
 
+class SongPartStructureInfo extends AbstractSongPartStructureInfo{
+    constructor(options) {
+        super(options)
+        this.strength = getValueOrDefault(options, "strength", SongPartStrength.DEFAULT);
 
-function SongPartStructureInfo(options) {
-    AbstractSongPartStructureInfo.call(this, options);
-    this.strength = getValueOrDefault(options, "strength", SongPartStrength.DEFAULT);
+        this.prefixProbsOverride = getValueOrDefault(options, "prefixProbsOverride", []);
+        this.postfixProbsOverride = getValueOrDefault(options, "postfixProbsOverride", []);
 
-    this.prefixProbsOverride = getValueOrDefault(options, "prefixProbsOverride", []);
-    this.postfixProbsOverride = getValueOrDefault(options, "postfixProbsOverride", []);
+        this.majorGroupModulationTarget = getValueOrDefault(options, "majorGroupModulationTarget", -1);
+        this.minorGroupModulationTarget = getValueOrDefault(options, "minorGroupModulationTarget", -1);
 
-    this.majorGroupModulationTarget = getValueOrDefault(options, "majorGroupModulationTarget", -1);
-    this.minorGroupModulationTarget = getValueOrDefault(options, "minorGroupModulationTarget", -1);
+        this.melodyRenderAmountOverride = [];
+        this.inner1RenderAmountOverride = [];
+        this.inner2RenderAmountOverride = [];
+        this.bassRenderAmountOverride = [];
+        this.percussionRenderAmountOverride = [];
 
-    this.melodyRenderAmountOverride = [];
-    this.inner1RenderAmountOverride = [];
-    this.inner2RenderAmountOverride = [];
-    this.bassRenderAmountOverride = [];
-    this.percussionRenderAmountOverride = [];
+        this.prefixInfoOverrides = [];
+        this.postfixInfoOverrides = [];
 
-    this.prefixInfoOverrides = [];
-    this.postfixInfoOverrides = [];
-
-    this._constructorName = "SongPartStructureInfo";
+        this._constructorName = "SongPartStructureInfo";
+    }
 }
-//SongPartStructureInfo.prototype = new AbstractSongPartStructureInfo();

@@ -1,8 +1,10 @@
 
-function RenderChannel() {
-    this.id = "";
-    this.percussion = false;
-    this._constructorName = "RenderChannel";
+class RenderChannel {
+    constructor () {
+        this.id = "";
+        this.percussion = false;
+        this._constructorName = "RenderChannel";
+    }
 }
 
 
