@@ -6,7 +6,7 @@ class EditorProcedure {
     }
 
     getProcedure(module) {
-        return function() {};
+        return () => {};
     }
 }
 

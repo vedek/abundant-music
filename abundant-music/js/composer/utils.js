@@ -633,7 +633,7 @@ function copyObjectPropertiesDeep(copy, source, options) {
 }
 
 
-const isValidFunctionName = function() {
+const isValidFunctionName = (() => {
     const validName = /^[$A-Z_][0-9A-Z_$]*$/i;
     const reserved = {
         'abstract':true,
@@ -641,11 +641,9 @@ const isValidFunctionName = function() {
         // ...
         'with':true
     };
-    return function(s) {
-        // Ensure a valid name and not reserved.
-        return validName.test(s) && !reserved[s];
-    };
-}();
+    return s => // Ensure a valid name and not reserved.
+    validName.test(s) && !reserved[s];
+})();
 
 
 function copyObjectDeep(obj, options) {
@@ -922,10 +920,10 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
         }
     }
 
-    pub.getTheValue = function() {
-        with (prv) {
+    pub.getTheValue = () => {
+        /*with (prv) {
             return eval(expression);
-        }
+        }*/
     };
 
     result = pub.getTheValue();
@@ -1050,7 +1048,7 @@ function snapMidiTicks(beatStep, beatTicks) {
 
 function addPossibleValuesFunction(obj, from, to) {
     obj.possibleValues = null;
-    obj.getPossibleValues = function() {
+    obj.getPossibleValues = () => {
         if (!obj.possibleValues) {
             obj.possibleValues = [];
             for (let i=from; i<=to; i++) {
@@ -1083,9 +1081,7 @@ function sortEnumAlphabetically(obj) {
             propName: propName
         });
     }
-    descriptionValues.sort(function(v1, v2) {
-        return strcmp(v2.description, v1.description);
-    });
+    descriptionValues.sort((v1, v2) => strcmp(v2.description, v1.description));
 
     for (let i=0; i<descriptionValues.length; i++) {
         const dv = descriptionValues[i];

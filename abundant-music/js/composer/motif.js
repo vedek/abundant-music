@@ -18,9 +18,7 @@ class Motif {
 
     toString(options) {
         let result = "{";
-        result += `${$.map(this.motifElements, function(o, i) {
-    return o.toString(options);
-})}`;
+        result += `${$.map(this.motifElements, (o, i) => o.toString(options))}`;
         result += "}";
         return result;
     }

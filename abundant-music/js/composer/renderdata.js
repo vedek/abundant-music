@@ -44,7 +44,7 @@ class RenderData {
     }
 
     sort() {
-        this.events.sort(function(a, b) {
+        this.events.sort((a, b) => {
             const diff = a.time - b.time;
             return diff;
         });

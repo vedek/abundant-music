@@ -4484,52 +4484,52 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
             prefixRenderAmountBiasMults[j] = prefixBiasMult;
             postfixRenderAmountBiasMults[j] = postfixBiasMult;
 
-            (function(pInfo) {
+            ((pInfo => {
 
                 if (pInfo && typeof(pInfo) == 'object') {
                     const modArr = [];
 
 
                     if (pInfo.melodyRenderAmountOverride && pInfo.melodyRenderAmountOverride.length > 0) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("melodyRenderAmountVar", `${pInfo.melodyRenderAmountOverride[0]}`, mods);
                         });
                     }
                     if (pInfo.inner1RenderAmountOverride && pInfo.inner1RenderAmountOverride.length > 0) {
 //                        logit("Overriding inner 1 render amount " + pInfo.inner1RenderAmountOverride[0]);
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("inner1RenderAmountVar", `${pInfo.inner1RenderAmountOverride[0]}`, mods);
                         });
                     }
                     if (pInfo.inner2RenderAmountOverride && pInfo.inner2RenderAmountOverride.length > 0) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("inner2RenderAmountVar", `${pInfo.inner2RenderAmountOverride[0]}`, mods);
                         });
                     }
                     if (pInfo.bassRenderAmountOverride && pInfo.bassRenderAmountOverride.length > 0) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("bassRenderAmountVar", `${pInfo.bassRenderAmountOverride[0]}`, mods);
                         });
                     }
                     if (pInfo.percussionRenderAmountOverride && pInfo.percussionRenderAmountOverride.length > 0) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("percussionRenderAmountVar", `${pInfo.percussionRenderAmountOverride[0]}`, mods);
                         });
                     }
                     if (pInfo.harmonyRythmCountOverrides && pInfo.harmonyRythmCountOverrides.length > 0) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("harmonyNoteCountVar", `${pInfo.harmonyRythmCountOverrides[getPhraseGroupIndex(mods) % pInfo.harmonyRythmCountOverrides.length]}`, mods);
                         });
                     }
                     if (pInfo.harmonyTotalLengthOverrides && pInfo.harmonyTotalLengthOverrides.length > 0) {
 
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("harmonyTotalLengthVar", `${pInfo.harmonyTotalLengthOverrides[getPhraseGroupIndex(mods) % pInfo.harmonyTotalLengthOverrides.length]}`, mods);
                         });
                     }
 
                     if (pInfo.customMelodyCurveIndices && pInfo.customMelodyCurveIndices.length > 0) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
 
                             const customIndex = pInfo.customMelodyCurveIndices[getPhraseGroupIndex(mods) % pInfo.customMelodyCurveIndices.length];
 
@@ -4554,7 +4554,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
                         });
                     }
                     if (pInfo.customBassCurveIndices && pInfo.customBassCurveIndices.length > 0) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
 
                             const customIndex = pInfo.customBassCurveIndices[getPhraseGroupIndex(mods) % pInfo.customBassCurveIndices.length];
 
@@ -4593,38 +4593,38 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
 //                    }
 
                     if (pInfo.overrideScaleBaseNote) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("harmonyScaleBaseVar", `${pInfo.scaleBaseNote}`, mods);
                         });
                     }
                     if (pInfo.overrideScaleType) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("scaleTypeVar", `${pInfo.scaleType}`, mods);
                         });
                     }
 
                     if (pInfo.extraMelodyRenderElementIndices) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("extraMelodyRenderElementIndicesVar", JSON.stringify(pInfo.extraMelodyRenderElementIndices), mods);
                         });
                     }
                     if (pInfo.extraInner1RenderElementIndices) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("extraInner1RenderElementIndicesVar", JSON.stringify(pInfo.extraInner1RenderElementIndices), mods);
                         });
                     }
                     if (pInfo.extraInner2RenderElementIndices) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("extraInner2RenderElementIndicesVar", JSON.stringify(pInfo.extraInner2RenderElementIndices), mods);
                         });
                     }
                     if (pInfo.extraBassRenderElementIndices) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("extraBassRenderElementIndicesVar", JSON.stringify(pInfo.extraBassRenderElementIndices), mods);
                         });
                     }
                     if (pInfo.extraPercussionRenderElementIndices) {
-                        modArr.push(function(mods) {
+                        modArr.push(mods => {
                             setMod("extraPercussionRenderElementIndicesVar", JSON.stringify(pInfo.extraPercussionRenderElementIndices), mods);
                         });
                     }
@@ -4641,11 +4641,11 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
 
                     modifiers[j] = modArr;
                 }
-            })(partInfo);
+            }))(partInfo);
 
             if (noMelody) {
 //                logit("Adding no melody part");
-                modifiers[j].push(function(mods) {
+                modifiers[j].push(mods => {
                     setMod("melodyRenderAmountVar", "0", mods);
                 });
             }
@@ -4940,7 +4940,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
             const glueRenderAmount = renderAmountBias + renderAmountMult * glueRnd.random();
             const glueMelodyOn = false; // rnd.random() < 0.2;
             addActualGroup(glueRenderAmount, glueRnd.genrand_int31(), scaleType, glueGroupType, scaleBase, majorModTarget, minorModTarget, withinGroupSames,
-                [function(mods) {
+                [mods => {
                     setMod("harmonyNoteCountVar", `${glueHarmonyCount}`, mods);
                     setMod("harmonyTotalLengthVar", `${glueLength}`, mods);
                     setMod("harmonyRythmLengthTypeVar", `${numerator == 3 ? NoteRythmElementLengthType.DOT : NoteRythmElementLengthType.NORMAL}`, mods);
@@ -4951,7 +4951,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
         if (i == 0 && hasIntro) {
 //            logit("Adding intro");
             addActualGroup(introRenderAmount, introRnd.genrand_int31(), groupScaleType, introGroupType, groupScaleBase, -1, -1, withinGroupSames,
-                [function(mods) {
+                [mods => {
                     setMod("harmonyNoteCountVar", `${introHarmonyCount}`, mods);
                     setMod("harmonyTotalLengthVar", `${introLength}`, mods);
                     setMod("harmonyRythmLengthTypeVar", `${numerator == 3 ? NoteRythmElementLengthType.DOT : NoteRythmElementLengthType.NORMAL}`, mods);
@@ -5016,7 +5016,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
         if (i == groupPattern.length - 1 && hasEnd) {
 //            logit("Adding end");
             addActualGroup(endRenderAmount, endRnd.genrand_int31(), finalScaleType, endGroupType, finalScaleBase, -1, -1, withinGroupSames,
-                [function(mods) {
+                [mods => {
                     setMod("harmonyNoteCountVar", `${endHarmonyCount}`, mods);
                     setMod("harmonyTotalLengthVar", `${endLength}`, mods);
                     setMod("harmonyRythmLengthTypeVar", `${numerator == 3 ? NoteRythmElementLengthType.NORMAL : NoteRythmElementLengthType.NORMAL}`, mods);
@@ -5817,7 +5817,7 @@ function createSongStructureInfo(rnd, genInfo, module) {
                 }
                 break;
             case SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT:
-                modifierFunctions[0].push(function(mods) {
+                modifierFunctions[0].push(mods => {
                     setMod("melodyRenderAmountVar", `${0}`, mods);
                     setMod("inner1RenderAmountVar", `${0}`, mods);
                     setMod("inner2RenderAmountVar", `${0}`, mods);
@@ -7672,7 +7672,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
 
     // Remove expression that are unneccesary
-    traverseValue(module, function(v, propName, obj) {
+    traverseValue(module, (v, propName, obj) => {
 
 //        if (propName.indexOf("_") >= 0) {
 //            logit(propName);
