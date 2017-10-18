@@ -128,7 +128,7 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
                 } else if (element instanceof UndefinedVoiceLineElement) {
                     isUndefined = true;
                 } else {
-                    logit(this._constructorName + " can not handle " + element._constructorName + "<br />");
+                    logit(`${this._constructorName} can not handle ${element._constructorName}<br />`);
                 }
                 absoluteNoteRanges[i][j] = absoluteNoteRange;
                 penaltyAbsoluteNoteRanges[i][j] = penaltyAbsoluteNoteRange;
@@ -195,7 +195,7 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
                 plannedVoiceLines[i].id = voiceLines[i].id;
             }
         } else {
-            logit("ClassicalVoicePlanner failed with options: " + JSON.stringify(options));
+            logit(`ClassicalVoicePlanner failed with options: ${JSON.stringify(options)}`);
         }
 
         addAll(result, plannedVoiceLines);

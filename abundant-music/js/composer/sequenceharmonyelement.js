@@ -20,7 +20,7 @@ SequenceHarmonyElement.prototype.getStartBeatStrengths = function(module, beatLe
 SequenceHarmonyElement.prototype.getBeatLengths = function(module) {
     let result = [];
     if (!module) {
-        showStacktraceDialog(null, "no module in " + this._constructorName);
+        showStacktraceDialog(null, `no module in ${this._constructorName}`);
     }
 
     const tsNumerators = getValueOrExpressionValue(this, "tsNumerators", module);
@@ -37,7 +37,7 @@ SequenceHarmonyElement.prototype.getBeatLengths = function(module) {
             const lengthRythmId = getValueOrExpressionValue(this, "lengthRythm", module);
             const rythm = module.getRythm(lengthRythmId);
             if (!rythm) {
-                logit("Unable to find rythm " + lengthRythmId + "<br />");
+                logit(`Unable to find rythm ${lengthRythmId}<br />`);
                 break;
             }
 
@@ -244,7 +244,7 @@ SequenceHarmonyElement.prototype.setLengthsAndPhraseStructure = function(solutio
 
 
 SequenceHarmonyElement.prototype.getConstantHarmonyElements = function(module, beatOffset) {
-    logit(this._constructorName + " must implement getConstantHarmonyElements() <br />");
+    logit(`${this._constructorName} must implement getConstantHarmonyElements() <br />`);
 };
 
 

@@ -25,7 +25,7 @@ class ConstantHarmonicRythm {
             const baseNote = e.getBaseNote();
             const scaleType = e.getScaleType();
             if (baseNote != prevScaleBase || scaleType != prevScaleType) {
-                result += "(" + toPitchClassString(baseNote) + " " + ScaleType.toString(scaleType) + ")";
+                result += `(${toPitchClassString(baseNote)} ${ScaleType.toString(scaleType)})`;
                 prevScaleBase = baseNote;
                 prevScaleType = scaleType;
             }
@@ -78,7 +78,7 @@ class ConstantHarmonicRythm {
             if (he instanceof ConstantHarmonyElement) {
                 result += he.getBeatLength();
             } else {
-                logit("Please do not call getPhraseRangeBeatLength() on " + he._constructorName + " <br />");
+                logit(`Please do not call getPhraseRangeBeatLength() on ${he._constructorName} <br />`);
             }
         }
         return result;

@@ -30,7 +30,7 @@ class Structure {
         if (ref) {
             ref.renderBatch(state);
         } else {
-            logit(this._constructorName + ": Could not find section with index " + index);
+            logit(`${this._constructorName}: Could not find section with index ${index}`);
         }
     }
 }

@@ -7,7 +7,7 @@ class FiguratorState {
     }
 
     toString() {
-        return "FS{absNote:" + this.absoluteNote + ", stepCost:" + this.stepCost + "}";
+        return `FS{absNote:${this.absoluteNote}, stepCost:${this.stepCost}}`;
     }
 }
 
@@ -127,7 +127,7 @@ class Figurator extends DfsSolver {
                         likelihoodArr.push(lik);
                     }
                 } else {
-                    logit("figurator could not find curve " + curve + "<br />");
+                    logit(`figurator could not find curve ${curve}<br />`);
                 }
                 break;
         }
@@ -178,7 +178,7 @@ class Figurator extends DfsSolver {
                     // dim5
                     multiplier *= this.diminishedFifthLikelihood;
                 } else {
-                    logit("Not a good sign absDiff == 6 and not an aug4 or dim5. diff: " + diff + " " + " <br />");
+                    logit(`Not a good sign absDiff == 6 and not an aug4 or dim5. diff: ${diff}  <br />`);
                     multiplier *= this.diminishedFifthLikelihood;
                 }
             }
@@ -230,7 +230,7 @@ class Figurator extends DfsSolver {
         const nextVoiceLineElement = this.voiceLine.get(nextHarmonyIndex);
 
         if (!nextHarmonyElement) {
-            logit("Unable to get harmony element with index " + nextHarmonyIndex + " from harmony " + this.harmony.toRomanString() + "<br />");
+            logit(`Unable to get harmony element with index ${nextHarmonyIndex} from harmony ${this.harmony.toRomanString()}<br />`);
         }
 
         let prevHarmonyIndex = harmonyIndex;
@@ -552,15 +552,15 @@ class Figurator extends DfsSolver {
 
 
         if (this.verbose) {
-            logit("In getDomain() for index " + index + " previousAbsNote: " + previousAbsNote + " nextAbsNote: " + nextAbsNote + "<br />");
-            logit("___ prev to current domain: " + JSON.stringify(prevToCurrentHorizontalDomain) + "<br />");
-            logit("___ prev to current likelihoods: " + JSON.stringify(prevToCurrentHorizontalLikelihoods) + "<br />");
-            logit("___ current to prev domain: " + JSON.stringify(currentToPreviousHorizontalDomain) + "<br />");
-            logit("___ current to prev likelihoods: " + JSON.stringify(currentToPreviousHorizontalLikelihoods) + "<br />");
-            logit("___ current to next domain: " + JSON.stringify(currentToNextHorizontalDomain) + "<br />");
-            logit("___ current to next likelihoods: " + JSON.stringify(currentToNextHorizontalLikelihoods) + "<br />");
-            logit("__ resulting domain: " + JSON.stringify(domain) + "<br />");
-            logit("__ resulting likelihoods: " + JSON.stringify(resultLikelihoods) + "<br />");
+            logit(`In getDomain() for index ${index} previousAbsNote: ${previousAbsNote} nextAbsNote: ${nextAbsNote}<br />`);
+            logit(`___ prev to current domain: ${JSON.stringify(prevToCurrentHorizontalDomain)}<br />`);
+            logit(`___ prev to current likelihoods: ${JSON.stringify(prevToCurrentHorizontalLikelihoods)}<br />`);
+            logit(`___ current to prev domain: ${JSON.stringify(currentToPreviousHorizontalDomain)}<br />`);
+            logit(`___ current to prev likelihoods: ${JSON.stringify(currentToPreviousHorizontalLikelihoods)}<br />`);
+            logit(`___ current to next domain: ${JSON.stringify(currentToNextHorizontalDomain)}<br />`);
+            logit(`___ current to next likelihoods: ${JSON.stringify(currentToNextHorizontalLikelihoods)}<br />`);
+            logit(`__ resulting domain: ${JSON.stringify(domain)}<br />`);
+            logit(`__ resulting likelihoods: ${JSON.stringify(resultLikelihoods)}<br />`);
         }
         //    logit(
         //        "__ resulting domain: " + JSON.stringify(domain) + " " +
@@ -606,7 +606,7 @@ class Figurator extends DfsSolver {
     getSuccessorDomainStatesAndLikelihoods(index, node, resultStates, resultLikelihoods) {
 
         if (index >= this.cluster.length) {
-            logit("Index error in Figurator.prototype.getDomainStatesAndLikelihoods() " + index + " " + this.cluster.length + "<br />");
+            logit(`Index error in Figurator.prototype.getDomainStatesAndLikelihoods() ${index} ${this.cluster.length}<br />`);
             return;
         }
 

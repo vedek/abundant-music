@@ -79,7 +79,7 @@ class StaticSequenceHarmonyElement extends PlannedHarmonyElement {
 
     getConstantHarmonyElements(module, beatOffset) {
         if (!module) {
-            logit("module missing in " + this._constructorName + "<br />");
+            logit(`module missing in ${this._constructorName}<br />`);
             showStacktraceDialog(null, "static sequence harmony");
         }
 
@@ -214,7 +214,7 @@ class DynamicSequenceHarmonyElement extends PlannedHarmonyElement {
     getConstantHarmonyElements(module, beatOffset) {
 
         if (!module) {
-            logit("module missing in " + this._constructorName + "<br />");
+            logit(`module missing in ${this._constructorName}<br />`);
             showStacktraceDialog(null, "static sequence harmony");
         }
 
@@ -243,7 +243,7 @@ const PhraseHarmonyElementShorteningMode = {
             case PhraseHarmonyElementShorteningMode.BEATS:
                 return "Beats";
         }
-        return "Unknown phrase harmony element shortening mode " + type;
+        return `Unknown phrase harmony element shortening mode ${type}`;
     }
 
 };

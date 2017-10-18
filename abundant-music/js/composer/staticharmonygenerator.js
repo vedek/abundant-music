@@ -20,12 +20,7 @@ class StaticHarmonyState {
     }
 
     toString() {
-        return "SHS {" +
-            "harmony: " + this.harmony +
-            "mode: " + this.mode +
-            "stepCost: " + this.stepCost +
-            (this.targetHarmony ? "targetHarmony: " + this.targetHarmony : "") +
-            "}";
+        return `SHS {harmony: ${this.harmony}mode: ${this.mode}stepCost: ${this.stepCost}${this.targetHarmony ? `targetHarmony: ${this.targetHarmony}` : ""}}`;
     }
 }
 
@@ -374,7 +369,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
             // Just add the target harmony
             const theTargetHarmony = targetHarmony.copy();
             harmonies.push(theTargetHarmony);
-            theTargetHarmony.note = "S" + (towardsAux ? ", A" : "");
+            theTargetHarmony.note = `S${towardsAux ? ", A" : ""}`;
             modes.push(towardsAux ? StaticHarmonyMode.AUXILIARY : StaticHarmonyMode.BASE);
             likelihoods.push(moveToTargetLikelihood);
             costs.push(moveToTargetCost);
@@ -397,7 +392,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
                 for (let j=0; j<passingChords.length; j++) {
                     const pc = passingChords[j];
                     harmonies.push(pc);
-                    pc.note = "S, " + (towardsAux ? "PA" : "PB");
+                    pc.note = `S, ${towardsAux ? "PA" : "PB"}`;
                     likelihoods.push(incrementLikelihood);
                     costs.push(incrementCost);
                     modes.push(towardsAux ? StaticHarmonyMode.PASSING_TOWARDS_AUXILIARY : StaticHarmonyMode.PASSING_TOWARDS_BASE);

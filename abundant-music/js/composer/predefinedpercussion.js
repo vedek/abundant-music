@@ -102,7 +102,7 @@ const PredefinedPercussionMotifType = {
             case PredefinedPercussionMotifType.MARCH_STANDARD_3:
                 return "March standard 3 (one measure)";
         }
-        return "Unknown predefined type " + type;
+        return `Unknown predefined type ${type}`;
     }
 };
 addPossibleValuesFunction(PredefinedPercussionMotifType, PredefinedPercussionMotifType.FILL_DOTTED_QUARTER_1, PredefinedPercussionMotifType.FILL_EIGHTS_8);

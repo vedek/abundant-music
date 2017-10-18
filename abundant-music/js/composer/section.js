@@ -8,7 +8,7 @@ class AbstractSection {
     }
 
     getConcreteSections(state) {
-        logit("Sections need to implement getConcreteSections() " + this._constructorName + "<br />");
+        logit(`Sections need to implement getConcreteSections() ${this._constructorName}<br />`);
         return [];
     }
 
@@ -43,7 +43,7 @@ class AbstractSection {
         for (let i=0; i<sections.length; i++) {
             let concreteSection = sections[i];
             if (!(concreteSection instanceof Section)) {
-                logit("Failed to concretize section... " + concreteSection._constructorName + " <br />");
+                logit(`Failed to concretize section... ${concreteSection._constructorName} <br />`);
                 continue;
             }
             for (let j=0; j<this.modifiers.length; j++) {
@@ -78,7 +78,7 @@ class SectionReference extends AbstractSection {
 
         const section = state.module.getSection(theSectionId);
         if (!section) {
-            logit("Could not find section " + theSectionId + "<br />");
+            logit(`Could not find section ${theSectionId}<br />`);
             return [];
         }
         const result = this.concretizeSections([section], state);
@@ -170,7 +170,7 @@ class Section extends AbstractSection {
             const planner = module.getVoiceLinePlanner(theVoiceLinePlannerId);
 
             if (!planner) {
-                logit("Could not find voice line planner '" + theVoiceLinePlannerId + "'<br />");
+                logit(`Could not find voice line planner '${theVoiceLinePlannerId}'<br />`);
             } else {
                 planner.planVoices(voiceLines, chr, module, result);
             }
@@ -336,7 +336,7 @@ class Section extends AbstractSection {
     //                                    logit("Setting tempo to " + newTempo + " value: " + tempoValue + " slot: " + slot);
                                         oldTempo = newTempo;
                                     } else if (newTempo <= 10) {
-                                        logit("Tempo strange " + newTempo + " tempoValue:" + tempoValue + " slot: " + slot);
+                                        logit(`Tempo strange ${newTempo} tempoValue:${tempoValue} slot: ${slot}`);
                                     }
                                 }
                             }
@@ -347,7 +347,7 @@ class Section extends AbstractSection {
     //                        logit("Could not find slot data for channel " + this.tempoChannel);
                         }
                     } else {
-                        logit("Could not find tempo channel " + tempoCh);
+                        logit(`Could not find tempo channel ${tempoCh}`);
                         state.data.addEvent(new SetTempoEvent(theTempo, state.sectionTime));
                     }
                     break;
@@ -391,8 +391,7 @@ class Section extends AbstractSection {
 
 
         } else {
-            logit(" could not find harmony "
-                + harmonyId);
+            logit(` could not find harmony ${harmonyId}`);
         }
 
     }

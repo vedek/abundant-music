@@ -30,8 +30,8 @@ class RenderData {
             }
         }
 
-        resultArr.push("\"renderChannelNames\": " + JSON.stringify(renderChannelNames) + ",");
-        resultArr.push("\"controlChannelNames\": " + JSON.stringify(controlChannelNames) + ",");
+        resultArr.push(`"renderChannelNames": ${JSON.stringify(renderChannelNames)},`);
+        resultArr.push(`"controlChannelNames": ${JSON.stringify(controlChannelNames)},`);
 
         resultArr.push("\"events\": [");
         const resultArr2 = [];
@@ -112,13 +112,13 @@ class RenderEvent {
             const shortProp = this.netJSONPropertiesMap[prop];
             value = this.netJSONTransformProperty(prop, value, renderChannelIndices, controlChannelIndices);
             if (typeof(value) === 'string') {
-                resultArr.push("\"" + shortProp + "\":\"" + value + "\"");
+                resultArr.push(`"${shortProp}":"${value}"`);
             } else {
-                resultArr.push("\"" + shortProp + "\":" + value);
+                resultArr.push(`"${shortProp}":${value}`);
             }
         }
 
-        return "{" + resultArr.join(",") + "}";
+        return `{${resultArr.join(",")}}`;
     }
 
     netJSONTransformProperty(name, value, renderChannelIndices, controlChannelIndices) {
@@ -151,7 +151,7 @@ class NoteOnEvent extends RenderEvent {
     }
 
     toString() {
-        return "noteOn(" + this.note + ", " + this.time + ", " + this.onVelocity + ", " + this.renderChannel.id + ")";
+        return `noteOn(${this.note}, ${this.time}, ${this.onVelocity}, ${this.renderChannel.id})`;
     }
 }
 
@@ -179,7 +179,7 @@ class NoteOffEvent extends RenderEvent {
     }
 
     toString() {
-        return "noteOff(" + this.note + ", " + this.time + ", " + this.offVelocity + ", " + this.renderChannel.id + ")";
+        return `noteOff(${this.note}, ${this.time}, ${this.offVelocity}, ${this.renderChannel.id})`;
     }
 }
 
@@ -216,7 +216,7 @@ class SetTempoEvent extends RenderEvent {
     }
 
     toString() {
-        return "setTempo(" + this.bpm + ", " + this.time + ")";
+        return `setTempo(${this.bpm}, ${this.time})`;
     }
 }
 

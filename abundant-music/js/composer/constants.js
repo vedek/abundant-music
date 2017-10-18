@@ -38,7 +38,7 @@ const ChordType = {
             case ChordType.NINTH:
                 return "Ninth";
         }
-        return "Unknown chord type " + type;
+        return `Unknown chord type ${type}`;
     }
 };
 addPossibleValuesFunction(ChordType, ChordType.TRIAD, ChordType.CUSTOM);
@@ -56,7 +56,7 @@ const SimpleScaleType = {
             case SimpleScaleType.NATURAL_MINOR:
                 return "Minor";
         }
-        return "Unknown scale type " + type;
+        return `Unknown scale type ${type}`;
     }
 };
 addPossibleValuesFunction(SimpleScaleType, SimpleScaleType.MAJOR, SimpleScaleType.NATURAL_MINOR);
@@ -122,7 +122,7 @@ const ScaleType = {
             case ScaleType.WHOLE_NOTE:
                 return "Whole note";
         }
-        return "Unknown scale type " + type;
+        return `Unknown scale type ${type}`;
     }
 };
 addPossibleValuesFunction(ScaleType, ScaleType.CUSTOM, ScaleType.WHOLE_NOTE);
@@ -146,7 +146,7 @@ const IndexType = {
             case IndexType.CHORD_ROOT:
                 return "Chord root";
         }
-        return "Unknown index type " + type;
+        return `Unknown index type ${type}`;
     }
 };
 addPossibleValuesFunction(IndexType, IndexType.MIDI_NOTE, IndexType.CHORD_ROOT);
@@ -168,7 +168,7 @@ const SnapType = {
             case SnapType.SCALE:
                 return "Scale";
         }
-        return "Unknown snap type " + type;
+        return `Unknown snap type ${type}`;
     }
 };
 addPossibleValuesFunction(SnapType, SnapType.NONE, SnapType.CHORD);
@@ -184,7 +184,7 @@ const FrequencyUnit = {
             case FrequencyUnit.MIDI_NOTE:
                 return "Midi note";
         }
-        return "Unknown frequency unit " + type;
+        return `Unknown frequency unit ${type}`;
     }
 };
 addPossibleValuesFunction(FrequencyUnit, FrequencyUnit.HERTZ, FrequencyUnit.MIDI_NOTE);
@@ -225,7 +225,7 @@ const CyclesUnit = {
             case CyclesUnit.CYCLES_PER_HARMONY:
                 return "Cycles per harmony";
         }
-        return "Unknown cycles unit " + type;
+        return `Unknown cycles unit ${type}`;
     }
 };
 addPossibleValuesFunction(CyclesUnit, CyclesUnit.CYCLES_PER_PERIOD, CyclesUnit.CYCLES_PER_HARMONY);
@@ -256,7 +256,7 @@ const SnapMetrics = {
             case SnapMetrics.ROUND:
                 return "Round";
         }
-        return "Unknown snap metrics " + type;
+        return `Unknown snap metrics ${type}`;
     },
     snap: function(value, metrics) {
         switch (metrics) {
@@ -297,7 +297,7 @@ const VerticalRelativeType = {
             case VerticalRelativeType.NOTE:
                 return "Note";
         }
-        return "Unknown type " + type;
+        return `Unknown type ${type}`;
     },
 
     sample: function(rnd) {
@@ -374,7 +374,7 @@ const HorizontalRelativeType = {
             case HorizontalRelativeType.PREVIOUS_VOICE_LINE_ELEMENT:
                 return "Previous voice line element";
         }
-        return "Unknown horiz. relative type " + type;
+        return `Unknown horiz. relative type ${type}`;
     }
 };
 addPossibleValuesFunction(HorizontalRelativeType, HorizontalRelativeType.PREVIOUS_NOTE, VerticalRelativeType.NEXT_VOICE_LINE_ELEMENT);
@@ -403,7 +403,7 @@ const OffsetType = {
             case OffsetType.CHORD_SEVENTH_ONLY:
                 return "Chord seventh only";
         }
-        return "Unknown offset type " + type;
+        return `Unknown offset type ${type}`;
     }
 
 };
@@ -475,7 +475,7 @@ const CountUnit = {
             case CountUnit.PLAIN_PLUS_HARMONY_MEASURES:
                 return "Plain + Harmony measures";
         }
-        return "Unknown count unit " + unit;
+        return `Unknown count unit ${unit}`;
     },
 
     getCount: function(count, unit, harmony, harmonyBeatOffset) {
@@ -619,7 +619,7 @@ const PositionUnit = {
             case PositionUnit.PHRASE:
                 return "Phrase";
         }
-        return "Unknown position unit " + unit;
+        return `Unknown position unit ${unit}`;
     }
 };
 addPossibleValuesFunction(PositionUnit, PositionUnit.MEASURES, PositionUnit.PHRASE);
@@ -854,7 +854,7 @@ const PhraseHarmonyElementType = {
             case PhraseHarmonyElementType.COMPLETE_PLAGIAL:
                 return "Complete plagial";
         }
-        return "Unknown phrase harmony element type " + type;
+        return `Unknown phrase harmony element type ${type}`;
     }
 
 };

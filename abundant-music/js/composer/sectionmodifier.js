@@ -178,7 +178,7 @@ class SetVariableValueSectionModifier extends SectionModifier {
                 const theVariable = state.module.getVariable(this.variable);
                 if (theVariable) {
                     if (typeof(theVariable[this.variableProperty]) === 'undefined') {
-                        logit("The variable " + this.variable + " does not have a property '" + this.variableProperty + "' <br />");
+                        logit(`The variable ${this.variable} does not have a property '${this.variableProperty}' <br />`);
                     } else {
                         this.valueBefore = theVariable[this.variableProperty];
                         // Check if same type and if the variable has a value that can be set etc.
@@ -189,8 +189,8 @@ class SetVariableValueSectionModifier extends SectionModifier {
                 }
             }
         } catch (ex) {
-            logit("" + ex);
-            logit(this._constructorName + " Error in modifySection " + this.valueExpression);
+            logit(`${ex}`);
+            logit(`${this._constructorName} Error in modifySection ${this.valueExpression}`);
             let temp = getExpressionValue(this.valueExpression, state.module);
     //        logit(this._constructorName + " temp " + temp);
         }

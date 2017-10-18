@@ -8,11 +8,7 @@ class DfsSearchNode {
     }
 
     toString() {
-        return "DFSSN {" +
-        "state: " + this.state +
-        "depth: " + this.depth +
-        "totalCost: " + this.totalCost +
-        "}";
+        return `DFSSN {state: ${this.state}depth: ${this.depth}totalCost: ${this.totalCost}}`;
     }
 }
 
@@ -181,7 +177,7 @@ class DfsSolver {
         while (iterator.hasNext()) {
             this.steps++;
             if (this.steps > this.maxSearchSteps) {
-                this.failReason = "Unable to find a solution within " + this.maxSearchSteps + " search steps";
+                this.failReason = `Unable to find a solution within ${this.maxSearchSteps} search steps`;
                 return null;
             //        } else {
             //            logit("steps: " + this.steps + " ");
@@ -254,7 +250,7 @@ class DfsSolver {
 
             if (this.steps > this.maxSearchSteps) {
                 if (this.mlSolutions == 0) {
-                    this.failReason = "Unable to find a solution within " + this.maxSearchSteps + " search steps";
+                    this.failReason = `Unable to find a solution within ${this.maxSearchSteps} search steps`;
                 }
                 return bestNode;
             }
@@ -332,7 +328,7 @@ class DfsSolver {
             //        logit("Returning result " + bestSolution + "<br />");
             return bestSolution;
         }
-        logit("Failed to find a solution in DfsSolver " + this.failReason + "<br />");
+        logit(`Failed to find a solution in DfsSolver ${this.failReason}<br />`);
         return null;
     }
 

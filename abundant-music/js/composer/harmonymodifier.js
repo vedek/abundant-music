@@ -111,7 +111,7 @@ class SuspendHarmonyModifier extends HarmonyModifier {
                             const distance = first.lowerPitchClassDistance(firstPc, secondPc);
 
                             if (firstPc == secondPc) {
-                                logit(" bad closest? " + closestPc + " " + firstPc + " " + secondPc);
+                                logit(` bad closest? ${closestPc} ${firstPc} ${secondPc}`);
                                 continue;
                             }
 
@@ -126,7 +126,7 @@ class SuspendHarmonyModifier extends HarmonyModifier {
                 }
                 info.pairs = allPairs;
                 if (info.pairs.length > 0) {
-                    info.text = first.toRomanString() + "->" + second.toRomanString();
+                    info.text = `${first.toRomanString()}->${second.toRomanString()}`;
                 }
                 infos.push(info);
 

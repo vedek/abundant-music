@@ -16,11 +16,11 @@ class ClassicalVoiceLineState {
     }
 
     toString() {
-        return "CVLS{" +
-            "stateIndex: " + this.stateIndex +
+        return (
             //    "absoluteNotes: " + this.absoluteNotes +
             //    "scaleIndices: " + this.scaleIndices +
-            "}";
+            `CVLS{stateIndex: ${this.stateIndex}}`
+        );
     }
 }
 
@@ -744,7 +744,7 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
                 let currentScaleIndex = previousScaleIndex;
 
                 if (!absRange) {
-                    logit("Could not find absolute note range for voice " + voiceIndex + "<br />");
+                    logit(`Could not find absolute note range for voice ${voiceIndex}<br />`);
                     absRange = [previousAbsNote, previousAbsNote + 12];
                 }
                 let currentLowerAbsNote = absRange[0];
@@ -918,7 +918,7 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
             for (let j=0; j<domain.length; j++) {
                 costs[j] = this.getZeroStepCost(i, j);
                 if (isNaN(costs[j])) {
-                    logit("NaN cost for domain " + domain[j].join(",") + " verbose follows:<br />");
+                    logit(`NaN cost for domain ${domain[j].join(",")} verbose follows:<br />`);
                     this.getZeroStepCost(i, j, true);
                 }
             }

@@ -8,7 +8,7 @@ class PerfTimer {
     }
 
     report() {
-        console.log("PerfTimer " + this.name + " total time: " + this.totalTime + " time per interval: " + (this.totalTime / this.intervals) + " intervals: " + this.intervals);
+        console.log(`PerfTimer ${this.name} total time: ${this.totalTime} time per interval: ${this.totalTime / this.intervals} intervals: ${this.intervals}`);
     }
 
     start() {

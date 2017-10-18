@@ -27,7 +27,7 @@ const SoundFontType = {
 //            case SoundFontType.GB_STYLE:
 //                return "gb_style";
         }
-        return "Unknown soundfont type " + type;
+        return `Unknown soundfont type ${type}`;
     },
 
 
@@ -48,7 +48,7 @@ const SoundFontType = {
 //            case SoundFontType.GB_STYLE:
 //                return "GB Style";
         }
-        return "Unknown soundfont type " + type;
+        return `Unknown soundfont type ${type}`;
     },
 
     toShortString: function(type) {
@@ -68,7 +68,7 @@ const SoundFontType = {
 //            case SoundFontType.GB_STYLE:
 //                return "GB";
         }
-        return "Unknown soundfont type " + type;
+        return `Unknown soundfont type ${type}`;
     }
 
 

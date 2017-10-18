@@ -80,7 +80,7 @@ const NoteRythmElementLengthType = {
             case NoteRythmElementLengthType.TRIPLET:
                 return "Triplet";
         }
-        return "Unknown type " + type;
+        return `Unknown type ${type}`;
     },
 
     possibleValues: null,
@@ -110,13 +110,7 @@ class NoteRythmElement extends RythmElement {
     }
 
     toString() {
-        return "NRE{" +
-            "length: " + this.length +
-            " lengthUnit: " + this.lengthUnit +
-            " strength: " + this.strength +
-            " rest: " + this.rest +
-            " lengthType: " + this.lengthType +
-            "}";
+        return `NRE{length: ${this.length} lengthUnit: ${this.lengthUnit} strength: ${this.strength} rest: ${this.rest} lengthType: ${this.lengthType}}`;
     }
 }
 
@@ -292,7 +286,7 @@ class SplitRythmElement extends RythmElement {
 
         let theCurve = module.getCurve(this.densityCurve);
         if (theCurve == null) {
-            logit("Could not find curve " + this.densityCurve + "<br />");
+            logit(`Could not find curve ${this.densityCurve}<br />`);
             theCurve = {
                 getValue: function(m, x) {
                     return 0;

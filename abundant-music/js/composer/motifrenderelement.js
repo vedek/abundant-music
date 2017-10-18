@@ -286,7 +286,7 @@ class MotifRenderElement extends PositionedRenderElement {
             const solution = figurator.searchML();
             if (solution != null) {
                 if (solution.length != cluster.length) {
-                    logit("Mitchmatch between solution and cluster lengths " + solution.length + " " + cluster.length + "<br />");
+                    logit(`Mitchmatch between solution and cluster lengths ${solution.length} ${cluster.length}<br />`);
                 }
                 for (let j=0; j<cluster.length; j++) {
                     if (typeof(solution[j]) === 'string') {
@@ -295,7 +295,7 @@ class MotifRenderElement extends PositionedRenderElement {
                     noteAbsoluteNotes.put(cluster[j], solution[j]);
                 }
             } else {
-                logit("Failed to find solution to figuration problem in cluster " + i + "<br />");
+                logit(`Failed to find solution to figuration problem in cluster ${i}<br />`);
             }
         }
 
@@ -506,8 +506,7 @@ class MotifRenderElement extends PositionedRenderElement {
             state.plannedVoiceLines);
         if (this.useVoiceLine) {
             if (!theVoiceLine) {
-                logit(" could not find voice line " + this.voiceLine
-                    + " in " + state.plannedVoiceLines);
+                logit(` could not find voice line ${this.voiceLine} in ${state.plannedVoiceLines}`);
                 return;
             }
         } else {
@@ -550,7 +549,7 @@ class MotifRenderElement extends PositionedRenderElement {
 
         const theMotif = state.module.getMotif(this.motif);
         if (!theMotif) {
-            logit("could not find motif " + this.motif);
+            logit(`could not find motif ${this.motif}`);
             return;
         }
 

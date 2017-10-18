@@ -133,7 +133,7 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
             harmony.chordRoot = positiveMod(harmony.chordRoot + rp, 7);
             harmony.scaleMode = positiveMod(harmony.scaleMode + mp, 7);
             newState.mode = (rp == 0 && mp == 0) ? 0 : 1;
-            harmony.note = "mode " + newState.mode + " rp: " + rp + " mp: " + mp;
+            harmony.note = `mode ${newState.mode} rp: ${rp} mp: ${mp}`;
             states.push(newState);
             lik = 1;
             cost = 0;
@@ -161,7 +161,7 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
             harmony.chordRoot = positiveMod(harmony.chordRoot + rp, 7);
             harmony.baseNote = ((harmony.baseNote + sp) % 12) + 60;;
             newState.mode = (rp == 0 && sp == 0) ? 0 : 1;
-            harmony.note = "mode " + newState.mode + " rp: " + rp + " sp: " + sp;
+            harmony.note = `mode ${newState.mode} rp: ${rp} sp: ${sp}`;
             states.push(newState);
             lik = 1;
             cost = 0;

@@ -209,7 +209,7 @@ const MidiControllerType = {
             case MidiControllerType.VOLUME_LSB:
                 return 39;
         }
-        logit("Warning unknown midi controller type " + type);
+        logit(`Warning unknown midi controller type ${type}`);
         return 0;
     },
 
@@ -352,7 +352,7 @@ const MidiControllerType = {
             case MidiControllerType.VOLUME_LSB:
                 return "Volume LSB";
         }
-        return "Unknown midi controller type " + type;
+        return `Unknown midi controller type ${type}`;
     }
 
 };
@@ -410,104 +410,104 @@ const MidiDrum = {
 
 
     toString: function(type) {
-        const postfix = " (" + type + ", " + toPitchClassString(type) + "" + Math.floor(type / 12) + ")";
+        const postfix = ` (${type}, ${toPitchClassString(type)}${Math.floor(type / 12)})`;
         switch (type) {
             case MidiDrum.BASS_DRUM_1:
-                return "Bass drum 1" + postfix;
+                return `Bass drum 1${postfix}`;
             case MidiDrum.BASS_DRUM_2:
-                return "Bass drum 2" + postfix;
+                return `Bass drum 2${postfix}`;
             case MidiDrum.CABASA:
-                return "Cabasa" + postfix;
+                return `Cabasa${postfix}`;
             case MidiDrum.CHINESE_CYMBAL:
-                return "Chinese cymbal" + postfix;
+                return `Chinese cymbal${postfix}`;
             case MidiDrum.CLAVES:
-                return "Claves" + postfix;
+                return `Claves${postfix}`;
             case MidiDrum.CLOSED_HIHAT:
-                return "Closed hi-hat" + postfix;
+                return `Closed hi-hat${postfix}`;
             case MidiDrum.COWBELL:
-                return "Cowbell" + postfix;
+                return `Cowbell${postfix}`;
             case MidiDrum.CRASH_CYMBAL_1:
-                return "Crash cymbal 1" + postfix;
+                return `Crash cymbal 1${postfix}`;
             case MidiDrum.CRASH_CYMBAL_2:
-                return "Crash cymbal 2" + postfix;
+                return `Crash cymbal 2${postfix}`;
             case MidiDrum.HAND_CLAP:
-                return "Hand clap" + postfix;
+                return `Hand clap${postfix}`;
             case MidiDrum.HIGH_AGOGO:
-                return "High agogo" + postfix;
+                return `High agogo${postfix}`;
             case MidiDrum.HIGH_BONGO:
-                return "High bongo" + postfix;
+                return `High bongo${postfix}`;
             case MidiDrum.HIGH_TIMBALE:
-                return "Timbale" + postfix;
+                return `Timbale${postfix}`;
             case MidiDrum.HIGH_TOM_1:
-                return "High tom 1" + postfix;
+                return `High tom 1${postfix}`;
             case MidiDrum.HIGH_TOM_2:
-                return "High tom 2" + postfix;
+                return `High tom 2${postfix}`;
             case MidiDrum.HIGH_WOOD_BLOCK:
-                return "High wood block" + postfix;
+                return `High wood block${postfix}`;
             case MidiDrum.LONG_GUIRO:
-                return "Long guiro" + postfix;
+                return `Long guiro${postfix}`;
             case MidiDrum.LONG_WHISTLE:
-                return "Long whistle" + postfix;
+                return `Long whistle${postfix}`;
             case MidiDrum.LOW_AGOGO:
-                return "Low agogo" + postfix;
+                return `Low agogo${postfix}`;
             case MidiDrum.LOW_BONGO:
-                return "Low bongo" + postfix;
+                return `Low bongo${postfix}`;
             case MidiDrum.LOW_CONGA:
-                return "Low conga" + postfix;
+                return `Low conga${postfix}`;
             case MidiDrum.LOW_TIMBALE:
-                return "Low timbale" + postfix;
+                return `Low timbale${postfix}`;
             case MidiDrum.LOW_TOM_1:
-                return "Low tom 1" + postfix;
+                return `Low tom 1${postfix}`;
             case MidiDrum.LOW_TOM_2:
-                return "Low tom 2" + postfix;
+                return `Low tom 2${postfix}`;
             case MidiDrum.LOW_WOOD_BLOCK:
-                return "Low wood block" + postfix;
+                return `Low wood block${postfix}`;
             case MidiDrum.MARACAS:
-                return "Maracas" + postfix;
+                return `Maracas${postfix}`;
             case MidiDrum.MID_TOM_1:
-                return "Mid tom 1" + postfix;
+                return `Mid tom 1${postfix}`;
             case MidiDrum.MID_TOM_2:
-                return "Mid tom 2" + postfix;
+                return `Mid tom 2${postfix}`;
             case MidiDrum.MUTE_CUICA:
-                return "Mute cuica" + postfix;
+                return `Mute cuica${postfix}`;
             case MidiDrum.MUTE_HIGH_CONGA:
-                return "Mute high conga" + postfix;
+                return `Mute high conga${postfix}`;
             case MidiDrum.MUTE_TRIANGLE:
-                return "Mute triangle" + postfix;
+                return `Mute triangle${postfix}`;
             case MidiDrum.OPEN_CUICA:
-                return "Open cuica" + postfix;
+                return `Open cuica${postfix}`;
             case MidiDrum.OPEN_HIGH_CONGA:
-                return "Open high conga" + postfix;
+                return `Open high conga${postfix}`;
             case MidiDrum.OPEN_HIHAT:
-                return "Open hi-hat" + postfix;
+                return `Open hi-hat${postfix}`;
             case MidiDrum.OPEN_TRIANGLE:
-                return "Open triangle" + postfix;
+                return `Open triangle${postfix}`;
             case MidiDrum.PEDAL_HIHAT:
-                return "Pedal hi-hat" + postfix;
+                return `Pedal hi-hat${postfix}`;
             case MidiDrum.RIDE_BELL:
-                return "Ride bell" + postfix;
+                return `Ride bell${postfix}`;
             case MidiDrum.RIDE_CYMBAL_1:
-                return "Ride cymbal 1" + postfix;
+                return `Ride cymbal 1${postfix}`;
             case MidiDrum.RIDE_CYMBAL_2:
-                return "Ride cymbal 2" + postfix;
+                return `Ride cymbal 2${postfix}`;
             case MidiDrum.RIMSHOT:
-                return "Rimshot" + postfix;
+                return `Rimshot${postfix}`;
             case MidiDrum.SHORT_GUIRO:
-                return "Short guiro" + postfix;
+                return `Short guiro${postfix}`;
             case MidiDrum.SHORT_WHISTLE:
-                return "Short whistle" + postfix;
+                return `Short whistle${postfix}`;
             case MidiDrum.SNARE_DRUM_1:
-                return "Snare drum 1" + postfix;
+                return `Snare drum 1${postfix}`;
             case MidiDrum.SNARE_DRUM_2:
-                return "Snare drum 2" + postfix;
+                return `Snare drum 2${postfix}`;
             case MidiDrum.SPLASH_CYMBAL:
-                return "Splash cymbal" + postfix;
+                return `Splash cymbal${postfix}`;
             case MidiDrum.TAMBOURINE:
-                return "Tambourine" + postfix;
+                return `Tambourine${postfix}`;
             case MidiDrum.VIBRA_SLAP:
-                return "Vibraslap" + postfix;
+                return `Vibraslap${postfix}`;
         }
-        return "unknown midi drum" + postfix;
+        return `unknown midi drum${postfix}`;
     }
 
 };
@@ -907,7 +907,7 @@ const MidiProgram = {
             case MidiProgram.XYLOPHONE:
                 return "Xylophone";
         }
-        return "Unknown midi program " + type;
+        return `Unknown midi program ${type}`;
     }
 };
 addPossibleValuesFunction(MidiProgram, MidiProgram.ACOUSTIC_GRAND_PIANO, MidiProgram.GUNSHOT);

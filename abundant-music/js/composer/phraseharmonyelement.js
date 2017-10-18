@@ -956,8 +956,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                         if (extra) {
                             extraSolution[j] = extra;
                         } else {
-                            logit("could not find any extra solution at " + (solution.length - lengthenCount + j) +
-                                " solution length: " + solution.length + " j: " + j + " lengthenCount: " + lengthenCount);
+                            logit(`could not find any extra solution at ${solution.length - lengthenCount + j} solution length: ${solution.length} j: ${j} lengthenCount: ${lengthenCount}`);
                             lengthenCount--;
                         }
                     }
@@ -965,10 +964,10 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                     if (solution.length > lengthenCount) {
                         solution.length = solution.length - lengthenCount;
                     } else {
-                        logit("Tried to remove the complete solution after lengthening " + lengthenCount + " total: " + solution.length);
+                        logit(`Tried to remove the complete solution after lengthening ${lengthenCount} total: ${solution.length}`);
                     }
                 } else {
-                    logit("strange lengthen count " + lengthenCount);
+                    logit(`strange lengthen count ${lengthenCount}`);
                 }
 
             }
@@ -1374,7 +1373,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 let chr = new ConstantHarmonicRythm(solution);
     //        logit("" + dynamicMajorStartRoots + " " + dynamicMinorStartRoots);
     //        logit("Major target: " + theMajorModulationTarget + " minor target: " + theMinorModulationTarget);
-                logit("The phrase progression: " + chr.toRomanString());
+                logit(`The phrase progression: ${chr.toRomanString()}`);
             }
 
             for (let i=0; i<solution.length; i++) {

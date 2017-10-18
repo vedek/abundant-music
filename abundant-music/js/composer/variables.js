@@ -48,7 +48,7 @@ const EnumType = {
             case EnumType.PREDEFINED_CURVE_TYPE:
                 return "PredefinedCurveType";
         }
-        return "Unknown enum type " + unit;
+        return `Unknown enum type ${unit}`;
     }
 };
 addPossibleValuesFunction(EnumType, EnumType.POSITION_UNIT, EnumType.PREDEFINED_CURVE_TYPE);
@@ -207,7 +207,7 @@ const EditorIdReferenceType = {
             case EditorIdReferenceType.STRUCTURE:
                 return "Structure";
         }
-        return "Unknown id reference type " + unit;
+        return `Unknown id reference type ${unit}`;
     }
 };
 addPossibleValuesFunction(EditorIdReferenceType, EditorIdReferenceType.HARMONY, EditorIdReferenceType.NAMED_NOTE);

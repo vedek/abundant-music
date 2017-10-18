@@ -67,7 +67,7 @@ const PredefinedCurveType = {
             case PredefinedCurveType.PERLIN_NOISE:
                 return "Perlin noise";
         }
-        return "Unknown type " + type;
+        return `Unknown type ${type}`;
     }
 
 };
@@ -623,7 +623,7 @@ class ExpressionCurveComputation extends MultiInputCurveComputation {
         for (let i=0; i<refs.length; i++) {
             const curve = refs[i];
             // This is wasteful... Should be done differently... To many functions constructed...
-            extraVars[this.inputCurvePrefix + "" + (i + 1)] = this.createCurveFunction(module, curve);
+            extraVars[`${this.inputCurvePrefix}${i + 1}`] = this.createCurveFunction(module, curve);
         }
         extraVars[this.inputVariableName] = x;
         const result = getExpressionValue(this.valueExpression, module, extraVars);

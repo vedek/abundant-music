@@ -18,9 +18,9 @@ class Motif {
 
     toString(options) {
         let result = "{";
-        result += "" + $.map(this.motifElements, function(o, i) {
-            return o.toString(options);
-        });
+        result += `${$.map(this.motifElements, function(o, i) {
+    return o.toString(options);
+})}`;
         result += "}";
         return result;
     }
@@ -150,7 +150,7 @@ class Motif {
                 // The result array should now contain the constant motif elements given by the zones
 
             } else {
-                logit(" could not find rythm " + this.rythm);
+                logit(` could not find rythm ${this.rythm}`);
             }
 
         } else {
@@ -195,10 +195,10 @@ class MotifElement {
 
         let result = "";
         if (showLength) {
-            result += "len:" + this.length + " ";
+            result += `len:${this.length} `;
         }
         if (showLengthUnit) {
-            result += "lu:" + this.lengthUnit + " ";
+            result += `lu:${this.lengthUnit} `;
         }
         return result;
     }
@@ -390,9 +390,9 @@ class ConstantMotifElement extends MotifElement {
             strs.push("R");
         }
         if (showVelocity) {
-            strs.push("vel:" + this.strength);
+            strs.push(`vel:${this.strength}`);
         }
-        return result + " " + strs;
+        return `${result} ${strs}`;
     }
 
     set(e) {
@@ -436,18 +436,18 @@ class VerticalRelativeMotifElement extends ConstantMotifElement {
         const showAfterOffsetSnapType = getValueOrDefault(options, "showAfterOffsetSnapType", false);
         const showLength = getValueOrDefault(options, "showAfterOffsetSnapType", true);
         if (showIndex) {
-            strs.push("ind:" + this.index);
+            strs.push(`ind:${this.index}`);
         }
         if (showRelativeType) {
-            strs.push("rt:" + VerticalRelativeType.toString(this.relativeType));
+            strs.push(`rt:${VerticalRelativeType.toString(this.relativeType)}`);
         }
         if (showOffsetType) {
-            strs.push("ot:" + OffsetType.toString(this.offsetType));
+            strs.push(`ot:${OffsetType.toString(this.offsetType)}`);
         }
         if (showLength) {
-            strs.push("len:" + this.length);
+            strs.push(`len:${this.length}`);
         }
-        return result + " " + strs;
+        return `${result} ${strs}`;
     }
 
     setIndex(index) {
@@ -568,7 +568,7 @@ const AdaptiveVerticalDomainType = {
             case AdaptiveVerticalDomainType.CURVE:
                 return "Curve";
         }
-        return "Unknown ad. vert. dom. type " + type;
+        return `Unknown ad. vert. dom. type ${type}`;
     }
 
 };
@@ -586,7 +586,7 @@ const AdaptiveHorizontalDomainType = {
             case AdaptiveHorizontalDomainType.RANGE:
                 return "Range";
         }
-        return "Unknown ad. horiz. dom. type " + type;
+        return `Unknown ad. horiz. dom. type ${type}`;
     }
 };
 addPossibleValuesFunction(AdaptiveHorizontalDomainType, AdaptiveHorizontalDomainType.ENUMERABLE, AdaptiveHorizontalDomainType.RANGE);

@@ -49,8 +49,8 @@ class Map {
 
     hash(value) {
         return value instanceof Object ? (value.__hash ||
-            (value.__hash = 'object ' + ++hash.current)) :
-        (typeof value) + ' ' + String(value);
+            (value.__hash = `object ${++hash.current}`)) :
+        `${typeof value} ${String(value)}`;
     }
 
     link(entry) {
@@ -207,8 +207,7 @@ class Map {
         let string = '[object Map';
 
         function addEntry(key, value, hasNext) {
-            string += '    { ' + this.hash(key) + ' : ' + value + ' }' +
-            (hasNext ? ',' : '') + '\n';
+            string += `    { ${this.hash(key)} : ${value} }${hasNext ? ',' : ''}\n`;
         }
 
         if(this.isLinked && this.size) {

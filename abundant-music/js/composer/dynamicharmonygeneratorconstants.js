@@ -69,7 +69,7 @@ const DynamicHarmonyModulationTarget = {
             case DynamicHarmonyModulationTarget.NONE:
                 return "None";
         }
-        return "Unknown modulation target " + type;
+        return `Unknown modulation target ${type}`;
     }
 };
 addPossibleValuesFunction(DynamicHarmonyModulationTarget, DynamicHarmonyModulationTarget.NONE, DynamicHarmonyModulationTarget.SUBTONIC);
@@ -107,7 +107,7 @@ const AppliedChordType = {
             case AppliedChordType.VII7:
                 return "VII7";
         }
-        return "Unknown applied chord type " + type;
+        return `Unknown applied chord type ${type}`;
     }
 };
 addPossibleValuesFunction(AppliedChordType, AppliedChordType.V, AppliedChordType.VII7);

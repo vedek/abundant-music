@@ -45,7 +45,7 @@ class GenMusicModule {
                 counter = 1;
                 this.idCounters[prefix] = counter;
             }
-            const str = prefix + "" + counter;
+            const str = `${prefix}${counter}`;
             let found = false;
             for (let i=0; i<testArr.length; i++) {
                 if (str == testArr[i].id) {
@@ -57,7 +57,7 @@ class GenMusicModule {
                 return str;
             }
         }
-        logit("failed to find unique id with prefix " + prefix + " and arr " + testArr + "<br />");
+        logit(`failed to find unique id with prefix ${prefix} and arr ${testArr}<br />`);
     }
 
     deleteRythm(r) {
@@ -260,8 +260,7 @@ class GenMusicModule {
 
             structure.renderBatch(state);
         } else {
-            logit( " could not find structure "
-                + structureId);
+            logit( ` could not find structure ${structureId}`);
         }
         return result;
     }

@@ -330,7 +330,7 @@ class HarmonyGenerator extends DfsSolver {
                 }
             }
         } else {
-            logit("Not supporting neighbour chords with inversion " + inversions + "<br />");
+            logit(`Not supporting neighbour chords with inversion ${inversions}<br />`);
         }
 
         const result = this.filterChords(fromHarmony, harmonies, possibleRoots, possibleInversions, possibleSusRoots, possibleMixtureRoots);
@@ -364,7 +364,7 @@ class HarmonyGenerator extends DfsSolver {
                         if (inversions && !arrayContains(inversions, chord.chordInversions)) {
                             ok = false;
                         } else if (!inversions) {
-                            logit("Invalid possible inversions? " + JSON.stringify(possibleInversions));
+                            logit(`Invalid possible inversions? ${JSON.stringify(possibleInversions)}`);
                         }
                     }
                 } else {
@@ -458,7 +458,7 @@ class HarmonyGenerator extends DfsSolver {
                     tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot).setChordInversions(1));
                     break;
                 default:
-                    logit("getBassPassingChords() does not support increments " + increment + "<br />");
+                    logit(`getBassPassingChords() does not support increments ${increment}<br />`);
                     break;
             }
         } else {
@@ -489,7 +489,7 @@ class HarmonyGenerator extends DfsSolver {
                     tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 4).setChordInversions(0));
                     break;
                 default:
-                    logit("getBassPassingChords() does not support increments " + increment + "<br />");
+                    logit(`getBassPassingChords() does not support increments ${increment}<br />`);
                     break;
             }
         }

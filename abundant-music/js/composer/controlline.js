@@ -24,7 +24,7 @@ class ControlLine {
             const controlLine = lines[j];
             const controlChannel = state.module.getControlChannel(controlLine.channel);
             if (!controlChannel) {
-                logit(" could not find control channel " + controlLine.channel);
+                logit(` could not find control channel ${controlLine.channel}`);
                 continue;
             }
             const elements = controlLine.getPrimitiveControlElements(state.module, state.constantHarmony);
@@ -134,7 +134,7 @@ class MultiStepControlElement extends PositionedControlElement {
     //    logit(startIndices + " " + indices + " " + endIndices);
 
         if (this.verbose) {
-            logit(this._constructorName + " " + startIndices + " " + indices + " " + endIndices + " " + this.activeExpression + " " + this.activeUseExpression);
+            logit(`${this._constructorName} ${startIndices} ${indices} ${endIndices} ${this.activeExpression} ${this.activeUseExpression}`);
         }
 
         const that = this;
@@ -164,7 +164,7 @@ class MultiStepControlElement extends PositionedControlElement {
         function appendWithIndex(index, beatOffset, elements) {
 
             if (that.verbose) {
-                logit("  Rendering at index " + index + " beat: " + beatOffset);
+                logit(`  Rendering at index ${index} beat: ${beatOffset}`);
             }
 
 
@@ -271,7 +271,7 @@ class MultiParallelControlElement extends PositionedControlElement {
     //    logit(startIndices + " " + indices + " " + endIndices);
 
         if (this.verbose) {
-            logit(this._constructorName + " " + indices + " " + this.activeExpression + " " + this.activeUseExpression);
+            logit(`${this._constructorName} ${indices} ${this.activeExpression} ${this.activeUseExpression}`);
         }
 
         const that = this;
@@ -279,7 +279,7 @@ class MultiParallelControlElement extends PositionedControlElement {
 
         function appendWithIndex(index, beatOffset, elements) {
             if (that.verbose) {
-                logit(that._constructorName + " Rendering at index " + index + " beat: " + beatOffset);
+                logit(`${that._constructorName} Rendering at index ${index} beat: ${beatOffset}`);
             }
             if (index < elements.length) {
                 let element = elements[index];
@@ -424,7 +424,7 @@ class CurveControlElement extends PrimitiveControlElement {
         const value = this.bias + this.amplitude * rawValue;
 
         if (this.verbose) {
-            logit(this._constructorName + " writing " + value + " at " + slotIndex + " rawValue: " + rawValue + " amp: " + this.amplitude + " bias: " + this.bias + " slotFraction: " + slotFraction);
+            logit(`${this._constructorName} writing ${value} at ${slotIndex} rawValue: ${rawValue} amp: ${this.amplitude} bias: ${this.bias} slotFraction: ${slotFraction}`);
         }
 
         state.controlChannel.writeDouble(slotIndex, slotData, value);

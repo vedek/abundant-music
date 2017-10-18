@@ -13,7 +13,7 @@ const ControlChannelDatatype = {
             case ControlChannelDatatype.INTEGER:
                 return "Integer";
         }
-        return "Unknown data type " + type;
+        return `Unknown data type ${type}`;
     }
 
 };
@@ -172,7 +172,7 @@ const NumericControlChannelMixMode = {
             case NumericControlChannelMixMode.OVERWRITE_LAST:
                 return "Overwrite last";
         }
-        return "Unknown mix mode " + type;
+        return `Unknown mix mode ${type}`;
     }
 };
 addPossibleValuesFunction(NumericControlChannelMixMode, NumericControlChannelMixMode.ADD, NumericControlChannelMixMode.OVERWRITE_LAST);
@@ -304,7 +304,7 @@ const BooleanControlChannelMixMode = {
             case BooleanControlChannelMixMode.OVERWRITE_LAST:
                 return "Overwrite last";
         }
-        return "Unknown mix mode " + type;
+        return `Unknown mix mode ${type}`;
     }
 
 };

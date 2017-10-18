@@ -78,7 +78,7 @@ class DoubledVoiceLine extends VoiceLine {
             }
             return result;
         } else {
-            logit("Could not find voice line " + this.toDouble + "<br />");
+            logit(`Could not find voice line ${this.toDouble}<br />`);
             return null;
         }
     }
@@ -227,7 +227,7 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
     //        }
             theCurve = module.getCurve(hintCurveId);
             if (!theCurve) {
-                logit(this._constructorName + " could not find curve " + hintCurveId + "<br />");
+                logit(`${this._constructorName} could not find curve ${hintCurveId}<br />`);
                 theCurve = new PredefinedCurve();
             }
         }
@@ -407,10 +407,10 @@ class ConstantVoiceLine extends VoiceLine {
             if (options && options.showAbsoluteNote && options.harmony) {
                 const he = options.harmony.get(i);
                 const absNote = he.getAbsoluteNoteConstantVoiceLineElement(e);
-                innerStrs.push("abs: " + absNote);
+                innerStrs.push(`abs: ${absNote}`);
             }
             if (innerStrs.length > 0) {
-                result += " (" + innerStrs + ")";
+                result += ` (${innerStrs})`;
             }
             if (i < this.lineElements.length - 1) {
                 result += ", ";
@@ -432,7 +432,7 @@ const HarmonyStepLengthType = {
             case HarmonyStepLengthType.HARMONY_LENGTH_PLUS_STEPS:
                 return "Harmony steps plus harmony length";
         }
-        return "Unknown step length type " + type;
+        return `Unknown step length type ${type}`;
     },
     getStepLength: function(harmony, type, length) {
         switch (type) {

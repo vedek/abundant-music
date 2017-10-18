@@ -66,7 +66,7 @@ const MotifZoneFillerLengthMode = {
             case MotifZoneFillerLengthMode.RELATIVE_MULT:
                 return "Relative mult";
         }
-        return "Unknown length mode " + type;
+        return `Unknown length mode ${type}`;
     }
 };
 addPossibleValuesFunction(MotifZoneFillerLengthMode, MotifZoneFillerLengthMode.ABSOLUTE, MotifZoneFillerLengthMode.RELATIVE_ADD);

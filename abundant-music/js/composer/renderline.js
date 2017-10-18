@@ -21,7 +21,7 @@ class RenderLine {
                 const renderLine = lines[j];
                 const renderChannel = state.module.getRenderChannel(renderLine.channel);
                 if (!renderChannel) {
-                    logit(" could not find render channel " + renderLine.channel);
+                    logit(` could not find render channel ${renderLine.channel}`);
                     continue;
                 }
                 const elements = renderLine.getPositionedRenderElements(state.module, state.constantHarmony, 0, state);
@@ -92,7 +92,7 @@ const RenderElementCutHarmonyMode = {
             case RenderElementCutHarmonyMode.CONTINUE_SAME:
                 return "Continue same";
         }
-        return "Unknown cut mode " + type;
+        return `Unknown cut mode ${type}`;
     }
 
 };
@@ -116,7 +116,7 @@ const NoteOverlapHarmonyMode = {
             case NoteOverlapHarmonyMode.CONTINUE_OR_SPLIT_SNAP:
                 return "Continue or split snap";
         }
-        return "Unknown overlap mode " + type;
+        return `Unknown overlap mode ${type}`;
     }
 };
 addPossibleValuesFunction(NoteOverlapHarmonyMode, NoteOverlapHarmonyMode.SPLIT_REMOVE, NoteOverlapHarmonyMode.CONTINUE_OR_SPLIT_SNAP);
@@ -149,7 +149,7 @@ class RenderElement {
                         result.startTimeUnit = PositionUnit.BEATS;
                         return [result];
                     } else {
-                        logit("Probably missing copy() for " + this._constructorName + "<br />");
+                        logit(`Probably missing copy() for ${this._constructorName}<br />`);
                     }
                 }
                 return [this];
@@ -162,7 +162,7 @@ class RenderElement {
     }
 
     renderBatch(state) {
-        logit("Forgot to implement renderBatch() in render element? " + this._constructorName);
+        logit(`Forgot to implement renderBatch() in render element? ${this._constructorName}`);
     }
 }
 
@@ -380,7 +380,7 @@ class AbstractHarmonyIndexPatternMotifRenderElement extends PositionedRenderElem
     }
 
     getMotifIdsAtIndex(i, totalCount, harmonyIndex, harmonyCount, module) {
-        logit("" + this._constructorName + " must implement getMotifIdAtIndex()");
+        logit(`${this._constructorName} must implement getMotifIdAtIndex()`);
         return [];
     }
 
@@ -892,7 +892,7 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
     //                logit("    " + this._constructorName + " length: " + motifBeatLength);
 
                     if (motifBeatLength < 0.01) {
-                        logit(this._constructorName + " found empty percussion motif...");
+                        logit(`${this._constructorName} found empty percussion motif...`);
                         motifBeatLength = 1;
                     } else {
                         // Only render if we can fit the end motifs

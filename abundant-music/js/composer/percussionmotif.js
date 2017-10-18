@@ -14,7 +14,7 @@ const PercussionMotifMode = {
             case PercussionMotifMode.RYTHM_AND_ZONES:
                 return "Rythm and zones";
         }
-        return "Unknown percussion motif mode " + type;
+        return `Unknown percussion motif mode ${type}`;
     }
 
 };
@@ -92,7 +92,7 @@ class PercussionMotif extends AbstractPercussionMotif {
                     }
                     addAll(result, list);
                 } else {
-                    logit(this._constructorName + " Could not find rythm " + this.rythm + "<br />");
+                    logit(`${this._constructorName} Could not find rythm ${this.rythm}<br />`);
                 }
                 break;
             case PercussionMotifMode.ELEMENTS:

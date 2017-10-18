@@ -24,11 +24,7 @@ class DynamicHarmonyState {
     }
 
     toString() {
-        return "DHS {" +
-            "harmony: " + this.harmony +
-            "mode: " + this.mode +
-            (this.targetHarmony ? "targetHarmony: " + this.targetHarmony : "") +
-            "}";
+        return `DHS {harmony: ${this.harmony}mode: ${this.mode}${this.targetHarmony ? `targetHarmony: ${this.targetHarmony}` : ""}}`;
     }
 
     copy() {
@@ -823,7 +819,7 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
                     });
                     break;
                 default:
-                    logit("Applied chord " + type + " not supported yet...");
+                    logit(`Applied chord ${type} not supported yet...`);
                     chordInfos.push({
                         root: 4,
                         inv: 0,
@@ -937,7 +933,7 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
             const mixtureState = node.state.copy();
             mixtureState.harmony = chords[i];
             mixtureState.mode = node.state.mode == DynamicHarmonyMode.ROOT_MIXTURE ? DynamicHarmonyMode.ROOT : DynamicHarmonyMode.ROOT_MODULATION;
-            mixtureState.harmony.note = "D" + (mixtureState.mode == DynamicHarmonyMode.ROOT ? "" : ", M");
+            mixtureState.harmony.note = `D${mixtureState.mode == DynamicHarmonyMode.ROOT ? "" : ", M"}`;
             this.getChordsStuff(node.depth, mixtureState, 1, 0, this.mixtureSeventhLikelihoods, this.mixtureTriadLikelihoods,
                 this.mixtureSeventhCosts, this.mixtureTriadCosts, nextStates, nextLikelihoods, nextCosts);
         }
@@ -967,7 +963,7 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
         if (this.expansionLikelihood > 0 && currentHarmony.chordInversions == 0) {
             const expandState = node.state.copy();
             expandState.harmony.chordInversions = 1;
-            expandState.harmony.note = "D, " + (atRoot ? "E" : "ME");
+            expandState.harmony.note = `D, ${atRoot ? "E" : "ME"}`;
             nextStates.push(expandState);
             nextLikelihoods.push(this.expansionLikelihood);
             nextCosts.push(this.expansionCost);
@@ -1226,7 +1222,7 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
 
                 let state = new DynamicHarmonyState();
                 state.harmony = harmonies[i];
-                state.harmony.note = "D, N" + (atRoot ? "" : "M");
+                state.harmony.note = `D, N${atRoot ? "" : "M"}`;
 
                 let likelihood = this.neighbourLikelihood;
                 if (currentHarmony.scaleType != state.harmony.scaleType) {
@@ -1266,7 +1262,7 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
             for (let i=0; i<mixtureChords.length; i++) {
                 let state = new DynamicHarmonyState();
                 state.harmony = mixtureChords[i];
-                state.harmony.note = "D, X" + (atRoot ? "" : "M");
+                state.harmony.note = `D, X${atRoot ? "" : "M"}`;
                 state.mode = atRoot ? DynamicHarmonyMode.ROOT_MIXTURE : DynamicHarmonyMode.ROOT_MIXTURE_MODULATION;
                 state.targetHarmony = copyObjectDeep(currentHarmony);
     //            logit("Adding dynamic neighbour to " + currentHarmony.toRomanString() + " : " + state.harmony.toRomanString() + " " + nextStates.length);

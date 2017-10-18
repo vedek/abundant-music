@@ -893,7 +893,7 @@ GenInfo.prototype.set = function(inputGenInfo) {
     for (const prop in inputGenInfo) {
         const old = this[prop];
         if (typeof(old) == 'undefined') {
-            logit("Tried to set a value in genInfo that did not exist. Probably a bug to look for ;). Property name: '" + prop + "'");
+            logit(`Tried to set a value in genInfo that did not exist. Probably a bug to look for ;). Property name: '${prop}'`);
         } else {
             this[prop] = inputGenInfo[prop];
         }

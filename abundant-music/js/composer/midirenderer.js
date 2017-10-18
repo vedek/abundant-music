@@ -184,7 +184,7 @@ class MidiRenderer {
                     }
                 };
             } else {
-                logit("Unknown event type " + event.type);
+                logit(`Unknown event type ${event.type}`);
             }
             if (trackEvent) {
                 trackEvents.push(trackEvent);

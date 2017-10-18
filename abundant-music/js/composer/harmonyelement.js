@@ -49,7 +49,7 @@ class HarmonyReferenceHarmonyElement extends HarmonyElement {
         if (harmony) {
             return applyHarmonyModifiers(harmony.getConstantHarmonyElements(module), this.modifiers, module);
         } else {
-            logit("Could not find harmony " + harmonyId + "<br />");
+            logit(`Could not find harmony ${harmonyId}<br />`);
         }
         return [];
     };
@@ -81,10 +81,10 @@ class SwitchHarmonyElement extends HarmonyElement {
             if (harmony) {
                 return harmony.getConstantHarmonyElements(module);
             } else {
-                console.log("harmony null in " + this._constructorName + " for index " + index);
+                console.log(`harmony null in ${this._constructorName} for index ${index}`);
             }
         } else {
-            console.log("to few indexed elements in " + this._constructorName + " for index " + index);
+            console.log(`to few indexed elements in ${this._constructorName} for index ${index}`);
         }
         result.push(new ConstantHarmonyElement());
     };
@@ -142,9 +142,9 @@ class ConstantHarmonyElement extends HarmonyElement {
     toString() {
         const scale = this.getScale();
         let result = "HarmonyElement {";
-        result += " scale: " + scale;
-        result += " chordRoot: " + this.chordRoot;
-        result += " inversions: " + this.chordInversions;
+        result += ` scale: ${scale}`;
+        result += ` chordRoot: ${this.chordRoot}`;
+        result += ` inversions: ${this.chordInversions}`;
         result += "}";
         return result;
     };
@@ -213,7 +213,7 @@ class ConstantHarmonyElement extends HarmonyElement {
                         result += "9";
                         break;
                     default:
-                        result += "9(" + this.chordInversions + ")";
+                        result += `9(${this.chordInversions})`;
                         break;
                 }
                 break;
@@ -239,7 +239,7 @@ class ConstantHarmonyElement extends HarmonyElement {
                         result += "sus2";
                         break;
                     default:
-                        result += "sus2(" + this.chordInversions + ")";
+                        result += `sus2(${this.chordInversions})`;
                         break;
                 }
                 break;
@@ -249,7 +249,7 @@ class ConstantHarmonyElement extends HarmonyElement {
                         result += "sus4";
                         break;
                     default:
-                        result += "sus4(" + this.chordInversions + ")";
+                        result += `sus4(${this.chordInversions})`;
                         break;
                 }
                 break;
@@ -259,7 +259,7 @@ class ConstantHarmonyElement extends HarmonyElement {
                         result += "sus2_7";
                         break;
                     default:
-                        result += "sus2_7(" + this.chordInversions + ")";
+                        result += `sus2_7(${this.chordInversions})`;
                         break;
                 }
                 break;
@@ -269,13 +269,13 @@ class ConstantHarmonyElement extends HarmonyElement {
                         result += "sus4_7";
                         break;
                     default:
-                        result += "sus4_7(" + this.chordInversions + ")";
+                        result += `sus4_7(${this.chordInversions})`;
                         break;
                 }
                 break;
         }
         if (this.note) {
-            result += "(" + this.note + ")";
+            result += `(${this.note})`;
         }
         return result;
     };
@@ -843,7 +843,7 @@ class ConstantHarmonyElement extends HarmonyElement {
         } else if (lowerAbs > 1 && (lowerAbs % 12) == closestPitchClass) {
             return absoluteNote - minDistance;
         } else {
-            logit("Error in getClosestNotewithPitchClasses() input " + absoluteNote + " and " + pitchClasses + "<br />");
+            logit(`Error in getClosestNotewithPitchClasses() input ${absoluteNote} and ${pitchClasses}<br />`);
     //        logit(printStackTrace().join("<br />"));
             return Math.floor(absoluteNote / 12) * 12 + closestPitchClass;
         }
@@ -1062,8 +1062,7 @@ class ConstantHarmonyElement extends HarmonyElement {
                 result = absoluteNote + offset * 12;
                 break;
             default:
-                logit(" offset type " + OffsetType.toString(offsetType)
-                    + " not supported yet");
+                logit(` offset type ${OffsetType.toString(offsetType)} not supported yet`);
                 break;
         }
         return result;
@@ -1096,7 +1095,7 @@ const HarmonyLengthMode = {
             case HarmonyLengthMode.RYTHM_ONLY:
                 return "Rythm only";
         }
-        return "Unknown length mode " + type;
+        return `Unknown length mode ${type}`;
     }
 };
 addPossibleValuesFunction(HarmonyLengthMode, HarmonyLengthMode.COUNT_AND_LENGTH_PATTERN, HarmonyLengthMode.RYTHM_ONLY);

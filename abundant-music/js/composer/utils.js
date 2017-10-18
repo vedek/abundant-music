@@ -318,8 +318,7 @@ function sampleIndexIntegerDistribution(rnd, cumulative) {
             return j;
         }
     }
-    logit("RandomUtils: Could not properly sample "
-        + cumulative);
+    logit(`RandomUtils: Could not properly sample ${cumulative}`);
     return 0; // This should never happen
 }
 
@@ -386,7 +385,7 @@ function arrayDeleteAll(arr, values) {
 
 function investigateObject(obj) {
     for (const key in obj) {
-        logit("__" + key + ":" + obj[key] + "<br />");
+        logit(`__${key}:${obj[key]}<br />`);
     }
 }
 
@@ -395,7 +394,7 @@ function investigateKeys(obj) {
     for (const key in obj) {
         keys.push(key);
     }
-    logit("Keys: " + keys.join(", ") + "<br />");
+    logit(`Keys: ${keys.join(", ")}<br />`);
 }
 
 function investigateArrayIds(arr) {
@@ -403,7 +402,7 @@ function investigateArrayIds(arr) {
     for (let i=0; i<arr.length; i++) {
         ids.push(arr[i].id);
     }
-    logit("ids: " + ids.join(", ") + "<br />");
+    logit(`ids: ${ids.join(", ")}<br />`);
 }
 
 // Get item from array if not the index is within the startItems or at the end, overlapping endItems
@@ -451,7 +450,7 @@ function showStacktraceDialog(ex, description) {
     }).join("\n");
     const w = 1000;
     const h = 500;
-    const $dialogDiv = $("<div title='Error Stacktrace " + description + "' ><textarea style='width: " + w + "px; height: " + h + "px' >" + stString + "</textarea></div>");
+    const $dialogDiv = $(`<div title='Error Stacktrace ${description}' ><textarea style='width: ${w}px; height: ${h}px' >${stString}</textarea></div>`);
     $dialogDiv.dialog({
         width: w + 50,
         height: h + 150,
@@ -509,7 +508,7 @@ function base64ArrayBuffer(arrayBuffer) {
         // Set the 4 least significant bits to zero
         b = (chunk & 3)   << 4 // 3   = 2^2 - 1
 
-        base64 += encodings[a] + encodings[b] + '=='
+        base64 += `${encodings[a] + encodings[b]}==`
     } else if (byteRemainder == 2) {
         chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1]
 
@@ -519,7 +518,7 @@ function base64ArrayBuffer(arrayBuffer) {
         // Set the 2 least significant bits to zero
         c = (chunk & 15)    <<  2 // 15    = 2^4 - 1
 
-        base64 += encodings[a] + encodings[b] + encodings[c] + '='
+        base64 += `${encodings[a] + encodings[b] + encodings[c]}=`
     }
 
     return base64
@@ -659,7 +658,7 @@ function copyObjectDeep(obj, options) {
         copy = {};
     } else {
         if (isValidFunctionName(obj._constructorName)) {
-            copy = eval("new " + obj._constructorName + "()");
+            copy = eval(`new ${obj._constructorName}()`);
         } else {
             copy = {};
         }
@@ -691,7 +690,7 @@ function copyObjectDeep(obj, options) {
 function objectFromJson(jsonStr) {
     const jsonObj = $.parseJSON(jsonStr);
     if (!jsonObj._constructorName) {
-        logit("Missing _constructorName " + jsonObj.id + " in objectFromJson()<br />");
+        logit(`Missing _constructorName ${jsonObj.id} in objectFromJson()<br />`);
     }
     return copyObjectDeep(jsonObj);
 }
@@ -699,7 +698,7 @@ function objectFromJson(jsonStr) {
 
 function objectToJson(obj, arr, visited) {
     if (!obj._constructorName) {
-        logit("Missing _constructorName " + obj.id + " in objectToJson()<br />");
+        logit(`Missing _constructorName ${obj.id} in objectToJson()<br />`);
     }
     if (!arr) {
         arr = [];
@@ -710,7 +709,7 @@ function objectToJson(obj, arr, visited) {
     }
     const hasVisited = visited.get(obj);
     if (hasVisited) {
-        logit("Have visited " + JSON.stringify(obj));
+        logit(`Have visited ${JSON.stringify(obj)}`);
         return;
     }
     visited.put(obj, true);
@@ -734,7 +733,7 @@ function objectToJson(obj, arr, visited) {
     for (let i=0; i<propNames.length; i++) {
         let propName = propNames[i];
         let value = obj[propName];
-        arr.push("\"" + propName + "\": ");
+        arr.push(`"${propName}": `);
         valueToJson(value, arr, visited);
         if (i != propNames.length - 1) {
             arr.push(", ");
@@ -765,7 +764,7 @@ function valueToJson(value, arr, visited) {
     } else if (typeof(value) === 'object') {
         objectToJson(value, arr, visited);
     } else if (typeof(value) === 'string') {
-        arr.push("\"" + value + "\"");
+        arr.push(`"${value}"`);
     } else {
         arr.push(value);
     }
@@ -877,7 +876,7 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
 //            perfTimer3.pause();
             return result;
         } catch (exc) {
-            logit("Error when evaluating " + replacedExpression + " original: " + expression + " exc: " + exc);
+            logit(`Error when evaluating ${replacedExpression} original: ${expression} exc: ${exc}`);
         }
     }
 
@@ -938,11 +937,11 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
 function getValueOrExpressionValue(object, propName, module, extraVars, verbose) {
     let result = object[propName];
     try {
-        if (object[propName + "UseExpression"]) {
-            const expression = object[propName + "Expression"];
+        if (object[`${propName}UseExpression`]) {
+            const expression = object[`${propName}Expression`];
             if (expression) {
                 if (verbose) {
-                    logit("Found expression " + expression);
+                    logit(`Found expression ${expression}`);
                 }
                 const temp = getExpressionValue(expression, module, extraVars, verbose, object, propName);
                 if (temp != null) {
@@ -951,7 +950,7 @@ function getValueOrExpressionValue(object, propName, module, extraVars, verbose)
             }
         }
     } catch (ex) {
-        logit("Expression eval error. useExpression: " + object[propName + "UseExpression"] + " expression: " + object[propName + "Expression"]);
+        logit(`Expression eval error. useExpression: ${object[`${propName}UseExpression`]} expression: ${object[`${propName}Expression`]}`);
 //        showStacktraceDialog(ex, "Error in expression evaluation");
     }
     return result;
@@ -1131,9 +1130,9 @@ function getArrayValueOrDefault(arr, i, def, validFunc) {
 }
 
 function padNumberString(number, length) {
-    let str = '' + number;
+    let str = `${number}`;
     while (str.length < length) {
-        str = '0' + str;
+        str = `0${str}`;
     }
     return str;
 }
@@ -1158,7 +1157,7 @@ function validateArrayValue(arrayValue, allowedTypes, defaultAllowedArrayTypes, 
         result = allowedTypes[arrayValue._constructorName];
         if (result) {
             // Need to validate against a default value there as well
-            const safeValue = eval("new " + arrayValue._constructorName + "()");
+            const safeValue = eval(`new ${arrayValue._constructorName}()`);
             result = validateValueWithSafeValue(arrayValue, safeValue, null, defaultAllowedArrayTypes, correct);
 //            console.log("Validated object in array " + arrayValue._constructorName + ". Result: " + result);
         }
@@ -1197,7 +1196,7 @@ function validateValueWithSafeValue(testValue, safeValue, allowedTypes, defaultA
             const val = testValue[i];
             const typeValid = validateArrayValue(val, allowedTypes, defaultAllowedArrayTypes, correct);
             if (!typeValid) {
-                logit("Type not valid in array " + val + " " + typeof(val) + " " + allowedTypes);
+                logit(`Type not valid in array ${val} ${typeof(val)} ${allowedTypes}`);
                 arrayOk = false;
                 break;
             }
@@ -1215,7 +1214,7 @@ function validateValueWithSafeValue(testValue, safeValue, allowedTypes, defaultA
         for (const prop in testValue) {
             const oldValue = safeValue[prop];
             if (typeof(oldValue) == 'undefined') {
-                logit("Property " + prop + " in " + safeValue._constructorName + " did not exist");
+                logit(`Property ${prop} in ${safeValue._constructorName} did not exist`);
                 if (correct) {
                     // Just removed the incorrect value
                     logit("Removed it!");
@@ -1226,7 +1225,7 @@ function validateValueWithSafeValue(testValue, safeValue, allowedTypes, defaultA
             } else {
                 const newValue = testValue[prop];
 
-                const types = safeValue[prop + "_allowedTypes"];
+                const types = safeValue[`${prop}_allowedTypes`];
 
 //                if (types) {
 //                    console.log("Found types for " + prop);
@@ -1237,7 +1236,7 @@ function validateValueWithSafeValue(testValue, safeValue, allowedTypes, defaultA
 
                 const v = validateValueWithSafeValue(newValue, oldValue, types, defaultAllowedArrayTypes, correct);
                 if (!v) {
-                    logit("Property " + prop + " in " + safeValue._constructorName + " was not valid");
+                    logit(`Property ${prop} in ${safeValue._constructorName} was not valid`);
 //                    console.log(newValue);
                     if (correct) {
                         logit("Used default value for it instead!");

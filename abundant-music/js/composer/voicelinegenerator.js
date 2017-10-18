@@ -8,10 +8,7 @@ class VoiceLineSearchNode {
     }
 
     toString() {
-        return "VLSN {" +
-            "state: " + this.state +
-            "depth: " + this.depth +
-            "}";
+        return `VLSN {state: ${this.state}depth: ${this.depth}}`;
     }
 }
 

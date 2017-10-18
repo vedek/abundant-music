@@ -171,7 +171,7 @@ const SimpleModuleGeneratorPhraseGroupType = {
             case SimpleModuleGeneratorPhraseGroupType.DOUBLE_CUSTOM_HARMONY:
                 return "Double custom harmony";
         }
-        return "Unknown phrase group type " + type;
+        return `Unknown phrase group type ${type}`;
     },
 
     tonicizeOrModulate: function(type) {
@@ -290,7 +290,7 @@ const SongPartType = {
             case SongPartType.MISC_2:
                 return "Misc 2";
         }
-        return "Unknown song part type " + type;
+        return `Unknown song part type ${type}`;
     }
 };
 addPossibleValuesFunction(SongPartType, SongPartType.VERSE_1, SongPartType.MISC_2);
@@ -335,7 +335,7 @@ const MelodyOffsetLevel = {
             case MelodyOffsetLevel.VERY_LOW:
                 return "Very low";
         }
-        return "Unknown melody offset level " + t;
+        return `Unknown melody offset level ${t}`;
     }
 };
 addPossibleValuesFunction(MelodyOffsetLevel, MelodyOffsetLevel.VERY_LOW, MelodyOffsetLevel.VERY_HIGH);

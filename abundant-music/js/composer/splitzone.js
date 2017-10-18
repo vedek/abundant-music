@@ -27,7 +27,7 @@ const SplitStrategy = {
             case SplitStrategy.TRIPLET:
                 return "Triplet";
         }
-        return "Unknown strategy " + s;
+        return `Unknown strategy ${s}`;
     }
 };
 addPossibleValuesFunction(SplitStrategy, SplitStrategy.NEVER, SplitStrategy.DOT_DOT_NORMAL);
@@ -49,7 +49,7 @@ const DottedSplitStrategy = {
             case DottedSplitStrategy.TWO_DOTTED:
                 return "Two dotted";
         }
-        return "Unknown strategy " + s;
+        return `Unknown strategy ${s}`;
     }
 };
 addPossibleValuesFunction(DottedSplitStrategy, DottedSplitStrategy.NEVER, DottedSplitStrategy.TWO_DOTTED);
@@ -65,7 +65,7 @@ const TripletSplitStrategy = {
             case TripletSplitStrategy.NEVER:
                 return "Never";
         }
-        return "Unknown strategy " + s;
+        return `Unknown strategy ${s}`;
     }
 };
 addPossibleValuesFunction(TripletSplitStrategy, TripletSplitStrategy.NEVER, TripletSplitStrategy.HALVE);
