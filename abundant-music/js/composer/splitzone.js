@@ -8,7 +8,7 @@ const SplitStrategy = {
     DOT_NORMAL_DOT: 5,
     NORMAL_DOT_DOT: 6,
     DOT_DOT_NORMAL: 7,
-    toString: function(s) {
+    toString(s) {
         switch (s) {
             case SplitStrategy.DOT_DOT_NORMAL:
                 return "Dot dot normal";
@@ -38,7 +38,7 @@ const DottedSplitStrategy = {
     LONGEST_LAST: 2,
     TWO_DOTTED: 3,
 
-    toString: function(s) {
+    toString(s) {
         switch (s) {
             case DottedSplitStrategy.LONGEST_FIRST:
                 return "Longest first";
@@ -58,7 +58,7 @@ const TripletSplitStrategy = {
     NEVER: 0,
     HALVE: 1,
 
-    toString: function(s) {
+    toString(s) {
         switch (s) {
             case TripletSplitStrategy.HALVE:
                 return "Halve";

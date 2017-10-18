@@ -4,7 +4,7 @@ const ControlChannelDatatype = {
     INTEGER: 1,
     BOOLEAN: 2,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case ControlChannelDatatype.DOUBLE:
                 return "Double";
@@ -135,7 +135,7 @@ const NumericControlChannelMixMode = {
     OVERWRITE_FIRST: 5,
     OVERWRITE_LAST: 6,
 
-    mix: function(type, oldValue, newValue) {
+    mix(type, oldValue, newValue) {
         switch (type) {
             case NumericControlChannelMixMode.ADD:
                 return oldValue + newValue;
@@ -155,7 +155,7 @@ const NumericControlChannelMixMode = {
         return oldValue + newValue;
     },
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case NumericControlChannelMixMode.ADD:
                 return "Add";
@@ -267,7 +267,7 @@ const BooleanControlChannelMixMode = {
     OVERWRITE_FIRST: 5,
     OVERWRITE_LAST: 6,
 
-    mix: function(type, oldValue, newValue) {
+    mix(type, oldValue, newValue) {
         switch (type) {
             case BooleanControlChannelMixMode.OR:
                 return oldValue || newValue;
@@ -287,7 +287,7 @@ const BooleanControlChannelMixMode = {
         return oldValue || newValue;
     },
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case BooleanControlChannelMixMode.OR:
                 return "Or";

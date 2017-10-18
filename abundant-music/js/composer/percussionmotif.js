@@ -5,7 +5,7 @@ const PercussionMotifMode = {
     RYTHM_AND_RENDER_PATTERN: 1,
     ELEMENTS: 2,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case PercussionMotifMode.ELEMENTS:
                 return "Elements";

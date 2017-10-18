@@ -37,7 +37,7 @@ const PredefinedPercussionMotifType = {
     FILL_EIGHTS_7: 29,
     FILL_EIGHTS_8: 30,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case PredefinedPercussionMotifType.FILL_EIGHTS_1:
                 return "Fill eights 1 (one measure)";

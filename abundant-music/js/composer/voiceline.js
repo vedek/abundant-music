@@ -427,7 +427,7 @@ const HarmonyStepLengthType = {
     HARMONY_STEPS: 0,
     HARMONY_LENGTH_PLUS_STEPS: 1,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case HarmonyStepLengthType.HARMONY_STEPS:
                 return "Harmony steps";
@@ -436,7 +436,7 @@ const HarmonyStepLengthType = {
         }
         return `Unknown step length type ${type}`;
     },
-    getStepLength: function(harmony, type, length) {
+    getStepLength(harmony, type, length) {
         switch (type) {
             case HarmonyStepLengthType.HARMONY_STEPS:
                 return length;

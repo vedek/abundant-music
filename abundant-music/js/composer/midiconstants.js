@@ -70,7 +70,7 @@ const MidiControllerType = {
     MONO_OPERATION: 66,
     POLY_OPERATION: 67,
 
-    getValue: function(type) {
+    getValue(type) {
         switch (type) {
             case MidiControllerType.ALL_CONTROLLERS_OFF:
                 return 121;
@@ -213,7 +213,7 @@ const MidiControllerType = {
         return 0;
     },
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case MidiControllerType.ALL_CONTROLLERS_OFF:
                 return "All controllers off";
@@ -409,7 +409,7 @@ const MidiDrum = {
     OPEN_TRIANGLE: 81,
 
 
-    toString: function(type) {
+    toString(type) {
         const postfix = ` (${type}, ${toPitchClassString(type)}${Math.floor(type / 12)})`;
         switch (type) {
             case MidiDrum.BASS_DRUM_1:
@@ -648,7 +648,7 @@ const MidiProgram = {
 
 
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case MidiProgram.ACCORDION:
                 return "Accordion";

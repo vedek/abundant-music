@@ -21,7 +21,7 @@ const DynamicHarmonyModulationTarget = {
     SUBMEDIANT: 4,
     SUBTONIC: 5,
 
-    invert: function(modulationTarget) {
+    invert(modulationTarget) {
         switch (modulationTarget) {
             case DynamicHarmonyModulationTarget.SUPERTONIC:
                 return DynamicHarmonyModulationTarget.SUBTONIC;
@@ -39,7 +39,7 @@ const DynamicHarmonyModulationTarget = {
         return modulationTarget;
     },
 
-    getScaleType: function(scaleType, modulationTarget, invertType) {
+    getScaleType(scaleType, modulationTarget, invertType) {
         const otherScaleType = scaleType == ScaleType.MAJOR ? ScaleType.NATURAL_MINOR : ScaleType.MAJOR;
 
         switch (modulationTarget) {
@@ -52,7 +52,7 @@ const DynamicHarmonyModulationTarget = {
         return invertType ? otherScaleType : scaleType;
     },
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case DynamicHarmonyModulationTarget.DOMINANT:
                 return "Dominant";
@@ -86,7 +86,7 @@ const AppliedChordType = {
     VII6: 7,
     VII7: 8,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case AppliedChordType.V:
                 return "V";

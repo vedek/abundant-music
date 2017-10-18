@@ -554,7 +554,7 @@ const AdaptiveVerticalDomainType = {
     RANGE: 1,
     CURVE: 2,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case AdaptiveVerticalDomainType.ENUMERABLE:
                 return "Enumerable";
@@ -574,7 +574,7 @@ const AdaptiveHorizontalDomainType = {
     ENUMERABLE: 0,
     RANGE: 1,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case AdaptiveHorizontalDomainType.ENUMERABLE:
                 return "Enumerable";

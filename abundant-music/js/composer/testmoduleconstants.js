@@ -62,7 +62,7 @@ const SimpleModuleGeneratorPhraseGroupType = {
     INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_DOMINANT: 51,
     INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC: 52,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_DOMINANT:
                 return "Complete imperfect + complete lengthen dominant";
@@ -174,7 +174,7 @@ const SimpleModuleGeneratorPhraseGroupType = {
         return `Unknown phrase group type ${type}`;
     },
 
-    tonicizeOrModulate: function(type) {
+    tonicizeOrModulate(type) {
         switch (type) {
             case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE:
             case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE:
@@ -208,7 +208,7 @@ const SongPartType = {
     MISC_1: 6,
     MISC_2: 7,
 
-    getIndex: function(type) {
+    getIndex(type) {
         switch (type) {
             case SongPartType.VERSE_1:
             case SongPartType.BRIDGE_1:
@@ -224,7 +224,7 @@ const SongPartType = {
         return 0;
     },
 
-    isVerse: function(type) {
+    isVerse(type) {
         switch (type) {
             case SongPartType.VERSE_1:
             case SongPartType.VERSE_2:
@@ -232,7 +232,7 @@ const SongPartType = {
         }
         return false;
     },
-    isChorus: function(type) {
+    isChorus(type) {
         switch (type) {
             case SongPartType.CHORUS_1:
             case SongPartType.CHORUS_2:
@@ -240,7 +240,7 @@ const SongPartType = {
         }
         return false;
     },
-    isBridge: function(type) {
+    isBridge(type) {
         switch (type) {
             case SongPartType.BRIDGE_1:
             case SongPartType.BRIDGE_2:
@@ -249,7 +249,7 @@ const SongPartType = {
         return false;
     },
 
-    toIndicatorString: function(type) {
+    toIndicatorString(type) {
         switch (type) {
             case SongPartType.BRIDGE_1:
                 return "bridge1";
@@ -271,7 +271,7 @@ const SongPartType = {
         return "verse1";
     },
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case SongPartType.BRIDGE_1:
                 return "Bridge 1";
@@ -322,7 +322,7 @@ const MelodyOffsetLevel = {
     HIGH: 1,
     VERY_HIGH: 2,
 
-    toString: function(t) {
+    toString(t) {
         switch (t) {
             case MelodyOffsetLevel.HIGH:
                 return "High";
@@ -392,7 +392,7 @@ let PhraseGroupIndexProperty = {
     BASS_EFFECTS: 23,
     PERCUSSION_EFFECTS: 24,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case PhraseGroupIndexProperty.BASS_EFFECTS:
                return "Bass Effects";
@@ -468,7 +468,7 @@ const SongPartStrength = {
     STRONG: 4,
     VERY_STRONG: 5,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case SongPartStrength.DEFAULT:
                 return "Default";
@@ -486,7 +486,7 @@ const SongPartStrength = {
         return "Medium";
     },
 
-    toIndicatorString: function(type) {
+    toIndicatorString(type) {
         switch (type) {
             case SongPartStrength.DEFAULT:
                 return "";

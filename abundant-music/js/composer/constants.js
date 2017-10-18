@@ -19,7 +19,7 @@ const ChordType = {
     NINTH: 6,
     CUSTOM: 7,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case ChordType.CUSTOM:
                 return "Custom";
@@ -49,7 +49,7 @@ const SimpleScaleType = {
     MAJOR: 1,
     NATURAL_MINOR: 2,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case SimpleScaleType.MAJOR:
                 return "Major";
@@ -81,7 +81,7 @@ const ScaleType = {
     DIMINISHED_SCALE_STEPS: [ 0, 1, 3, 4, 6, 7, 9, 10 ],
     WHOLE_NOTE_SCALE_STEPS: [ 0, 2, 4, 6, 8, 10 ],
 
-    getChromaticSteps: function(type) {
+    getChromaticSteps(type) {
         switch (type) {
             case ScaleType.MAJOR:
                 return ScaleType.MAJOR_SCALE_STEPS;
@@ -103,7 +103,7 @@ const ScaleType = {
         return ScaleType.MAJOR_SCALE_STEPS;
     },
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case ScaleType.CUSTOM:
                 return "Custom";
@@ -135,7 +135,7 @@ const IndexType = {
     CHORD_BASS: 2,
     CHORD_ROOT: 3,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case IndexType.MIDI_NOTE:
                 return "Midi note";
@@ -159,7 +159,7 @@ const SnapType = {
     SCALE: 1,
     CHORD: 2,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case SnapType.NONE:
                 return "None";
@@ -177,7 +177,7 @@ const FrequencyUnit = {
     HERTZ: 0,
     MIDI_NOTE: 1,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case FrequencyUnit.HERTZ:
                 return "Hertz";
@@ -196,7 +196,7 @@ const CyclesUnit = {
     CYCLES_PER_MEASURE: 2,
     CYCLES_PER_HARMONY: 3,
 
-    getFrequency: function(unit, cycles, periodStartBeat, periodEndBeat, harmony) {
+    getFrequency(unit, cycles, periodStartBeat, periodEndBeat, harmony) {
         const periodBeats = periodEndBeat - periodStartBeat;
         if (periodBeats > 0) {
             switch (unit) {
@@ -214,7 +214,7 @@ const CyclesUnit = {
         }
         return cycles;
     },
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case CyclesUnit.CYCLES_PER_PERIOD:
                 return "Cycles per period";
@@ -247,7 +247,7 @@ const SnapMetrics = {
     FLOOR: 0,
     CEIL: 1,
     ROUND: 2,
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case SnapMetrics.CEIL:
                 return "Ceil";
@@ -258,7 +258,7 @@ const SnapMetrics = {
         }
         return `Unknown snap metrics ${type}`;
     },
-    snap: function(value, metrics) {
+    snap(value, metrics) {
         switch (metrics) {
             case SnapMetrics.CEIL:
                 return Math.ceil(value);
@@ -282,7 +282,7 @@ const VerticalRelativeType = {
     VOICE_LINE: 4,
     NOTE: 5,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case VerticalRelativeType.MIDI_ZERO:
                 return "Midi zero";
@@ -300,7 +300,7 @@ const VerticalRelativeType = {
         return `Unknown type ${type}`;
     },
 
-    sample: function(rnd) {
+    sample(rnd) {
         return Math.min(4, Math.max(0, Math.floor(rnd.random() * 5)));
     }
 };
@@ -316,7 +316,7 @@ const IndexBorderMode = {
     MIRROR: 2,
     CLAMP: 3,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case IndexBorderMode.END:
                 return "End";
@@ -329,7 +329,7 @@ const IndexBorderMode = {
         }
     },
 
-    getIndex: function(mode, size, index) {
+    getIndex(mode, size, index) {
         if (index < size) {
             return index;
         }
@@ -363,7 +363,7 @@ const HorizontalRelativeType = {
     PREVIOUS_VOICE_LINE_ELEMENT: 2, //
     NEXT_VOICE_LINE_ELEMENT: 3, //
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case HorizontalRelativeType.NEXT_NOTE:
                 return "Next note";
@@ -388,7 +388,7 @@ const OffsetType = {
     CHORD_TRIAD_ONLY: 4,
     CHORD_SEVENTH_ONLY: 5,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case OffsetType.CHORD:
                 return "Chord";
@@ -416,7 +416,7 @@ const LengthAndCountUnit = {
     LENGTH: 2,
     COUNT: 3,
 
-    toString: function(unit) {
+    toString(unit) {
         switch (unit) {
             case LengthAndCountUnit.LENGTH:
                 return "Length";
@@ -448,7 +448,7 @@ const CountUnit = {
     PLAIN_PLUS_HARMONY_ELEMENT_COUNT: 10,
     PHRASE_ELEMENT_COUNT: 11,
 
-    toString: function(unit) {
+    toString(unit) {
         switch (unit) {
             case CountUnit.PLAIN:
                 return "Plain";
@@ -478,7 +478,7 @@ const CountUnit = {
         return `Unknown count unit ${unit}`;
     },
 
-    getCount: function(count, unit, harmony, harmonyBeatOffset) {
+    getCount(count, unit, harmony, harmonyBeatOffset) {
         let harmonyIndex;
         let he;
         let beats;
@@ -574,7 +574,7 @@ const PositionUnit = {
     PHRASE: 20,
     // Add MEASURE_THIRDS/FOURTHS/FIFTHS/SIXTHS/SEVENTHS/EIGHTHS/NINTHS
 
-    toString: function(unit) {
+    toString(unit) {
         switch (unit) {
             case PositionUnit.BEATS:
                 return "Beats";
@@ -799,7 +799,7 @@ const PhraseHarmonyElementType = {
     INCOMPLETE_NO_DOMINANT: 24,
     CHROMATIC_OSCILLATION: 25,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case PhraseHarmonyElementType.CHROMATIC_OSCILLATION:
                 return "Chromatic oscillation";

@@ -27,7 +27,7 @@ const InstrumentCapabilityProperty = {
     // Range [lower, upper] midi notes
     NOTE_RANGE: 22,
 
-    toString: function(type) {
+    toString(type) {
         return type;
     }
 };
@@ -2638,7 +2638,7 @@ const PhraseGroupEffectType = {
     RANDOM_ALL_SAME: 17,
     RANDOM_GROUP: 18,
 
-    appendEffectInfos: function(type, options, rnd) {
+    appendEffectInfos(type, options, rnd) {
         const ampFraction = getValueOrDefault(options, "ampFraction", 0.5);
         const xFraction = getValueOrDefault(options, "xFraction", 0.5);
         const infos = getValueOrDefault(options, "infos", []);
@@ -2772,7 +2772,7 @@ const PhraseGroupEffectType = {
         indices.push(nextIndex+1);
     },
 
-    toString: function(type) {
+    toString(type) {
         return "toString() for PhraseGroupEffectType not implemented";
     }
 };

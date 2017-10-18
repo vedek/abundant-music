@@ -34,7 +34,7 @@ const PredefinedCurveType = {
     CUBIC_NOISE: 13,
     PERLIN_NOISE: 14,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case PredefinedCurveType.CONSTANT:
                 return "Constant";

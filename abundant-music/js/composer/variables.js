@@ -21,7 +21,7 @@ const EnumType = {
     COUNT_UNIT: 10,
     PREDEFINED_CURVE_TYPE: 11,
 
-    toString: function(unit) {
+    toString(unit) {
         switch (unit) {
             case EnumType.CHORD_TYPE:
                 return "ChordType";
@@ -184,7 +184,7 @@ const EditorIdReferenceType = {
     CONTROL_CHANNEL: 8,
     NAMED_NOTE: 9,
 
-    toString: function(unit) {
+    toString(unit) {
         switch (unit) {
             case EditorIdReferenceType.CONTROL_CHANNEL:
                 return "Control channel";

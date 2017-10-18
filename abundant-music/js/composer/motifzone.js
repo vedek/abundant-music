@@ -57,7 +57,7 @@ const MotifZoneFillerLengthMode = {
     RELATIVE_MULT: 1,
     RELATIVE_ADD: 2,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case MotifZoneFillerLengthMode.ABSOLUTE:
                 return "Absolute";

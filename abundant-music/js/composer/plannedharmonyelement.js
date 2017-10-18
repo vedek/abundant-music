@@ -238,7 +238,7 @@ class DynamicSequenceHarmonyElement extends PlannedHarmonyElement {
 const PhraseHarmonyElementShorteningMode = {
     BEATS: 0,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case PhraseHarmonyElementShorteningMode.BEATS:
                 return "Beats";

@@ -72,7 +72,7 @@ const NoteRythmElementLengthType = {
     DOT: 1,
     TRIPLET: 2,
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case NoteRythmElementLengthType.NORMAL:
                 return "Normal";
@@ -85,7 +85,7 @@ const NoteRythmElementLengthType = {
     },
 
     possibleValues: null,
-    getPossibleValues: function() {
+    getPossibleValues() {
         if (!NoteRythmElementLengthType.possibleValues) {
             NoteRythmElementLengthType.possibleValues = [];
             for (let i=NoteRythmElementLengthType.NORMAL; i<=NoteRythmElementLengthType.TRIPLET; i++) {
@@ -289,7 +289,7 @@ class SplitRythmElement extends RythmElement {
         if (theCurve == null) {
             logit(`Could not find curve ${this.densityCurve}<br />`);
             theCurve = {
-                getValue: function(m, x) {
+                getValue(m, x) {
                     return 0;
                 }
             };
@@ -297,7 +297,7 @@ class SplitRythmElement extends RythmElement {
             const originalCurve = theCurve;
             const that = this;
             theCurve = {
-                getValue: function(m, x) {
+                getValue(m, x) {
                     return that.densityCurveBias +
                         that.densityCurveAmplitude * originalCurve.getValue(m,
                             that.densityCurveFrequency * (x + that.densityCurvePhase));

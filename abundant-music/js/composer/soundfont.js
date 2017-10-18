@@ -10,7 +10,7 @@ const SoundFontType = {
     GXSCC_STYLE: 3,
 //    GB_STYLE: 6,
 
-    getSamplesPrefix: function(type) {
+    getSamplesPrefix(type) {
         switch (type) {
             case SoundFontType.STANDARD_LIGHT:
                 return "standard_light";
@@ -31,7 +31,7 @@ const SoundFontType = {
     },
 
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case SoundFontType.STANDARD_LIGHT:
                 return "Standard (light)";
@@ -51,7 +51,7 @@ const SoundFontType = {
         return `Unknown soundfont type ${type}`;
     },
 
-    toShortString: function(type) {
+    toShortString(type) {
         switch (type) {
             case SoundFontType.STANDARD_LIGHT:
                 return "Light";

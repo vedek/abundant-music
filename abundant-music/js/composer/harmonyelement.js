@@ -1086,7 +1086,7 @@ const HarmonyLengthMode = {
     COUNT_AND_RYTHM: 1, // The count determines number of elements. The rythm determines the relative lengths. Total length is also used to scale the rythm
     RYTHM_ONLY: 2, // A rythm determines relative lenghts. Total length is used to scale it
 
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case HarmonyLengthMode.COUNT_AND_LENGTH_PATTERN:
                 return "Count and length pattern";

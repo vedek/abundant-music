@@ -13,7 +13,7 @@ const QuadraticSplineInterpolation = {
     CR21: 0.5,
     CR22: 0.0,
 
-    interpolate: function(x, knots) {
+    interpolate(x, knots) {
         const nknots = knots.length;
         const nspans = nknots - 2;
         let knot = 0;
@@ -73,7 +73,7 @@ const SplineInterpolation = {
     //        return this.interpolate(x, getLinearEndKnots(internalKnots));
     //    },
 
-    interpolate: function(x, knots) {
+    interpolate(x, knots) {
         const nknots = knots.length;
         const nspans = nknots - 3;
         let knot = 0;

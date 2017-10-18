@@ -82,7 +82,7 @@ const RenderElementCutHarmonyMode = {
     STOP: 0, // Stop rendering
     CONTINUE_ADAPT: 1, // Continue rendering
     CONTINUE_SAME: 2, // Continue rendering with the same harmony as the start
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case RenderElementCutHarmonyMode.STOP:
                 return "Stop";
@@ -104,7 +104,7 @@ const NoteOverlapHarmonyMode = {
     CONTINUE: 1, // Continue the note unchanged
     SPLIT_SNAP: 2, // Split the note and snap the rest of the note
     CONTINUE_OR_SPLIT_SNAP: 3, // Continue if the note is the same as before the snap
-    toString: function(type) {
+    toString(type) {
         switch (type) {
             case NoteOverlapHarmonyMode.CONTINUE:
                 return "Continue";
