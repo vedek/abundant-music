@@ -41,7 +41,7 @@ composeEditorSources=`
     js/composer/mersennetwister.js 
     js/composer/midiconstants.js 
     js/composer/voicelineconstraintsinclude.js 
-    js/composer/harmonyelementinclude.js 
+    js/composer/harmonyelement.js 
     js/composer/dynamicharmonygeneratorconstants.js 
     js/composer/plannedharmonyelement.js 
     js/composer/datasample.js 

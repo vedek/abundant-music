@@ -1,7 +1,9 @@
 
-function FigurationGridCellInfo() {
-    this.startBeat = 0.0;
-    this.endBeat = 1.0;
+class FigurationGridCellInfo {
+    constructor() {
+        this.startBeat = 0.0;
+        this.endBeat = 1.0;
+    }
 }
 
 class FigurationGrid {

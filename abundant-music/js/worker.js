@@ -40,7 +40,6 @@ importScripts(
     "composer/percussionmotif.js",
     "composer/predefinedpercussion.js",
     "composer/harmonicrythm.js",
-    "composer/harmonyelementinclude.js",
     "composer/harmonyelement.js",
     "composer/harmonymodifier.js",
     "composer/sequenceharmonyelement.js",

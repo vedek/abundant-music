@@ -555,11 +555,14 @@ class SnapCurveComputation extends CurveComputation {
 
 
 
-function CurveGroup() {
-    this.curves = [];
+class CurveGroup {
+
+    constructor() {
+        this.curves = [];
+    }
 }
 
-function CurveModifier() {
+class CurveModifier {
 }
 
 
@@ -754,15 +757,4 @@ class MaxCurveComputation extends MultiInputCurveComputation {
         return result === null ? 0 : result;
     }
 }
-
-
-
-
-function CurveGroup() {
-    this.curves = [];
-}
-
-function CurveModifier() {
-}
-
 

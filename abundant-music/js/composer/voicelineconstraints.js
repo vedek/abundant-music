@@ -1,5 +1,4 @@
 
-
 class AbstractVoiceLinePlannerConstraintZone {
     constructor() {
         this.id = "";
@@ -80,44 +79,9 @@ class IndexedVoiceLinePlannerConstraintZone extends AbstractVoiceLinePlannerCons
 }
 
 
-// The steps this constraint checks backward for costs and validity.
-// Not used during the planning phase, just the init phase.
-VoiceLinePlannerConstraint.prototype.getCheckCostSteps = function() {
-    //    return [0, 1, 2];
-    return [];
-};
-VoiceLinePlannerConstraint.prototype.getCheckValidSteps = function() {
-    //    return [0, 1, 2];
-    return [];
-};
-
-VoiceLinePlannerConstraint.prototype.zeroStepCost = function(harmonyIndex, stateIndex, planner) {
-    return 0;
-};
-VoiceLinePlannerConstraint.prototype.oneStepCost = function(harmonyIndex, prevStateIndex, stateIndex, planner) {
-    return 0;
-};
-VoiceLinePlannerConstraint.prototype.twoStepCost = function(harmonyIndex, prevPrevStateIndex, prevStateIndex, stateIndex, planner) {
-    return 0;
-};
-VoiceLinePlannerConstraint.prototype.zeroStepValid = function(harmonyIndex, stateIndex, planner) {
-    return true;
-};
-VoiceLinePlannerConstraint.prototype.oneStepValid = function(harmonyIndex, prevStateIndex, stateIndex, planner) {
-    return true;
-};
-VoiceLinePlannerConstraint.prototype.twoStepValid = function(harmonyIndex, prevPrevStateIndex, prevStateIndex, stateIndex, planner) {
-    return true;
-};
 
 
 
-EmptyVoiceLinePlannerConstraint.prototype.getCheckCostSteps = function() {
-    return [];
-};
-EmptyVoiceLinePlannerConstraint.prototype.getCheckValidSteps = function() {
-    return [];
-};
 
 
 var SuspendVoiceLinePlannerConstraintMode = {
@@ -187,53 +151,6 @@ class SuspendVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
 
 
 
-MinVoiceLinePlannerConstraint.prototype.getCheckCostSteps = function() {
-    var result = [];
-    for (var i=0; i<this.constraints.length; i++) {
-        var c = this.constraints[i];
-        var steps = c.getCheckCostSteps();
-        for (var j=0; j<steps.length; j++) {
-            if (!arrayContains(result, steps[j])) {
-                result.push(steps[j]);
-            }
-        }
-    }
-    return result;
-};
-
-MinVoiceLinePlannerConstraint.prototype.zeroStepCost = function(harmonyIndex, stateIndex, planner) {
-    if (this.constraints.length == 0) {
-        return 0;
-    }
-    var result = 99999999;
-    for (var i=0; i<this.constraints.length; i++) {
-        var c = this.constraints[i];
-        result = Math.min(result, c.zeroStepCost(harmonyIndex, stateIndex, planner));
-    }
-    return result;
-};
-MinVoiceLinePlannerConstraint.prototype.oneStepCost = function(harmonyIndex, prevStateIndex, stateIndex, planner) {
-    if (this.constraints.length == 0) {
-        return 0;
-    }
-    var result = 99999999;
-    for (var i=0; i<this.constraints.length; i++) {
-        var c = this.constraints[i];
-        result = Math.min(result, c.oneStepCost(harmonyIndex, prevStateIndex, stateIndex, planner));
-    }
-    return result;
-};
-MinVoiceLinePlannerConstraint.prototype.twoStepCost = function(harmonyIndex, prevPrevStateIndex, prevStateIndex, stateIndex, planner) {
-    if (this.constraints.length == 0) {
-        return 0;
-    }
-    var result = 99999999;
-    for (var i=0; i<this.constraints.length; i++) {
-        var c = this.constraints[i];
-        result = Math.min(result, c.twoStepCost(harmonyIndex, prevPrevStateIndex, prevStateIndex, stateIndex, planner));
-    }
-    return result;
-};
 
 
 class PitchClassStepVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
@@ -446,53 +363,6 @@ class LeapRangeVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
 
 
 
-VoiceChordNotesVoiceLinePlannerConstraint.prototype.getCheckCostSteps = function() {
-    return [0];
-};
-
-VoiceChordNotesVoiceLinePlannerConstraint.prototype.setRootPitches = function(v) {
-    this.chordRootPitchClassConstraints = v;
-    return this;
-};
-VoiceChordNotesVoiceLinePlannerConstraint.prototype.setRootPitchCosts = function(v) {
-    this.chordRootPitchClassConstraintCosts = v;
-    return this;
-};
-
-VoiceChordNotesVoiceLinePlannerConstraint.prototype.zeroStepCost = function(harmonyIndex, stateIndex, planner) {
-    var stepCost = 0;
-
-    var absoluteNotes = planner.possibleAbsoluteNoteTuples[harmonyIndex][stateIndex];
-    var chordPitchClasses = planner.chordPitchClassesArr[harmonyIndex];
-
-    for (var i=0; i<this.chordRootPitchClassConstraints.length; i++) {
-        var rootArr = this.chordRootPitchClassConstraints[i];
-        var costArr = this.chordRootPitchClassConstraintCosts[i % this.chordRootPitchClassConstraintCosts.length];
-
-        if (i < absoluteNotes.length) {
-            // absolute note for voice with index i
-            var absNote = absoluteNotes[i];
-            var pitchClass = absNote % 12;
-            for (var j=0; j<rootArr.length; j++) {
-                var rootIndex = rootArr[j];
-                var cost = costArr[j % costArr.length];
-                if (rootIndex < chordPitchClasses.length) {
-                    var chordNotePitchClass = chordPitchClasses[rootIndex];
-                    if (pitchClass == chordNotePitchClass) {
-//                        logit("chord pitch class " + chordNotePitchClass);
-                        stepCost += cost;
-                    }
-                }
-            }
-        }
-    }
-
-//    if (stepCost > 0) {
-//        logit("Getting zero step cost for " + this._constructorName + " " + harmonyIndex + " " + stateIndex + " " + stepCost);
-//    }
-
-    return stepCost;
-};
 
 
 class ChordDoublingVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {

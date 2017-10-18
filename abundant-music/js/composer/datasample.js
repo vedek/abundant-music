@@ -1,11 +1,12 @@
 
-function DataSample(options) {
-//    this.id = "";
-    this.likelihood = getValueOrDefault(options, "likelihood", 1);
-    this.active = true;
-    this._constructorName = "DataSample";
+class DataSample {
+    constructor(options) {
+        //    this.id = "";
+        this.likelihood = getValueOrDefault(options, "likelihood", 1);
+        this.active = true;
+        this._constructorName = "DataSample";
+    }
 }
-
 class IntDataSample extends DataSample {
     constructor(options) {
         super(options);
