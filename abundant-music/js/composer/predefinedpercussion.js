@@ -295,6 +295,9 @@ class PredefinedPercussionMotifElement extends PercussionMotifElement {
                 break;
         }
 
+        let accents;
+        let rests;
+
         // Switch for drum 1 (bass etc.)
         switch (this.type) {
             case PredefinedPercussionMotifType.FILL_DOTTED_QUARTER_1:
@@ -364,8 +367,8 @@ class PredefinedPercussionMotifElement extends PercussionMotifElement {
             case PredefinedPercussionMotifType.FILL_EIGHTS_6:
             case PredefinedPercussionMotifType.FILL_EIGHTS_7:
             case PredefinedPercussionMotifType.FILL_EIGHTS_8:
-                let accents = [0];
-                let rests = [0];
+                accents = [0];
+                rests = [0];
                 switch (this.type) {
                     case PredefinedPercussionMotifType.FILL_EIGHTS_2:
                         accents = [1, 0, 0, 1, 0, 0, 1, 0];
@@ -399,8 +402,8 @@ class PredefinedPercussionMotifElement extends PercussionMotifElement {
             case PredefinedPercussionMotifType.FILL_QUARTER_TRIPLET_1:
             case PredefinedPercussionMotifType.FILL_QUARTER_TRIPLET_2:
             case PredefinedPercussionMotifType.FILL_QUARTER_TRIPLET_3:
-                let accents = [0];
-                let rests = [0];
+                accents = [0];
+                rests = [0];
                 switch (this.type) {
                     case PredefinedPercussionMotifType.FILL_QUARTER_TRIPLET_2:
                         accents = [1, 0, 1, 0, 1, 0];
