@@ -18,28 +18,28 @@ class HarmonyGenerator extends DfsSolver {
     }
 
     getStartBeatStrengthsFromHarmonyElements(module, elements, beatOffset, numerator, beatStrengths) {
-        var beatLengths = [];
-        for (var i=0; i<elements.length; i++) {
+        const beatLengths = [];
+        for (let i=0; i<elements.length; i++) {
             beatLengths[i] = elements[i].getBeatLength();
         }
         return this.getStartBeatStrengths(module, beatLengths, beatOffset, numerator, beatStrengths);
     }
 
     getStartBeatStrengths(module, beatLengths, beatOffset, numerator, beatStrengths) {
-        var result = [];
-        var num = numerator;
-        var currentBeat = beatOffset ? beatOffset : 0;
+        const result = [];
+        const num = numerator;
+        let currentBeat = beatOffset ? beatOffset : 0;
 
         // The beat strengths should come
         if (!beatStrengths) {
             beatStrengths = [1, 0.7, 0.9, 0.5, 0.3, 0.2, 0.1];
         }
 
-        for (var i=0; i<beatLengths.length; i++) {
-            var beatIndex = Math.floor(currentBeat) % num;
+        for (let i=0; i<beatLengths.length; i++) {
+            const beatIndex = Math.floor(currentBeat) % num;
             result.push(beatStrengths[beatIndex % beatStrengths.length]);
 
-            var beatLength = beatLengths[i];
+            const beatLength = beatLengths[i];
             currentBeat += beatLength;
         }
 
@@ -52,16 +52,16 @@ class HarmonyGenerator extends DfsSolver {
         possibleNextStateLikelihoods,
         possibleNextStateCosts
     ) {
-        var state = node.state;
-        var fromHarmony = state.harmony;
+        const state = node.state;
+        const fromHarmony = state.harmony;
 
-        for (var i=0; i<possibleNextStates.length; i++) {
-            var toHarmony = possibleNextStates[i].harmony;
+        for (let i=0; i<possibleNextStates.length; i++) {
+            const toHarmony = possibleNextStates[i].harmony;
             if (fromHarmony.sameScale(toHarmony)) {
-                var fromRoot = positiveMod(fromHarmony.chordRoot, 7);
-                var toRoot = positiveMod(toHarmony.chordRoot, 7);
+                const fromRoot = positiveMod(fromHarmony.chordRoot, 7);
+                const toRoot = positiveMod(toHarmony.chordRoot, 7);
                 if (fromRoot == toRoot && fromHarmony.isSeventh() && toHarmony.isTriad()) {
-                    var cost = 5;
+                    const cost = 5;
     //                logit("Compensating for seventh to triad");
                     possibleNextStateCosts[i] += cost;
                 }
@@ -81,11 +81,11 @@ class HarmonyGenerator extends DfsSolver {
         sus2Likelihood,
         sus4Likelihood
     ) {
-        var state = node.state;
-        var fromHarmony = state.harmony;
+        const state = node.state;
+        const fromHarmony = state.harmony;
 
-        for (var i=0; i<possibleNextStates.length; i++) {
-            var toHarmony = possibleNextStates[i].harmony;
+        for (let i=0; i<possibleNextStates.length; i++) {
+            const toHarmony = possibleNextStates[i].harmony;
 
             if (toHarmony.isSus2()) {
                 possibleNextStateLikelihoods[i] *= sus2Likelihood;
@@ -94,13 +94,13 @@ class HarmonyGenerator extends DfsSolver {
             }
 
             if (fromHarmony.sameScale(toHarmony)) {
-                var cost = 0;
+                let cost = 0;
                 if (fromHarmony.isSus()) {
                     // toHarmony should have one note that is a step below so the sus can resolve
 
 
-                    var susAbsNote = fromHarmony.getAbsoluteNoteFromChordRootIndex(1) % 12;
-                    var toPitchClasses = toHarmony.getChordPitchClasses();
+                    const susAbsNote = fromHarmony.getAbsoluteNoteFromChordRootIndex(1) % 12;
+                    const toPitchClasses = toHarmony.getChordPitchClasses();
                     if (!arrayContains(toPitchClasses, (susAbsNote - 1) % 12) && !arrayContains(toPitchClasses, (susAbsNote - 2) % 12)) {
                         cost += 2;
     //                    logit("Avoiding sus " + fromHarmony.toRomanString() + " -> " + toHarmony.toRomanString());
@@ -121,18 +121,18 @@ class HarmonyGenerator extends DfsSolver {
     }
 
     calculateBeatStrengthRepetitionCost(fromHarmony, fromBeatStrength, toHarmony, toBeatStrength) {
-        var cost = 0.0;
+        let cost = 0.0;
         if (toBeatStrength > fromBeatStrength) {
             if (fromHarmony.sameScale(toHarmony)) {
-                var fromRoot = positiveMod(fromHarmony.chordRoot, 7);
-                var toRoot = positiveMod(toHarmony.chordRoot, 7);
+                const fromRoot = positiveMod(fromHarmony.chordRoot, 7);
+                const toRoot = positiveMod(toHarmony.chordRoot, 7);
 
                 if (fromRoot == toRoot) {
                     cost += 5;
     //                        logit("  root was same...");
                 }
-                var fromBass = fromHarmony.getAbsoluteNoteFromChordBassIndex(0);
-                var toBass = toHarmony.getAbsoluteNoteFromChordBassIndex(0);
+                const fromBass = fromHarmony.getAbsoluteNoteFromChordBassIndex(0);
+                const toBass = toHarmony.getAbsoluteNoteFromChordBassIndex(0);
 
                 if (fromBass == toBass) {
                     cost += 5;
@@ -157,19 +157,19 @@ class HarmonyGenerator extends DfsSolver {
     ) {
 
         if (this.startBeatStrengths.length > 0) {
-            var fromBeatStrength = this.startBeatStrengths[node.depth % this.startBeatStrengths.length];
-            var toBeatStrength = this.startBeatStrengths[(node.depth + 1) % this.startBeatStrengths.length];
+            const fromBeatStrength = this.startBeatStrengths[node.depth % this.startBeatStrengths.length];
+            const toBeatStrength = this.startBeatStrengths[(node.depth + 1) % this.startBeatStrengths.length];
 
-            var state = node.state;
+            const state = node.state;
             if (toBeatStrength > fromBeatStrength) {
-                var fromHarmony = state.harmony;
+                const fromHarmony = state.harmony;
 
     //            logit("Checking " + fromBeatStrength + " " + toBeatStrength + " " + fromHarmony.toRomanString());
-                for (var i=0; i<possibleNextStates.length; i++) {
+                for (let i=0; i<possibleNextStates.length; i++) {
 
-                    var toHarmony = possibleNextStates[i].harmony;
+                    const toHarmony = possibleNextStates[i].harmony;
 
-                    var cost = this.calculateBeatStrengthRepetitionCost(fromHarmony, fromBeatStrength, toHarmony, toBeatStrength);
+                    const cost = this.calculateBeatStrengthRepetitionCost(fromHarmony, fromBeatStrength, toHarmony, toBeatStrength);
 
                     if (cost > 0) {
     //                    var likelihood = possibleNextStateLikelihoods[i];
@@ -195,38 +195,38 @@ class HarmonyGenerator extends DfsSolver {
         resultLikelihoods,
         resultCosts
     ) {
-        var harmony = state.harmony;
+        const harmony = state.harmony;
 
-        var seventhLikelihoods = [0, 0, 0, 0, 0, 0, 0];
+        let seventhLikelihoods = [0, 0, 0, 0, 0, 0, 0];
         if (seventhLikelihoodArr.length > 0) {
             seventhLikelihoods = seventhLikelihoodArr[index % seventhLikelihoodArr.length];
         }
-        var triadLikelihoods = [0, 0, 0, 0, 0, 0, 0];
+        let triadLikelihoods = [0, 0, 0, 0, 0, 0, 0];
         if (triadLikelihoodArr.length > 0) {
             triadLikelihoods = triadLikelihoodArr[index % triadLikelihoodArr.length];
         }
-        var seventhCosts = [0, 0, 0, 0, 0, 0, 0];
+        let seventhCosts = [0, 0, 0, 0, 0, 0, 0];
         if (seventhCostArr.length > 0) {
             seventhCosts = seventhCostArr[index % seventhCostArr.length];
         }
-        var triadCosts = [0, 0, 0, 0, 0, 0, 0];
+        let triadCosts = [0, 0, 0, 0, 0, 0, 0];
         if (triadCostArr.length > 0) {
             triadCosts = triadCostArr[index % triadCostArr.length];
         }
 
-        var seventhLikelihood = 0;
+        let seventhLikelihood = 0;
         if (seventhLikelihoods.length > 0) {
             seventhLikelihood = seventhLikelihoods[positiveMod(harmony.chordRoot, 7) % seventhLikelihoods.length];
         }
-        var triadLikelihood = 0;
+        let triadLikelihood = 0;
         if (triadLikelihoods.length > 0) {
             triadLikelihood = triadLikelihoods[positiveMod(harmony.chordRoot, 7) % triadLikelihoods.length];
         }
-        var seventhCost = 0;
+        let seventhCost = 0;
         if (seventhCosts.length > 0) {
             seventhCost = seventhCosts[positiveMod(harmony.chordRoot, 7) % seventhCosts.length];
         }
-        var triadCost = 0;
+        let triadCost = 0;
         if (triadCosts.length > 0) {
             triadCost = triadCosts[positiveMod(harmony.chordRoot, 7) % triadCosts.length];
         }
@@ -267,7 +267,7 @@ class HarmonyGenerator extends DfsSolver {
     isGoalNode(node) {
         if (node.depth >= this.count - 1) {
             // Checking goal state at the end
-            var result = this.isGoalState(node.state);
+            const result = this.isGoalState(node.state);
             //        if (result) {
             //            logit("Found goal state on depth " + node.depth + "<br />");
             //        }
@@ -288,13 +288,13 @@ class HarmonyGenerator extends DfsSolver {
         possibleMixtureRoots
     ) {
 
-        var harmonies = [];
+        const harmonies = [];
 
-        var inversions = fromHarmony.chordInversions;
+        const inversions = fromHarmony.chordInversions;
 
         if (inversions == 0) {
-            var baseChordRoot = fromHarmony.chordRoot;
-            var fromChordType = fromHarmony.chordType;
+            const baseChordRoot = fromHarmony.chordRoot;
+            const fromChordType = fromHarmony.chordType;
 
 
             if (!fromHarmony.isSus()) {
@@ -333,7 +333,7 @@ class HarmonyGenerator extends DfsSolver {
             logit("Not supporting neighbour chords with inversion " + inversions + "<br />");
         }
 
-        var result = this.filterChords(fromHarmony, harmonies, possibleRoots, possibleInversions, possibleSusRoots, possibleMixtureRoots);
+        const result = this.filterChords(fromHarmony, harmonies, possibleRoots, possibleInversions, possibleSusRoots, possibleMixtureRoots);
 
         return result;
     }
@@ -346,21 +346,21 @@ class HarmonyGenerator extends DfsSolver {
         possibleSusRoots,
         possibleMixtureRoots
     ) {
-        var result = [];
-        for (var i=0; i<tempResult.length; i++) {
-            var chord = tempResult[i];
-            var ok = true;
-            var chordRoot = positiveMod(chord.chordRoot, 7);
+        const result = [];
+        for (let i=0; i<tempResult.length; i++) {
+            const chord = tempResult[i];
+            let ok = true;
+            const chordRoot = positiveMod(chord.chordRoot, 7);
 
-            var isSus = chord.isSus();
-            var isMixture = chord.scaleType != fromHarmony.scaleType &&
+            const isSus = chord.isSus();
+            const isMixture = chord.scaleType != fromHarmony.scaleType &&
                 (chord.scaleType == ScaleType.MAJOR || fromHarmony.scaleType == ScaleType.MAJOR);
 
             if (!isSus && !isMixture && possibleRoots) {
                 var index = possibleRoots.indexOf(chordRoot);
                 if (index >= 0) {
                     if (possibleInversions) {
-                        var inversions = possibleInversions[index];
+                        const inversions = possibleInversions[index];
                         if (inversions && !arrayContains(inversions, chord.chordInversions)) {
                             ok = false;
                         } else if (!inversions) {
@@ -407,16 +407,16 @@ class HarmonyGenerator extends DfsSolver {
     }
 
     getBassPassingChords(fromHarmony, toHarmony, absIncrement, possibleRoots, possibleInversions) {
-        var tempResult = [];
-        var fromBassIndex = fromHarmony.getBassScaleIndex();
-        var toBassIndex = toHarmony.getBassScaleIndex();
+        const tempResult = [];
+        const fromBassIndex = fromHarmony.getBassScaleIndex();
+        const toBassIndex = toHarmony.getBassScaleIndex();
 
-        var diff = toBassIndex - fromBassIndex;
-        var absDiff = Math.abs(diff);
+        const diff = toBassIndex - fromBassIndex;
+        const absDiff = Math.abs(diff);
 
         // Make sure that we don't overshoot the target
         absIncrement = Math.min(absIncrement, absDiff);
-        var increment = absIncrement;
+        let increment = absIncrement;
         if (diff == 0) {
             logit("Can not find a passing chord when the basses are the same <br />");
             return tempResult;
@@ -424,7 +424,7 @@ class HarmonyGenerator extends DfsSolver {
             increment = -increment;
         }
 
-        var fromChordRoot = fromHarmony.getChordRootScaleIndex();
+        const fromChordRoot = fromHarmony.getChordRootScaleIndex();
 
     //    if (fromHarmony.hasSeventh()) {
     //        logit("getBassPassingChords() does not support seventh chords yet <br />");
@@ -494,7 +494,7 @@ class HarmonyGenerator extends DfsSolver {
             }
         }
 
-        var result = this.filterChords(fromHarmony, tempResult, possibleRoots, possibleInversions);
+        const result = this.filterChords(fromHarmony, tempResult, possibleRoots, possibleInversions);
 
         return result;
     }

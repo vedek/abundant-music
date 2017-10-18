@@ -11,9 +11,9 @@ class Map {
     }
 
     static from(obj, foreignKeys, linkEntries) {
-        var map = new Map(linkEntries);
+        const map = new Map(linkEntries);
 
-        for(var prop in obj) {
+        for(const prop in obj) {
             if(foreignKeys || obj.hasOwnProperty(prop))
                 map.put(prop, obj[prop]);
         }
@@ -79,17 +79,17 @@ class Map {
     }
 
     get(key) {
-        var entry = this[this.hash(key)];
+        const entry = this[this.hash(key)];
         return typeof entry === 'undefined' ? undefined : entry.value;
     }
 
     put(key, value) {
-        var hash = this.hash(key);
+        const hash = this.hash(key);
 
         if(this.hasOwnProperty(hash))
             this[hash].value = value;
         else {
-            var entry = {
+            const entry = {
                 key : key,
                 value : value
             };
@@ -103,7 +103,7 @@ class Map {
     }
 
     remove(key) {
-        var hash = this.hash(key);
+        const hash = this.hash(key);
 
         if(this.hasOwnProperty(hash)) {
             --this.size;
@@ -127,7 +127,7 @@ class Map {
     }
 
     isUndefined(key) {
-        var hash = this.hash(key);
+        const hash = this.hash(key);
         return this.hasOwnProperty(hash) ?
         typeof this[hash] === 'undefined' : false;
     }
@@ -148,8 +148,8 @@ class Map {
         if(typeof thisArg === 'undefined')
             thisArg = this;
 
-        for(var i = this.size; i--; this.next()) {
-            var n = func.call(thisArg, this.key(), this.value(), i > 0);
+        for(let i = this.size; i--; this.next()) {
+            const n = func.call(thisArg, this.key(), this.value(), i > 0);
             if(typeof n === 'number')
                 i += n; // allows to add/remove entries in func
         }
@@ -158,11 +158,10 @@ class Map {
     }
 
     flip(linkEntries) {
-        var map = new Map(linkEntries);
+        const map = new Map(linkEntries);
 
-        for(var i = this.size; i--; this.next()) {
-            var	value = this.value(),
-            list = map.get(value);
+        for(let i = this.size; i--; this.next()) {
+            const value = this.value(), list = map.get(value);
 
             if(list) list.push(this.key());
             else map.put(value, [this.key()]);
@@ -175,7 +174,7 @@ class Map {
         if(typeof thisArg === 'undefined')
             thisArg = this;
 
-        for(var i = this.size; i--; ) {
+        for(let i = this.size; i--; ) {
             if(func.call(thisArg, this.key(), this.value())) {
                 this.remove(this.key());
                 --i;
@@ -187,25 +186,25 @@ class Map {
     }
 
     listValues() {
-        var list = [];
+        const list = [];
 
-        for(var i = this.size; i--; this.next())
+        for(let i = this.size; i--; this.next())
             list.push(this.value());
 
         return list;
     }
 
     listKeys() {
-        var list = [];
+        const list = [];
 
-        for(var i = this.size; i--; this.next())
+        for(let i = this.size; i--; this.next())
             list.push(this.key());
 
         return list;
     }
 
     toString() {
-        var string = '[object Map';
+        let string = '[object Map';
 
         function addEntry(key, value, hasNext) {
             string += '    { ' + this.hash(key) + ' : ' + value + ' }' +
@@ -222,11 +221,10 @@ class Map {
     }
 
     static reverseIndexTableFrom(array, linkEntries) {
-        var map = new Map(linkEntries);
+        const map = new Map(linkEntries);
 
-        for(var i = 0, len = array.length; i < len; ++i) {
-            var	entry = array[i],
-            list = map.get(entry);
+        for(let i = 0, len = array.length; i < len; ++i) {
+            const entry = array[i], list = map.get(entry);
 
             if(list) list.push(i);
             else map.put(entry, [i]);
@@ -236,7 +234,7 @@ class Map {
     }
 
     static cross(map1, map2, func, thisArg) {
-        var linkedMap, otherMap;
+        let linkedMap, otherMap;
 
         if(map1.isLinked) {
             linkedMap = map1;
@@ -248,8 +246,8 @@ class Map {
         }
         else Map.illegal();
 
-        for(var i = linkedMap.size; i--; linkedMap.next()) {
-            var key = linkedMap.key();
+        for(let i = linkedMap.size; i--; linkedMap.next()) {
+            const key = linkedMap.key();
             if(otherMap.contains(key))
                 func.call(thisArg, key, map1.get(key), map2.get(key));
         }
@@ -258,9 +256,9 @@ class Map {
     }
 
     static uniqueArray(array) {
-        var map = new Map;
+        const map = new Map;
 
-        for(var i = 0, len = array.length; i < len; ++i)
+        for(let i = 0, len = array.length; i < len; ++i)
             map.put(array[i]);
 
         return map.listKeys();

@@ -63,11 +63,11 @@ class MinVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
     }
 
     getCheckCostSteps() {
-        var result = [];
-        for (var i=0; i<this.constraints.length; i++) {
-            var c = this.constraints[i];
-            var steps = c.getCheckCostSteps();
-            for (var j=0; j<steps.length; j++) {
+        const result = [];
+        for (let i=0; i<this.constraints.length; i++) {
+            const c = this.constraints[i];
+            const steps = c.getCheckCostSteps();
+            for (let j=0; j<steps.length; j++) {
                 if (!arrayContains(result, steps[j])) {
                     result.push(steps[j]);
                 }
@@ -80,9 +80,9 @@ class MinVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
         if (this.constraints.length == 0) {
             return 0;
         }
-        var result = 99999999;
-        for (var i=0; i<this.constraints.length; i++) {
-            var c = this.constraints[i];
+        let result = 99999999;
+        for (let i=0; i<this.constraints.length; i++) {
+            const c = this.constraints[i];
             result = Math.min(result, c.zeroStepCost(harmonyIndex, stateIndex, planner));
         }
         return result;
@@ -91,9 +91,9 @@ class MinVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
         if (this.constraints.length == 0) {
             return 0;
         }
-        var result = 99999999;
-        for (var i=0; i<this.constraints.length; i++) {
-            var c = this.constraints[i];
+        let result = 99999999;
+        for (let i=0; i<this.constraints.length; i++) {
+            const c = this.constraints[i];
             result = Math.min(result, c.oneStepCost(harmonyIndex, prevStateIndex, stateIndex, planner));
         }
         return result;
@@ -102,9 +102,9 @@ class MinVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
         if (this.constraints.length == 0) {
             return 0;
         }
-        var result = 99999999;
-        for (var i=0; i<this.constraints.length; i++) {
-            var c = this.constraints[i];
+        let result = 99999999;
+        for (let i=0; i<this.constraints.length; i++) {
+            const c = this.constraints[i];
             result = Math.min(result, c.twoStepCost(harmonyIndex, prevPrevStateIndex, prevStateIndex, stateIndex, planner));
         }
         return result;
@@ -137,24 +137,24 @@ class VoiceChordNotesVoiceLinePlannerConstraint extends VoiceLinePlannerConstrai
     };
     
     zeroStepCost(harmonyIndex, stateIndex, planner) {
-        var stepCost = 0;
+        let stepCost = 0;
     
-        var absoluteNotes = planner.possibleAbsoluteNoteTuples[harmonyIndex][stateIndex];
-        var chordPitchClasses = planner.chordPitchClassesArr[harmonyIndex];
+        const absoluteNotes = planner.possibleAbsoluteNoteTuples[harmonyIndex][stateIndex];
+        const chordPitchClasses = planner.chordPitchClassesArr[harmonyIndex];
     
-        for (var i=0; i<this.chordRootPitchClassConstraints.length; i++) {
-            var rootArr = this.chordRootPitchClassConstraints[i];
-            var costArr = this.chordRootPitchClassConstraintCosts[i % this.chordRootPitchClassConstraintCosts.length];
+        for (let i=0; i<this.chordRootPitchClassConstraints.length; i++) {
+            const rootArr = this.chordRootPitchClassConstraints[i];
+            const costArr = this.chordRootPitchClassConstraintCosts[i % this.chordRootPitchClassConstraintCosts.length];
     
             if (i < absoluteNotes.length) {
                 // absolute note for voice with index i
-                var absNote = absoluteNotes[i];
-                var pitchClass = absNote % 12;
-                for (var j=0; j<rootArr.length; j++) {
-                    var rootIndex = rootArr[j];
-                    var cost = costArr[j % costArr.length];
+                const absNote = absoluteNotes[i];
+                const pitchClass = absNote % 12;
+                for (let j=0; j<rootArr.length; j++) {
+                    const rootIndex = rootArr[j];
+                    const cost = costArr[j % costArr.length];
                     if (rootIndex < chordPitchClasses.length) {
-                        var chordNotePitchClass = chordPitchClasses[rootIndex];
+                        const chordNotePitchClass = chordPitchClasses[rootIndex];
                         if (pitchClass == chordNotePitchClass) {
     //                        logit("chord pitch class " + chordNotePitchClass);
                             stepCost += cost;

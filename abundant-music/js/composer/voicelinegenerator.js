@@ -62,7 +62,7 @@ class VoiceLineGenerator {
     }
 
     getlargeLeapPenaltyCount(prevAbsNote, curAbsNote, maxLeap) {
-        var leapSize = Math.abs(prevAbsNote - curAbsNote);
+        const leapSize = Math.abs(prevAbsNote - curAbsNote);
         if (leapSize > maxLeap) {
             return leapSize - maxLeap;
         } else {
@@ -71,7 +71,7 @@ class VoiceLineGenerator {
     }
 
     getLeapRangePenaltyCount(prevAbsNote, curAbsNote, lowerLeap, upperLeap) {
-        var leapSize = curAbsNote - prevAbsNote;
+        const leapSize = curAbsNote - prevAbsNote;
         if (leapSize < lowerLeap) {
             return lowerLeap - leapSize;
         } else if (leapSize > upperLeap) {
@@ -84,8 +84,8 @@ class VoiceLineGenerator {
     getlargeLeapReverseDirectionPenaltyCount(prevPrevAbsNote, prevAbsNote, curAbsNote) {
 
 
-        var step = prevAbsNote - prevPrevAbsNote;
-        var afterStep = curAbsNote - prevAbsNote;
+        let step = prevAbsNote - prevPrevAbsNote;
+        let afterStep = curAbsNote - prevAbsNote;
 
         // Always make the step positive
         if (step < 0) {
@@ -93,7 +93,7 @@ class VoiceLineGenerator {
             afterStep = -afterStep;
         }
 
-        var count = 0;
+        let count = 0;
 
         // Fourths and fifths give penalty when followed by a third or greater in the same direction
         //
@@ -132,12 +132,12 @@ class VoiceLineGenerator {
             // If any of the voices holds, it can not be parallel octaves
             return false;
         }
-        var prevDiff = prev1 - prev2;
-        var prevAbsDiff = Math.abs(prevDiff);
+        const prevDiff = prev1 - prev2;
+        const prevAbsDiff = Math.abs(prevDiff);
         if ((prevAbsDiff % 12) == mod) {
             // Previous was octave or unison
-            var curDiff = cur1 - cur2;
-            var curAbsDiff = Math.abs(curDiff);
+            const curDiff = cur1 - cur2;
+            const curAbsDiff = Math.abs(curDiff);
             if ((curAbsDiff % 12) == mod) {
                 // Current is also octave or unison
                 return true;
@@ -154,7 +154,7 @@ class VoiceLineGenerator {
     }
 
     searchRecursive(node) {
-        var index = node.searchDepth + node.resultIndex;
+        const index = node.searchDepth + node.resultIndex;
 
         if (node.searchDepth >= this.maxSearchDepth || index >= this.harmony.getCount()) {
             // Reached end of harmony or maximum search depth
@@ -162,30 +162,30 @@ class VoiceLineGenerator {
             return node;
         }
 
-        var minCost = 99999999;
-        var bestNode = null; // Best goal node
-        var bestState = null; // Best state at current index
+        let minCost = 99999999;
+        let bestNode = null; // Best goal node
+        let bestState = null; // Best state at current index
 
-        var states = this.getStates(node);
+        const states = this.getStates(node);
     //        logit("__Current search depth: " + node.searchDepth + "<br />");
         //    logit("____Domain: " + domain + "<br />");
-        for (var i=0; i<states.length; i++) {
+        for (let i=0; i<states.length; i++) {
 
             this.searchSteps++;
             if (this.searchSteps > this.maxSearchSteps) {
                 return bestNode;
             }
 
-            var newState = states[i];
-            var newNode = new VoiceLineSearchNode(newState, node.searchDepth + 1, node.resultIndex);
-            var stepCost = this.getStepCost(newNode);
+            const newState = states[i];
+            const newNode = new VoiceLineSearchNode(newState, node.searchDepth + 1, node.resultIndex);
+            const stepCost = this.getStepCost(newNode);
 
-            var totalCost = stepCost + node.totalCost;
+            const totalCost = stepCost + node.totalCost;
     //        logit("__ " + i + " step cost: " + stepCost + " total cost: " + totalCost + " best cost: " + this.bestSolutionCost);
             if (totalCost < this.bestSolutionCost) {
                 newNode.totalCost = totalCost;
                 this.resultStates[index] = newState; // Writing to result so the next search level has access to previous states
-                var result = this.searchRecursive(newNode);
+                const result = this.searchRecursive(newNode);
                 if (result && result.totalCost < minCost) {
                     minCost = result.totalCost;
                     bestNode = result;
@@ -205,7 +205,7 @@ class VoiceLineGenerator {
 
 
 
-        var result = [];
+        const result = [];
 
         this.bestSolutionCost = 99999999;
         this.resultStates = [];
@@ -218,25 +218,25 @@ class VoiceLineGenerator {
 
 
 
-        var harmonyElements = this.harmony.getConstantHarmonyElements();
+        const harmonyElements = this.harmony.getConstantHarmonyElements();
 
     //    logit("Entering voice line search...");
 
-        var totalSearchSteps = 0;
-        var sortOfTotalCost = 0;
-        var individualSearchSteps = [];
-        for (var i=0; i<harmonyElements.length; i++) {
+        let totalSearchSteps = 0;
+        let sortOfTotalCost = 0;
+        const individualSearchSteps = [];
+        for (let i=0; i<harmonyElements.length; i++) {
     //        logit("Searching step " + i + "<br />");
             this.bestSolutionCost = 99999999;
             this.searchSteps = 0;
-            var emptyState = this.createInitialState();
-            var node = new VoiceLineSearchNode(emptyState, 0, i);
-            var solution = this.searchRecursive(node);
+            const emptyState = this.createInitialState();
+            const node = new VoiceLineSearchNode(emptyState, 0, i);
+            const solution = this.searchRecursive(node);
             if (solution) {
-                var state = this.resultStates[i];
-                var vle = this.extractSolution(state, i);
+                const state = this.resultStates[i];
+                const vle = this.extractSolution(state, i);
 
-                for (var j=0; j<vle.length; j++) {
+                for (let j=0; j<vle.length; j++) {
                     if (j >= result.length) {
                         result[j] = new ConstantVoiceLine();
                     }

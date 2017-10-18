@@ -2,7 +2,7 @@
 
 
 
-var DynamicHarmonyMode = {
+const DynamicHarmonyMode = {
     ROOT: 0,
     NEIGHBOUR: 1,
     PASSING: 2,
@@ -347,40 +347,40 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
         resultLikelihoods,
         resultCosts
     ) {
-        var secondPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(1) % 12;
-        var thirdPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(2) % 12;
-        var fifthPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(4) % 12;
-        var sixthPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(5) % 12;
+        const secondPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(1) % 12;
+        const thirdPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(2) % 12;
+        const fifthPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(4) % 12;
+        const sixthPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(5) % 12;
 
-        var isSus = currentHarmony.isSus();
+        const isSus = currentHarmony.isSus();
 
-        var chordPitchClasses = currentHarmony.getChordPitchClasses();
+        const chordPitchClasses = currentHarmony.getChordPitchClasses();
 
-        var bassPitchClass = currentHarmony.getAbsoluteNoteFromChordBassIndex(0) % 12;
-        var bassIsSecond = bassPitchClass == secondPitchClass;
-        var bassIsThird = bassPitchClass == thirdPitchClass;
-        var bassIsFifth = bassPitchClass == fifthPitchClass;
-        var bassIsSixth = bassPitchClass == sixthPitchClass;
+        const bassPitchClass = currentHarmony.getAbsoluteNoteFromChordBassIndex(0) % 12;
+        const bassIsSecond = bassPitchClass == secondPitchClass;
+        const bassIsThird = bassPitchClass == thirdPitchClass;
+        const bassIsFifth = bassPitchClass == fifthPitchClass;
+        const bassIsSixth = bassPitchClass == sixthPitchClass;
 
-        var hasSecond = arrayContains(chordPitchClasses, secondPitchClass);
-        var hasThird = arrayContains(chordPitchClasses, thirdPitchClass);
-        var hasFifth = arrayContains(chordPitchClasses, fifthPitchClass);
-        var hasSixth = arrayContains(chordPitchClasses, sixthPitchClass);
+        const hasSecond = arrayContains(chordPitchClasses, secondPitchClass);
+        const hasThird = arrayContains(chordPitchClasses, thirdPitchClass);
+        const hasFifth = arrayContains(chordPitchClasses, fifthPitchClass);
+        const hasSixth = arrayContains(chordPitchClasses, sixthPitchClass);
 
-        var intoMixtureRootMovements = this.intoMixtureProgressionMovementLikelihoods; // One array for each chord type
-        var intoMixtureRootLikelihoods = this.intoMixtureProgressionMovementLikelihoods;
-        var intoMixtureRootCosts = this.intoMixtureProgressionMovementCosts;
+        const intoMixtureRootMovements = this.intoMixtureProgressionMovementLikelihoods; // One array for each chord type
+        const intoMixtureRootLikelihoods = this.intoMixtureProgressionMovementLikelihoods;
+        const intoMixtureRootCosts = this.intoMixtureProgressionMovementCosts;
 
 
-        var possibleChordRoots = [];
+        const possibleChordRoots = [];
         for (var i=0; i<intoMixtureRootMovements.length; i++) {
             possibleChordRoots.push(positiveMod(currentHarmony.chordRoot + intoMixtureRootMovements[i], 7));
         }
 
         for (var i=0; i<majorMixtureChordTypes.length; i++) {
 
-            var type = majorMixtureChordTypes[i];
-            var chord = null;
+            const type = majorMixtureChordTypes[i];
+            let chord = null;
             switch (type) {
                 case MajorMixtureChordType.I:
                     // Lowering 3
@@ -464,37 +464,37 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
     }
 
     getMajorOutOfSimpleMixtureChords(currentHarmony, resultChords, resultLikelihoods, resultCosts) {
-        var thirdPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(2) % 12;
-        var sixthPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(5) % 12;
+        const thirdPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(2) % 12;
+        const sixthPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(5) % 12;
 
-        var chordPitchClasses = currentHarmony.getChordPitchClasses();
+        const chordPitchClasses = currentHarmony.getChordPitchClasses();
 
-        var rootPitchClass = chordPitchClasses[0];
+        const rootPitchClass = chordPitchClasses[0];
 
-        var bassPitchClass = currentHarmony.getAbsoluteNoteFromChordBassIndex(0) % 12;
-        var bassIsThird = bassPitchClass == thirdPitchClass;
-        var bassIsSixth = bassPitchClass == sixthPitchClass;
+        const bassPitchClass = currentHarmony.getAbsoluteNoteFromChordBassIndex(0) % 12;
+        const bassIsThird = bassPitchClass == thirdPitchClass;
+        const bassIsSixth = bassPitchClass == sixthPitchClass;
 
-        var hasThird = arrayContains(chordPitchClasses, thirdPitchClass);
-        var hasSixth = arrayContains(chordPitchClasses, sixthPitchClass);
+        const hasThird = arrayContains(chordPitchClasses, thirdPitchClass);
+        const hasSixth = arrayContains(chordPitchClasses, sixthPitchClass);
 
-        var outOfMixtureRootMovementsArr = [[0, -4, -2, 1, -1]];
-        var outOfMixtureRootLikelihoodsArr = [[1, 1, 1, 1, 1]];
-        var outOfMixtureRootCostArr = [[0, 0, 0, 0, 0]];
+        const outOfMixtureRootMovementsArr = [[0, -4, -2, 1, -1]];
+        const outOfMixtureRootLikelihoodsArr = [[1, 1, 1, 1, 1]];
+        const outOfMixtureRootCostArr = [[0, 0, 0, 0, 0]];
 
-        var outOfMixtureRootMovements = outOfMixtureRootMovementsArr[0];
-        var outOfMixtureRootLikelihoods = outOfMixtureRootLikelihoodsArr[0];
-        var outOfMixtureRootCosts = outOfMixtureRootCostArr[0];
+        const outOfMixtureRootMovements = outOfMixtureRootMovementsArr[0];
+        const outOfMixtureRootLikelihoods = outOfMixtureRootLikelihoodsArr[0];
+        const outOfMixtureRootCosts = outOfMixtureRootCostArr[0];
 
-        var inversions = [0, 1];
+        const inversions = [0, 1];
 
-        var outOfMixturePossibleRoots = [0, 1, 2, 3, 4, 5];
+        const outOfMixturePossibleRoots = [0, 1, 2, 3, 4, 5];
 
-        for (var i=0; i<outOfMixtureRootMovements.length; i++) {
-            for (var j=0; j<inversions.length; j++) {
-                var ok = true;
+        for (let i=0; i<outOfMixtureRootMovements.length; i++) {
+            for (let j=0; j<inversions.length; j++) {
+                let ok = true;
 
-                var nextHarmony = copyObjectDeep(currentHarmony);
+                const nextHarmony = copyObjectDeep(currentHarmony);
                 nextHarmony.scaleType = ScaleType.MAJOR;
                 nextHarmony.chordRoot = positiveMod(nextHarmony.chordRoot + outOfMixtureRootMovements[i], 7);
                 nextHarmony.chordInversions = inversions[j];
@@ -504,25 +504,25 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
     //                ok = false;
                 }
 
-                var secondPitchClass = nextHarmony.getAbsoluteNoteFromScaleIndex(1) % 12;
-                var fifthPitchClass = nextHarmony.getAbsoluteNoteFromScaleIndex(4) % 12;
+                const secondPitchClass = nextHarmony.getAbsoluteNoteFromScaleIndex(1) % 12;
+                const fifthPitchClass = nextHarmony.getAbsoluteNoteFromScaleIndex(4) % 12;
 
-                var nextBassPitchClass = nextHarmony.getAbsoluteNoteFromChordBassIndex(0) % 12;
-                var nextBassIsSecond = secondPitchClass == nextBassPitchClass;
-                var nextBassIsFifth = fifthPitchClass == nextBassPitchClass;
+                const nextBassPitchClass = nextHarmony.getAbsoluteNoteFromChordBassIndex(0) % 12;
+                const nextBassIsSecond = secondPitchClass == nextBassPitchClass;
+                const nextBassIsFifth = fifthPitchClass == nextBassPitchClass;
     //        logit(" testing out of mixture: " + nextHarmony.toRomanString());
 
-                var nextChordPitchClasses = nextHarmony.getChordPitchClasses();
+                const nextChordPitchClasses = nextHarmony.getChordPitchClasses();
 
                 if (hasThird) {
                     // Next chord must have a 2
-                    var hasSecond = arrayContains(nextChordPitchClasses, secondPitchClass);
+                    const hasSecond = arrayContains(nextChordPitchClasses, secondPitchClass);
                     ok = ok && hasSecond && ((!bassIsThird && !nextBassIsSecond) || (bassIsThird && nextBassIsSecond));
                 }
 
                 if (hasSixth) {
                     // Next chord must have a 5
-                    var hasFifth = arrayContains(nextChordPitchClasses, fifthPitchClass);
+                    const hasFifth = arrayContains(nextChordPitchClasses, fifthPitchClass);
                     ok = ok && hasFifth && ((!bassIsSixth && !nextBassIsFifth) || (bassIsSixth && nextBassIsFifth));
                 }
 
@@ -542,56 +542,56 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
     }
 
     getStartStateIterator() {
-        var result = [];
-        var likelihoods = [];
-        var costs = [];
+        const result = [];
+        const likelihoods = [];
+        const costs = [];
 
         var isMinor = this.scaleType == ScaleType.NATURAL_MINOR;
 
-        var startRoots = isMinor ? this.minorStartRoots : this.majorStartRoots;
+        let startRoots = isMinor ? this.minorStartRoots : this.majorStartRoots;
         if (startRoots.length == 0) {
             startRoots = [0];
         }
-        var startLikelihoods = isMinor ? this.minorStartRootLikelihoods : this.majorStartRootLikelihoods;
+        let startLikelihoods = isMinor ? this.minorStartRootLikelihoods : this.majorStartRootLikelihoods;
         if (startLikelihoods.length == 0) {
             startLikelihoods = [1];
         }
-        var startCosts = isMinor ? this.minorStartRootCosts : this.majorStartRootCosts;
+        let startCosts = isMinor ? this.minorStartRootCosts : this.majorStartRootCosts;
         if (startCosts.length == 0) {
             startCosts = [1];
         }
 
-        var seventhLikelihoodArr = isMinor ? this.minorScaleSeventhLikelihoods : this.majorScaleSeventhLikelihoods;
-        var triadLikelihoodArr = isMinor ? this.minorScaleTriadLikelihoods : this.majorScaleTriadLikelihoods;
-        var seventhCostArr = isMinor ? this.minorScaleSeventhCosts : this.majorScaleSeventhCosts;
-        var triadCostArr = isMinor ? this.minorScaleTriadCosts : this.majorScaleTriadCosts;
+        const seventhLikelihoodArr = isMinor ? this.minorScaleSeventhLikelihoods : this.majorScaleSeventhLikelihoods;
+        const triadLikelihoodArr = isMinor ? this.minorScaleTriadLikelihoods : this.majorScaleTriadLikelihoods;
+        const seventhCostArr = isMinor ? this.minorScaleSeventhCosts : this.majorScaleSeventhCosts;
+        const triadCostArr = isMinor ? this.minorScaleTriadCosts : this.majorScaleTriadCosts;
 
-        var seventhLikelihoods = [0, 0, 0, 0, 0, 0, 0];
+        let seventhLikelihoods = [0, 0, 0, 0, 0, 0, 0];
         if (seventhLikelihoodArr.length > 0) {
             seventhLikelihoods = seventhLikelihoodArr[0];
         }
-        var triadLikelihoods = [1, 1, 1, 1, 1, 1, 1];
+        let triadLikelihoods = [1, 1, 1, 1, 1, 1, 1];
         if (triadLikelihoodArr.length > 0) {
             triadLikelihoods = triadLikelihoodArr[0];
         }
-        var seventhCosts = [0, 0, 0, 0, 0, 0, 0];
+        let seventhCosts = [0, 0, 0, 0, 0, 0, 0];
         if (seventhCostArr.length > 0) {
             seventhCosts = seventhCostArr[0];
         }
-        var triadCosts = [0, 0, 0, 0, 0, 0, 0];
+        let triadCosts = [0, 0, 0, 0, 0, 0, 0];
         if (triadCostArr.length > 0) {
             triadCosts = triadCostArr[0];
         }
 
         for (var i=0; i<startRoots.length; i++) {
-            var root = startRoots[i];
-            var harmony = new ConstantHarmonyElement().setChordRoot(root);
+            const root = startRoots[i];
+            const harmony = new ConstantHarmonyElement().setChordRoot(root);
             harmony.setBaseNote(this.scaleBaseNote).setScaleType(this.scaleType);
 
-            var seventhLikelihood = seventhLikelihoods[root % seventhLikelihoods.length];
-            var triadLikelihood = triadLikelihoods[root % triadLikelihoods.length];
-            var seventhCost = seventhCosts[root % seventhCosts.length];
-            var triadCost = triadCosts[root % triadCosts.length];
+            const seventhLikelihood = seventhLikelihoods[root % seventhLikelihoods.length];
+            const triadLikelihood = triadLikelihoods[root % triadLikelihoods.length];
+            const seventhCost = seventhCosts[root % seventhCosts.length];
+            const triadCost = triadCosts[root % triadCosts.length];
 
             if (seventhLikelihood > 0) {
                 var state = new DynamicHarmonyState();
@@ -616,7 +616,7 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
             }
         }
         if (this.addAllStarts) {
-            var progressionRoots = this.majorProgressionRoots;
+            let progressionRoots = this.majorProgressionRoots;
             if (isMinor) {
                 progressionRoots = this.minorProgressionRoots;
             }
@@ -624,10 +624,10 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
                 progressionRoots = isMinor ? [[0, 2, 3, 4, 5, 6]] : [[0, 1, 2, 3, 4, 5]];
             }
 
-            var lowLikelihood = 0.001;
-            var highCost = 10;
-            var veryHighCost = 100;
-            var rootHarmony = new ConstantHarmonyElement().setChordRoot(0);
+            const lowLikelihood = 0.001;
+            const highCost = 10;
+            const veryHighCost = 100;
+            const rootHarmony = new ConstantHarmonyElement().setChordRoot(0);
             rootHarmony.setBaseNote(this.scaleBaseNote).setScaleType(this.scaleType);
             for (var i=0; i<7; i++) {
                 var state = new DynamicHarmonyState();
@@ -637,8 +637,8 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
                     state.harmony.note = "d";
                     state.mode = DynamicHarmonyMode.ROOT;
                     result.push(state);
-                    var likelihoodMultiplier = 1.0;
-                    var costMultiplier = 1.0;
+                    const likelihoodMultiplier = 1.0;
+                    let costMultiplier = 1.0;
                     // Make it extra costly to start with a bad progression root
                     if (!arrayContains(progressionRoots[0], i)) {
                         costMultiplier *= 10;
@@ -649,22 +649,22 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
             }
             if (this.modulate) {
                 var isMinor = this.scaleType == ScaleType.NATURAL_MINOR;
-                var endRoots = this.majorModulationPossibleEndRoots;
+                let endRoots = this.majorModulationPossibleEndRoots;
                 if (isMinor) {
                     endRoots = this.minorModulationPossibleEndRoots;
                 }
-                var modulationTarget = this.majorModulationTarget;
+                let modulationTarget = this.majorModulationTarget;
                 if (isMinor) {
                     modulationTarget = this.minorModulationTarget;
                 }
-                var modHarmony = new ConstantHarmonyElement();
+                const modHarmony = new ConstantHarmonyElement();
                 modHarmony.setScaleType(DynamicHarmonyModulationTarget.getScaleType(this.scaleType, modulationTarget, this.modulateInvertScaleType));
-                var modScaleBaseNote = rootHarmony.getAbsoluteNoteFromScaleIndex(modulationTarget + 1);
+                const modScaleBaseNote = rootHarmony.getAbsoluteNoteFromScaleIndex(modulationTarget + 1);
                 modHarmony.setBaseNote(modScaleBaseNote);
 
                 // logit(" modScaleBase: " + modScaleBaseNote + "<br />");
                 for (var i=0; i<endRoots.length; i++) {
-                    var modState = new DynamicHarmonyState();
+                    const modState = new DynamicHarmonyState();
                     modState.harmony = copyObjectDeep(modHarmony).setChordRoot(endRoots[i]);
                     modState.harmony.note = "d, m";
                     modState.mode = DynamicHarmonyMode.ROOT_MODULATION;
@@ -681,7 +681,7 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
     }
 
     isGoalState(state) {
-        var isMinor = state.harmony.scaleType == ScaleType.NATURAL_MINOR;
+        const isMinor = state.harmony.scaleType == ScaleType.NATURAL_MINOR;
 
 
 
@@ -759,16 +759,16 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
         costs
     ) {
 
-        var isMinor = scaleType == ScaleType.NATURAL_MINOR;
+        const isMinor = scaleType == ScaleType.NATURAL_MINOR;
 
-        var appliedChordTypes = isMinor ? this.minorAppliedChords : this.majorAppliedChords;
-        var appliedChordLikelihoods = isMinor ? this.minorAppliedChordLikelihoods : this.majorAppliedChordLikelihoods;
-        var appliedChordCosts = isMinor ? this.minorAppliedChordCosts : this.majorAppliedChordCosts;
+        const appliedChordTypes = isMinor ? this.minorAppliedChords : this.majorAppliedChords;
+        const appliedChordLikelihoods = isMinor ? this.minorAppliedChordLikelihoods : this.majorAppliedChordLikelihoods;
+        const appliedChordCosts = isMinor ? this.minorAppliedChordCosts : this.majorAppliedChordCosts;
 
-        var chordInfos = [];
+        const chordInfos = [];
 
         for (var i=0; i<appliedChordTypes.length; i++) {
-            var type = appliedChordTypes[i];
+            const type = appliedChordTypes[i];
             switch (type) {
                 case AppliedChordType.V:
                     chordInfos.push({
@@ -831,9 +831,9 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
         }
 
         for (var i=0; i<chordInfos.length; i++) {
-            var info = chordInfos[i];
-            var modulateState = copyObjectDeep(node.state);
-            var modulateHarmony = modulateState.harmony;
+            const info = chordInfos[i];
+            const modulateState = copyObjectDeep(node.state);
+            const modulateHarmony = modulateState.harmony;
             modulateHarmony.setBaseNote(scaleBaseNote);
             modulateHarmony.setChordRoot(info.root);
             modulateHarmony.setChordType(info.type);
@@ -844,9 +844,9 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
             modulateState.harmony.note = "D, M";
             modulateState.mode = DynamicHarmonyMode.ROOT_MODULATION;
 
-            var newChordRootPitchClass = modulateHarmony.getAbsoluteNoteFromChordRootIndex(0) % 12;
+            const newChordRootPitchClass = modulateHarmony.getAbsoluteNoteFromChordRootIndex(0) % 12;
 
-            var pitchClassIndex = possiblePitchClasses.indexOf(newChordRootPitchClass);
+            const pitchClassIndex = possiblePitchClasses.indexOf(newChordRootPitchClass);
 
     //        logit("  checking applied for root pc: "  + newChordRootPitchClass);
             if (pitchClassIndex >= 0) {
@@ -885,7 +885,7 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
             inversions = 0;
         }
 
-        var movementState = state.copy();
+        const movementState = state.copy();
         movementState.harmony.setChordRoot(positiveMod(chordRoot, scale.length));
 
         possiblePitchClasses.push(movementState.harmony.getAbsoluteNoteFromChordRootIndex(0) % 12);
@@ -902,9 +902,9 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
 
     getNeighbourStatesAndLikelihoods(node, nextStates, nextLikelihoods, nextCosts) {
 
-        var targetHarmony = node.state.targetHarmony;
+        const targetHarmony = node.state.targetHarmony;
 
-        var returnState = node.state.copy();
+        const returnState = node.state.copy();
         returnState.harmony = copyObjectDeep(targetHarmony);
         returnState.mode = node.state.mode == DynamicHarmonyMode.NEIGHBOUR ? DynamicHarmonyMode.ROOT : DynamicHarmonyMode.ROOT_MODULATION;
 
@@ -916,13 +916,13 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
     }
 
     getMixtureStatesAndLikelihoods(node, nextStates, nextLikelihoods, nextCosts) {
-        var harmony = node.state.harmony;
+        const harmony = node.state.harmony;
 
-        var isMinor = harmony.scaleType == ScaleType.MAJOR ? false : true;
+        const isMinor = harmony.scaleType == ScaleType.MAJOR ? false : true;
 
-        var chords = [];
-        var likelihoods = [];
-        var costs = [];
+        const chords = [];
+        const likelihoods = [];
+        const costs = [];
         if (isMinor) {
             // Current harmony is minor because it is mixture, we will move to major
             this.getMajorOutOfSimpleMixtureChords(harmony, chords, likelihoods, costs);
@@ -930,8 +930,8 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
             this.getMinorOutOfSimpleMixtureChords(harmony, chords, likelihoods, costs);
         }
 
-        for (var i=0; i<chords.length; i++) {
-            var mixtureState = node.state.copy();
+        for (let i=0; i<chords.length; i++) {
+            const mixtureState = node.state.copy();
             mixtureState.harmony = chords[i];
             mixtureState.mode = node.state.mode == DynamicHarmonyMode.ROOT_MIXTURE ? DynamicHarmonyMode.ROOT : DynamicHarmonyMode.ROOT_MODULATION;
             mixtureState.harmony.note = "D" + (mixtureState.mode == DynamicHarmonyMode.ROOT ? "" : ", M");
@@ -945,24 +945,24 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
 
     getRootStatesAndLikelihoods(node, nextStates, nextLikelihoods, nextCosts) {
         var state = node.state;
-        var mode = state.mode;
-        var atAnyRoot = (mode == DynamicHarmonyMode.ROOT || mode == DynamicHarmonyMode.ROOT_MODULATION);
-        var atRoot = mode == DynamicHarmonyMode.ROOT;
-        var atModulationRoot = mode == DynamicHarmonyMode.ROOT_MODULATION;
+        const mode = state.mode;
+        const atAnyRoot = (mode == DynamicHarmonyMode.ROOT || mode == DynamicHarmonyMode.ROOT_MODULATION);
+        const atRoot = mode == DynamicHarmonyMode.ROOT;
+        const atModulationRoot = mode == DynamicHarmonyMode.ROOT_MODULATION;
         if (atAnyRoot && this.repeatRootLikelihood > 0) {
             nextStates.push(node.state.copy());
             nextLikelihoods.push(this.repeatRootLikelihood);
             nextCosts.push(this.repeatRootCost);
         }
-        var currentHarmony = node.state.harmony;
-        var isMinor = currentHarmony.scaleType == ScaleType.NATURAL_MINOR;
-        var scale = currentHarmony.getScale();
+        const currentHarmony = node.state.harmony;
+        const isMinor = currentHarmony.scaleType == ScaleType.NATURAL_MINOR;
+        const scale = currentHarmony.getScale();
 
-        var possiblePitchClasses = []; // Is this even used?
+        const possiblePitchClasses = []; // Is this even used?
 
 
         if (this.expansionLikelihood > 0 && currentHarmony.chordInversions == 0) {
-            var expandState = node.state.copy();
+            const expandState = node.state.copy();
             expandState.harmony.chordInversions = 1;
             expandState.harmony.note = "D, " + (atRoot ? "E" : "ME");
             nextStates.push(expandState);
@@ -973,72 +973,72 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
         if (atAnyRoot &&
             this.rootProgressionLikelihood > 0) {
 
-            var rootLikelihoods = [];
-            var rootCosts = [];
-            var rootStates = [];
+            const rootLikelihoods = [];
+            const rootCosts = [];
+            const rootStates = [];
 
             var currentChordRoot = currentHarmony.getChordRootScaleIndex();
 
-            var rootsArr = isMinor ? this.minorProgressionRoots : this.majorProgressionRoots;
-            var movementsArr = isMinor ? this.minorProgressionMovements : this.majorProgressionMovements;
+            let rootsArr = isMinor ? this.minorProgressionRoots : this.majorProgressionRoots;
+            let movementsArr = isMinor ? this.minorProgressionMovements : this.majorProgressionMovements;
             if (movementsArr.length == 0) {
                 movementsArr = [[-4, -2, 1]];
             }
             if (rootsArr.length == 0) {
                 rootsArr = isMinor ? [[0, 2, 3, 4, 5, 6]] : [[0, 1, 2, 3, 4, 5]];
             }
-            var movements = movementsArr[node.depth % movementsArr.length];
-            var roots = rootsArr[node.depth % rootsArr.length];
+            const movements = movementsArr[node.depth % movementsArr.length];
+            const roots = rootsArr[node.depth % rootsArr.length];
 
-            var movementLikelihoods = isMinor ? this.minorProgressionMovementLikelihoods : this.majorProgressionMovementLikelihoods;
+            let movementLikelihoods = isMinor ? this.minorProgressionMovementLikelihoods : this.majorProgressionMovementLikelihoods;
             if (movementLikelihoods.length == 0) {
                 movementLikelihoods = [[1]];
             }
-            var movementCosts = isMinor ? this.minorProgressionMovementCosts : this.majorProgressionMovementCosts;
+            let movementCosts = isMinor ? this.minorProgressionMovementCosts : this.majorProgressionMovementCosts;
             if (movementCosts.length == 0) {
                 movementCosts = [[1]];
             }
 
-            var seventhLikelihoodArr = isMinor ? this.minorScaleSeventhLikelihoods : this.majorScaleSeventhLikelihoods;
-            var triadLikelihoodArr = isMinor ? this.minorScaleTriadLikelihoods: this.majorScaleTriadLikelihoods;
-            var sus2LikelihoodArr = isMinor ? this.minorScaleSus2Likelihoods: this.majorScaleSus2Likelihoods;
-            var sus4LikelihoodArr = isMinor ? this.minorScaleSus4Likelihoods: this.majorScaleSus4Likelihoods;
+            const seventhLikelihoodArr = isMinor ? this.minorScaleSeventhLikelihoods : this.majorScaleSeventhLikelihoods;
+            const triadLikelihoodArr = isMinor ? this.minorScaleTriadLikelihoods: this.majorScaleTriadLikelihoods;
+            const sus2LikelihoodArr = isMinor ? this.minorScaleSus2Likelihoods: this.majorScaleSus2Likelihoods;
+            const sus4LikelihoodArr = isMinor ? this.minorScaleSus4Likelihoods: this.majorScaleSus4Likelihoods;
 
-            var seventhCostArr = isMinor ? this.minorScaleSeventhCosts : this.majorScaleSeventhCosts;
-            var triadCostArr = isMinor ? this.minorScaleTriadCosts: this.majorScaleTriadCosts;
-            var sus2CostArr = isMinor ? this.minorScaleSus2Costs: this.majorScaleSus2Costs;
-            var sus4CostArr = isMinor ? this.minorScaleSus4Costs: this.majorScaleSus4Costs;
+            const seventhCostArr = isMinor ? this.minorScaleSeventhCosts : this.majorScaleSeventhCosts;
+            const triadCostArr = isMinor ? this.minorScaleTriadCosts: this.majorScaleTriadCosts;
+            const sus2CostArr = isMinor ? this.minorScaleSus2Costs: this.majorScaleSus2Costs;
+            const sus4CostArr = isMinor ? this.minorScaleSus4Costs: this.majorScaleSus4Costs;
 
-            var seventhLikelihoods = [0, 0, 0, 0, 0, 0, 0];
+            let seventhLikelihoods = [0, 0, 0, 0, 0, 0, 0];
             if (seventhLikelihoodArr.length > 0) {
                 seventhLikelihoods = seventhLikelihoodArr[node.depth % seventhLikelihoodArr.length];
             }
-            var triadLikelihoods = [1, 1, 1, 1, 1, 1, 1];
+            let triadLikelihoods = [1, 1, 1, 1, 1, 1, 1];
             if (triadLikelihoodArr.length > 0) {
                 triadLikelihoods = triadLikelihoodArr[node.depth % triadLikelihoodArr.length];
             }
-            var sus2Likelihoods = [1, 1, 1, 1, 1, 1, 1];
+            let sus2Likelihoods = [1, 1, 1, 1, 1, 1, 1];
             if (sus2LikelihoodArr.length > 0) {
                 sus2Likelihoods = sus2LikelihoodArr[node.depth % sus2LikelihoodArr.length];
             }
-            var sus4Likelihoods = [1, 1, 1, 1, 1, 1, 1];
+            let sus4Likelihoods = [1, 1, 1, 1, 1, 1, 1];
             if (sus4LikelihoodArr.length > 0) {
                 sus4Likelihoods = sus4LikelihoodArr[node.depth % sus4LikelihoodArr.length];
             }
 
-            var seventhCosts = [0, 0, 0, 0, 0, 0, 0];
+            let seventhCosts = [0, 0, 0, 0, 0, 0, 0];
             if (seventhCostArr.length > 0) {
                 seventhCosts = seventhCostArr[node.depth % seventhCostArr.length];
             }
-            var triadCosts = [0, 0, 0, 0, 0, 0, 0];
+            let triadCosts = [0, 0, 0, 0, 0, 0, 0];
             if (triadCostArr.length > 0) {
                 triadCosts = triadCostArr[node.depth % triadCostArr.length];
             }
-            var sus2Costs = [0, 0, 0, 0, 0, 0, 0];
+            let sus2Costs = [0, 0, 0, 0, 0, 0, 0];
             if (sus2CostArr.length > 0) {
                 sus2Costs = sus2CostArr[node.depth % sus2CostArr.length];
             }
-            var sus4Costs = [0, 0, 0, 0, 0, 0, 0];
+            let sus4Costs = [0, 0, 0, 0, 0, 0, 0];
             if (sus4CostArr.length > 0) {
                 sus4Costs = sus4CostArr[node.depth % sus4CostArr.length];
             }
@@ -1048,34 +1048,34 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
                 var newRoot = currentChordRoot + movements[i];
                 var newRootMod = positiveMod(newRoot, 7);
                 if (arrayContains(roots, newRootMod)) {
-                    var liks = movementLikelihoods[node.depth % movementLikelihoods.length];
+                    const liks = movementLikelihoods[node.depth % movementLikelihoods.length];
                     var costs = movementCosts[node.depth % movementCosts.length];
 
-                    var lik = liks[i % liks.length];
-                    var cost = costs[i % costs.length];
+                    const lik = liks[i % liks.length];
+                    const cost = costs[i % costs.length];
 
-                    var seventhLikelihood = seventhLikelihoods[newRootMod % seventhLikelihoods.length];
-                    var triadLikelihood = triadLikelihoods[newRootMod % triadLikelihoods.length];
-                    var sus2Likelihood = sus2Likelihoods[newRootMod % sus2Likelihoods.length];
-                    var sus4Likelihood = sus4Likelihoods[newRootMod % sus4Likelihoods.length];
+                    const seventhLikelihood = seventhLikelihoods[newRootMod % seventhLikelihoods.length];
+                    const triadLikelihood = triadLikelihoods[newRootMod % triadLikelihoods.length];
+                    const sus2Likelihood = sus2Likelihoods[newRootMod % sus2Likelihoods.length];
+                    const sus4Likelihood = sus4Likelihoods[newRootMod % sus4Likelihoods.length];
 
                     if (seventhLikelihood > 0) {
-                        var seventhCost = seventhCosts[newRootMod % seventhCosts.length];
+                        const seventhCost = seventhCosts[newRootMod % seventhCosts.length];
                         this.addChordState(node.state, currentChordRoot + movements[i], lik * seventhLikelihood, cost + seventhCost,
                             scale, rootStates, rootLikelihoods, rootCosts, possiblePitchClasses, ChordType.SEVENTH, 0, atRoot ? "D" : "D, M");
                     }
                     if (triadLikelihood > 0) {
-                        var triadCost = triadCosts[newRootMod % triadCosts.length];
+                        const triadCost = triadCosts[newRootMod % triadCosts.length];
                         this.addChordState(node.state, currentChordRoot + movements[i], lik * triadLikelihood, cost + triadCost,
                             scale, rootStates, rootLikelihoods, rootCosts, possiblePitchClasses, ChordType.TRIAD, 0, atRoot ? "D" : "D, M");
                     }
                     if (this.useSus2 && sus2Likelihood > 0) {
-                        var sus2Cost = sus2Costs[newRootMod % sus2Costs.length];
+                        const sus2Cost = sus2Costs[newRootMod % sus2Costs.length];
                         this.addChordState(node.state, currentChordRoot + movements[i], lik * sus2Likelihood, cost + sus2Cost,
                             scale, rootStates, rootLikelihoods, rootCosts, possiblePitchClasses, ChordType.SUS2, 0, atRoot ? "D" : "D, M");
                     }
                     if (this.useSus4 && sus4Likelihood > 0) {
-                        var sus4Cost = sus4Costs[newRootMod % sus4Costs.length];
+                        const sus4Cost = sus4Costs[newRootMod % sus4Costs.length];
                         this.addChordState(node.state, currentChordRoot + movements[i], lik * sus4Likelihood, cost + sus4Cost,
                             scale, rootStates, rootLikelihoods, rootCosts, possiblePitchClasses, ChordType.SUS4, 0, atRoot ? "D" : "D, M");
                     }
@@ -1087,8 +1087,8 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
 
             if (this.addAllMovements) {
                 // For increasing the probability of success, we add all movements
-                var allMovements = [0, 1, 2, 3, 4, 5, 6];
-                var allModes = [node.state.mode];
+                const allMovements = [0, 1, 2, 3, 4, 5, 6];
+                const allModes = [node.state.mode];
                 if (this.modulate && node.state.mode != DynamicHarmonyMode.ROOT_MODULATION) {
                     allModes.push(DynamicHarmonyMode.ROOT_MODULATION);
                 }
@@ -1096,9 +1096,9 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
                 //                arrayDelete(allMovements, movements[i]);
                 //                arrayDelete(allMovements, movements[i] - 7);
                 //            }
-                var oldMode = node.state.mode;
+                const oldMode = node.state.mode;
                 for (var i=0; i<allMovements.length; i++) {
-                    for (var j=0; j<allModes.length; j++) {
+                    for (let j=0; j<allModes.length; j++) {
                         var state = node.state.copy();
                         state.mode = allModes[j];
                         if (state.mode == DynamicHarmonyMode.ROOT_MODULATION) {
@@ -1107,7 +1107,7 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
                                 modulationTarget = this.minorModulationTarget;
                             }
                             if (oldMode != DynamicHarmonyMode.ROOT_MODULATION) {
-                                var modScaleBaseNote = state.harmony.getAbsoluteNoteFromScaleIndex(modulationTarget + 1);
+                                const modScaleBaseNote = state.harmony.getAbsoluteNoteFromScaleIndex(modulationTarget + 1);
                                 state.harmony.setBaseNote(modScaleBaseNote);
                                 state.harmony.note = "d, m";
                                 // logit(" modScaleBase: " + modScaleBaseNote + " target: " + (modulationTarget+1) + "<br />");
@@ -1133,21 +1133,21 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
             }
         }
 
-        var modulateLikelihood = this.modulateLikelihoods[node.depth % this.modulateLikelihoods.length];
-        var modulateCost = this.modulateCosts[node.depth % this.modulateCosts.length];
+        const modulateLikelihood = this.modulateLikelihoods[node.depth % this.modulateLikelihoods.length];
+        const modulateCost = this.modulateCosts[node.depth % this.modulateCosts.length];
 
         if (atRoot && this.modulate && modulateLikelihood > 0) {
-            var appliedStates = [];
-            var appliedLikelihoods = [];
-            var appliedCosts = [];
+            const appliedStates = [];
+            const appliedLikelihoods = [];
+            const appliedCosts = [];
 
-            var intoAppliedMovements = this.intoAppliedProgressionMovements[node.depth % this.intoAppliedProgressionMovements.length];
-            var intoAppliedLikelihoods = this.intoAppliedProgressionMovementLikelihoods[node.depth % this.intoAppliedProgressionMovementLikelihoods.length];
-            var intoAppliedCosts = this.intoAppliedProgressionMovementCosts[node.depth % this.intoAppliedProgressionMovementCosts.length];
+            const intoAppliedMovements = this.intoAppliedProgressionMovements[node.depth % this.intoAppliedProgressionMovements.length];
+            const intoAppliedLikelihoods = this.intoAppliedProgressionMovementLikelihoods[node.depth % this.intoAppliedProgressionMovementLikelihoods.length];
+            const intoAppliedCosts = this.intoAppliedProgressionMovementCosts[node.depth % this.intoAppliedProgressionMovementCosts.length];
 
             var currentChordRoot = currentHarmony.getChordRootScaleIndex();
 
-            var appliedPitchClasses = [];
+            const appliedPitchClasses = [];
 
             for (var i=0; i<intoAppliedMovements.length; i++) {
                 var newRoot = currentChordRoot + intoAppliedMovements[i];
@@ -1155,7 +1155,7 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
                 appliedPitchClasses.push(currentHarmony.getAbsoluteNoteFromScaleIndex(newRootMod) % 12);
             }
 
-            var currentPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(currentChordRoot) % 12;
+            const currentPitchClass = currentHarmony.getAbsoluteNoteFromScaleIndex(currentChordRoot) % 12;
 
     //        logit("current pc: " + currentPitchClass + " applied pc: " + appliedPitchClasses + " ");
 
@@ -1164,9 +1164,9 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
                 modulationTarget = this.minorModulationTarget;
             }
 
-            var offset = scale[modulationTarget + 1];
+            const offset = scale[modulationTarget + 1];
 
-            var scaleType = DynamicHarmonyModulationTarget.getScaleType(node.state.harmony.scaleType, modulationTarget, this.modulateInvertScaleType);
+            const scaleType = DynamicHarmonyModulationTarget.getScaleType(node.state.harmony.scaleType, modulationTarget, this.modulateInvertScaleType);
 
             this.getAppliedChordsAndLikelihoods(node, appliedPitchClasses, intoAppliedLikelihoods, intoAppliedCosts,
                 currentHarmony.baseNote + offset, scaleType,
@@ -1191,23 +1191,23 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
 
 
         if (this.neighbourLikelihood > 0 && currentHarmony.chordInversions == 0) {
-            var likelihoods = [];
+            const likelihoods = [];
             var costs = [];
-            var harmonies = [];
+            const harmonies = [];
 
             var depth = node.depth;
 
-            var neighbourChordRoots = isMinor ? this.minorNeighbourChordRoots : this.majorNeighbourChordRoots;
-            var neighbourChordInversions = isMinor ? this.minorNeighbourChordInversions : this.majorNeighbourChordInversions;
-            var neighbourSusChordRoots = isMinor ? this.minorNeighbourSusChordRoots : this.majorNeighbourSusChordRoots;
-            var neighbourMixtureChordRoots = isMinor ? this.minorNeighbourMixtureChordRoots : this.majorNeighbourMixtureChordRoots;
+            const neighbourChordRoots = isMinor ? this.minorNeighbourChordRoots : this.majorNeighbourChordRoots;
+            const neighbourChordInversions = isMinor ? this.minorNeighbourChordInversions : this.majorNeighbourChordInversions;
+            const neighbourSusChordRoots = isMinor ? this.minorNeighbourSusChordRoots : this.majorNeighbourSusChordRoots;
+            let neighbourMixtureChordRoots = isMinor ? this.minorNeighbourMixtureChordRoots : this.majorNeighbourMixtureChordRoots;
 
             if (!this.mixture) {
                 neighbourMixtureChordRoots = [];
             }
 
     //        logit(neighbourSusChordRoots);
-            var neighbourChords = this.getBassNeighbourChords(currentHarmony, neighbourChordRoots, neighbourChordInversions, neighbourSusChordRoots, neighbourMixtureChordRoots);
+            const neighbourChords = this.getBassNeighbourChords(currentHarmony, neighbourChordRoots, neighbourChordInversions, neighbourSusChordRoots, neighbourMixtureChordRoots);
 
             for (var i=0; i<neighbourChords.length; i++) {
                 harmonies.push(neighbourChords[i]);
@@ -1216,16 +1216,16 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
             }
 
             for (var i=0; i<harmonies.length; i++) {
-                var neighbourSeventhLikelihoods = this.neighbourSeventhLikelihoods;
-                var neighbourTriadLikelihoods = this.neighbourTriadLikelihoods;
-                var neighbourSeventhCosts = this.neighbourSeventhCosts;
-                var neighbourTriadCosts = this.neighbourTriadCosts;
+                let neighbourSeventhLikelihoods = this.neighbourSeventhLikelihoods;
+                let neighbourTriadLikelihoods = this.neighbourTriadLikelihoods;
+                let neighbourSeventhCosts = this.neighbourSeventhCosts;
+                let neighbourTriadCosts = this.neighbourTriadCosts;
 
                 var state = new DynamicHarmonyState();
                 state.harmony = harmonies[i];
                 state.harmony.note = "D, N" + (atRoot ? "" : "M");
 
-                var likelihood = this.neighbourLikelihood;
+                let likelihood = this.neighbourLikelihood;
                 if (currentHarmony.scaleType != state.harmony.scaleType) {
     //                logit(" Adding neighrour mixture!!");
                     state.harmony.note += "X";
@@ -1248,9 +1248,9 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
 
         if (atAnyRoot && this.mixture) {
             var depth = node.depth;
-            var mixtureChords = [];
-            var mixtureChordLikelihoods = [];
-            var mixtureChordCosts = [];
+            const mixtureChords = [];
+            const mixtureChordLikelihoods = [];
+            const mixtureChordCosts = [];
             if (isMinor) {
                 this.getMinorSimpleMixtureChords(currentHarmony, this.minorMixtureChordTypes, this.minorMixtureChordTypeLikelihoods, this.minorMixtureChordTypeCosts,
                     mixtureChords, mixtureChordLikelihoods, mixtureChordCosts);
@@ -1292,13 +1292,13 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
     }
 
     getSuccessorIterator(node) {
-        var state = node.state;
+        const state = node.state;
 
-        var possibleNextStates = [];
-        var possibleNextStateLikelihoods = [];
-        var possibleNextStateCosts = [];
+        const possibleNextStates = [];
+        const possibleNextStateLikelihoods = [];
+        const possibleNextStateCosts = [];
 
-        var chordsLeft = this.count - node.depth - 2;
+        const chordsLeft = this.count - node.depth - 2;
 
 
         switch (state.mode) {

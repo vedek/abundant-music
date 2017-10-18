@@ -1,6 +1,6 @@
 
 
-var VoiceLineSemantics = {
+const VoiceLineSemantics = {
     MELODY: 0,
     INNER: 1,
     BASS: 2,
@@ -9,7 +9,7 @@ var VoiceLineSemantics = {
 
 
 // Chord types
-var ChordType = {
+const ChordType = {
     TRIAD: 0,
     SEVENTH: 1,
     SUS2: 2,
@@ -45,7 +45,7 @@ addPossibleValuesFunction(ChordType, ChordType.TRIAD, ChordType.CUSTOM);
 
 
 
-var SimpleScaleType = {
+const SimpleScaleType = {
     MAJOR: 1,
     NATURAL_MINOR: 2,
 
@@ -63,7 +63,7 @@ addPossibleValuesFunction(SimpleScaleType, SimpleScaleType.MAJOR, SimpleScaleTyp
 
 
 
-var ScaleType = {
+const ScaleType = {
     CUSTOM: 0,
     MAJOR: 1,
     NATURAL_MINOR: 2,
@@ -129,7 +129,7 @@ addPossibleValuesFunction(ScaleType, ScaleType.CUSTOM, ScaleType.WHOLE_NOTE);
 
 
 
-var IndexType = {
+const IndexType = {
     MIDI_NOTE: 0,
     SCALE: 1,
     CHORD_BASS: 2,
@@ -154,7 +154,7 @@ addPossibleValuesFunction(IndexType, IndexType.MIDI_NOTE, IndexType.CHORD_ROOT);
 
 
 // Snap types
-var SnapType = {
+const SnapType = {
     NONE: 0,
     SCALE: 1,
     CHORD: 2,
@@ -173,7 +173,7 @@ var SnapType = {
 };
 addPossibleValuesFunction(SnapType, SnapType.NONE, SnapType.CHORD);
 
-var FrequencyUnit = {
+const FrequencyUnit = {
     HERTZ: 0,
     MIDI_NOTE: 1,
 
@@ -190,14 +190,14 @@ var FrequencyUnit = {
 addPossibleValuesFunction(FrequencyUnit, FrequencyUnit.HERTZ, FrequencyUnit.MIDI_NOTE);
 
 
-var CyclesUnit = {
+const CyclesUnit = {
     CYCLES_PER_PERIOD: 0,
     CYCLES_PER_BEAT: 1,
     CYCLES_PER_MEASURE: 2,
     CYCLES_PER_HARMONY: 3,
 
     getFrequency: function(unit, cycles, periodStartBeat, periodEndBeat, harmony) {
-        var periodBeats = periodEndBeat - periodStartBeat;
+        const periodBeats = periodEndBeat - periodStartBeat;
         if (periodBeats > 0) {
             switch (unit) {
                 case CyclesUnit.CYCLES_PER_PERIOD:
@@ -208,7 +208,7 @@ var CyclesUnit = {
                     // positionUnitToBeats(length, unit, numerator, denominator, harmony);
                     return cycles;
                 case CyclesUnit.CYCLES_PER_HARMONY:
-                    var harmonyBeats = harmony.getBeatLength();
+                    const harmonyBeats = harmony.getBeatLength();
                     return periodBeats / harmonyBeats;
             }
         }
@@ -236,14 +236,14 @@ function frequencyUnitToHertz(freq, unit) {
         case FrequencyUnit.HERTZ:
             return freq;
         case FrequencyUnit.MIDI_NOTE:
-            var n = freq - 69; // A4;
+            const n = freq - 69; // A4;
             return 440.0 * Math.pow(2.0, n / 12.0);
     }
     return freq;
 }
 
 
-var SnapMetrics = {
+const SnapMetrics = {
     FLOOR: 0,
     CEIL: 1,
     ROUND: 2,
@@ -273,7 +273,7 @@ var SnapMetrics = {
 addPossibleValuesFunction(SnapMetrics, SnapMetrics.FLOOR, SnapMetrics.ROUND);
 
 
-var VerticalRelativeType = {
+const VerticalRelativeType = {
     //
     MIDI_ZERO: 0, //
     SCALE_BASE: 1, //
@@ -310,7 +310,7 @@ addPossibleValuesFunction(VerticalRelativeType, VerticalRelativeType.MIDI_ZERO, 
 
 
 
-var IndexBorderMode = {
+const IndexBorderMode = {
     END: 0,
     RESTART: 1,
     MIRROR: 2,
@@ -341,8 +341,8 @@ var IndexBorderMode = {
             case IndexBorderMode.RESTART:
                 return index % size;
             case IndexBorderMode.MIRROR:
-                var period = size * 2;
-                var periodIndex = index % period;
+                const period = size * 2;
+                const periodIndex = index % period;
                 if (periodIndex < size) {
                     return periodIndex;
                 } else {
@@ -357,7 +357,7 @@ addPossibleValuesFunction(IndexBorderMode, IndexBorderMode.END, IndexBorderMode.
 
 
 
-var HorizontalRelativeType = {
+const HorizontalRelativeType = {
     PREVIOUS_NOTE: 0, //
     NEXT_NOTE: 1, //
     PREVIOUS_VOICE_LINE_ELEMENT: 2, //
@@ -380,7 +380,7 @@ var HorizontalRelativeType = {
 addPossibleValuesFunction(HorizontalRelativeType, HorizontalRelativeType.PREVIOUS_NOTE, VerticalRelativeType.NEXT_VOICE_LINE_ELEMENT);
 
 
-var OffsetType = {
+const OffsetType = {
     CHORD: 0,
     SCALE: 1,
     HALF_STEP: 2,
@@ -410,7 +410,7 @@ var OffsetType = {
 addPossibleValuesFunction(OffsetType, OffsetType.CHORD, OffsetType.CHORD_SEVENTH_ONLY);
 
 
-var LengthAndCountUnit = {
+const LengthAndCountUnit = {
     LENGTH_PERCENT: 0,
     COUNT_PERCENT: 1,
     LENGTH: 2,
@@ -434,7 +434,7 @@ var LengthAndCountUnit = {
 addPossibleValuesFunction(LengthAndCountUnit, LengthAndCountUnit.LENGTH_PERCENT, LengthAndCountUnit.COUNT);
 
 
-var CountUnit = {
+const CountUnit = {
     PLAIN: 0,
     HARMONY_ELEMENT_MEASURES: 1,
     HARMONY_ELEMENT_BEATS: 2,
@@ -510,7 +510,7 @@ var CountUnit = {
                 return measures * count;
 
             case CountUnit.PHRASE_ELEMENT_COUNT:
-                var range = harmony.getPhraseRangeAt(harmonyBeatOffset);
+                const range = harmony.getPhraseRangeAt(harmonyBeatOffset);
                 return count * (range[1] - range[0] + 1);
             case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_COUNT:
                 return harmony.getCount() + count;
@@ -545,7 +545,7 @@ var CountUnit = {
 addPossibleValuesFunction(CountUnit, CountUnit.PLAIN, CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_COUNT);
 
 
-var PositionUnit = {
+const PositionUnit = {
     MEASURES: 0,
     BEATS: 1,
     WHOLE_NOTES: 2,
@@ -621,12 +621,12 @@ addPossibleValuesFunction(PositionUnit, PositionUnit.MEASURES, PositionUnit.PHRA
 
 
 function positionUnitToBeats2(length, unit, harmonyBeatOffset, harmony) {
-    var harmonyIndex = harmony.getHarmonyIndexAt(harmonyBeatOffset);
+    const harmonyIndex = harmony.getHarmonyIndexAt(harmonyBeatOffset);
 
-    var harmonyElement = harmony.get(harmonyIndex);
+    const harmonyElement = harmony.get(harmonyIndex);
 
     // Find the phrase index range
-    var phraseStartIndex = 0;
+    let phraseStartIndex = 0;
     for (var i=harmonyIndex; i>=0; i--) {
         var he = harmony.get(i);
         if (he.startsPhrase) {
@@ -634,7 +634,7 @@ function positionUnitToBeats2(length, unit, harmonyBeatOffset, harmony) {
             break;
         }
     }
-    var phraseEndIndex = harmony.getCount();
+    let phraseEndIndex = harmony.getCount();
     for (var i=harmonyIndex; i<harmony.getCount(); i++) {
         var he = harmony.get(i);
         if (he.startsPhrase) {
@@ -649,7 +649,7 @@ function positionUnitToBeats2(length, unit, harmonyBeatOffset, harmony) {
 
 
 function positionUnitToBeats(length, unit, numerator, denominator, harmony, harmonyElement, phraseIndexRange) {
-    var multiplier = 1.0;
+    let multiplier = 1.0;
     switch (denominator) {
         case 2:
             multiplier = 0.5;
@@ -719,19 +719,19 @@ function positionUnitToBeats(length, unit, numerator, denominator, harmony, harm
             }
         case PositionUnit.HARMONY_INDEX:
             if (harmony) {
-                var intLength = Math.floor(length);
+                const intLength = Math.floor(length);
 
-                var frac = length - intLength;
-                var currentBeat = 0;
-                var lastExisting = null;
+                const frac = length - intLength;
+                let currentBeat = 0;
+                let lastExisting = null;
                 for (var i = 0; i<intLength; i++) {
-                    var he = harmony.get(i);
+                    const he = harmony.get(i);
                     if (he) {
                         currentBeat += positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
                         lastExisting = he;
                     }
                 }
-                var last = harmony.get(intLength);
+                let last = harmony.get(intLength);
                 if (!last) {
                     last = lastExisting;
                 }
@@ -746,7 +746,7 @@ function positionUnitToBeats(length, unit, numerator, denominator, harmony, harm
         case PositionUnit.PHRASE:
             if (harmony) {
                 if (phraseIndexRange) {
-                    var phraseBeatLength = 0;
+                    let phraseBeatLength = 0;
                     for (var i=phraseIndexRange[0]; i<=phraseIndexRange[1]; i++) {
                         if (i >= 0 && i < harmony.getCount()) {
                             phraseBeatLength += harmony.get(i).getBeatLength();
@@ -766,7 +766,7 @@ function positionUnitToBeats(length, unit, numerator, denominator, harmony, harm
 }
 
 
-var PhraseHarmonyElementType = {
+const PhraseHarmonyElementType = {
     COMPLETE: 0,
     COMPLETE_IMPERFECT: 1,
     INCOMPLETE: 2,

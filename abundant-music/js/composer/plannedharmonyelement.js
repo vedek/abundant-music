@@ -4,8 +4,8 @@
 
 // Options for the planner
 PlannedHarmonyElement.prototype.fillOptions = function(options, module) {
-    var lengths = this.getBeatLengths(module);
-    var count = lengths.length;
+    const lengths = this.getBeatLengths(module);
+    const count = lengths.length;
 
     // All stuff that can be expressions comes here...
     options.scaleBaseNote = getValueOrExpressionValue(this, "scaleBaseNote", module);
@@ -37,11 +37,11 @@ StaticSequenceHarmonyElement.prototype.getConstantHarmonyElements = function(mod
         showStacktraceDialog(null, "static sequence harmony");
     }
 
-    var options = {};
+    const options = {};
     this.fillOptions(options, module);
 
-    var generator = new StaticHarmonyGenerator(options);
-    var solution = generator.searchML();
+    const generator = new StaticHarmonyGenerator(options);
+    const solution = generator.searchML();
 
     this.setLengthsAndPhraseStructure(solution, module);
 
@@ -54,9 +54,9 @@ DynamicSequenceHarmonyElement.prototype.fillOptions = function(options, module) 
     PlannedHarmonyElement.prototype.fillOptions.call(this, options, module);
 
     options.modulateLikelihoods = [1];
-    for (var i=0; i<options.count; i++) {
+    for (let i=0; i<options.count; i++) {
         options.modulateLikelihoods[i] = getItemFromArrayWithStartEndItems(1, this.modulateLikelihoods, options.count, i, this.startModulateLikelihoods, this.endModulateLikelihoods);
-        var progressionCount = options.count > 1 ? options.count - 1 : 1;
+        const progressionCount = options.count > 1 ? options.count - 1 : 1;
         options.majorProgressionMovements[i] = getItemFromArrayWithStartEndItems([-4, -2, 1], this.majorProgressionMovements, progressionCount, i, this.startMajorProgressionMovements, this.endMajorProgressionMovements);
         options.minorProgressionMovements[i] = getItemFromArrayWithStartEndItems([-4, -2, 1], this.minorProgressionMovements, progressionCount, i, this.startMinorProgressionMovements, this.endMinorProgressionMovements);
     }
@@ -72,11 +72,11 @@ DynamicSequenceHarmonyElement.prototype.getConstantHarmonyElements = function(mo
         showStacktraceDialog(null, "static sequence harmony");
     }
 
-    var options = {};
+    const options = {};
     this.fillOptions(options, module);
 
-    var generator = new DynamicHarmonyGenerator(options);
-    var solution = generator.searchML();
+    const generator = new DynamicHarmonyGenerator(options);
+    const solution = generator.searchML();
 
     // Set the lengths of the solution here... The planner doesn't do that, it is just concerned with strong/weak
 
@@ -88,7 +88,7 @@ DynamicSequenceHarmonyElement.prototype.getConstantHarmonyElements = function(mo
 
 
 
-var PhraseHarmonyElementShorteningMode = {
+const PhraseHarmonyElementShorteningMode = {
     BEATS: 0,
 
     toString: function(type) {

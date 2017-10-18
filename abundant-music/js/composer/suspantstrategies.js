@@ -9,8 +9,8 @@ class SuspAntStrategy {
     }
 
     getNewLengthsSuspend(toIncreaseBeatLength, toDecreaseBeatLength, harmony, harmonyBeatOffset) {
-        var newIncreasedBeatLength = toIncreaseBeatLength;
-        var newDecreasedBeatLength = toDecreaseBeatLength;
+        const newIncreasedBeatLength = toIncreaseBeatLength;
+        const newDecreasedBeatLength = toDecreaseBeatLength;
 
         return [newIncreasedBeatLength, newDecreasedBeatLength];
     }
@@ -20,13 +20,13 @@ class SuspAntStrategy {
     }
 
     changeLengths(incIndex, decIndex, suspend, harmony) {
-        var toInc = harmony.get(incIndex);
-        var toDec = harmony.get(decIndex);
+        const toInc = harmony.get(incIndex);
+        const toDec = harmony.get(decIndex);
 
-        var incBeats = toInc.getBeatLength();
-        var decBeats = toDec.getBeatLength();
+        const incBeats = toInc.getBeatLength();
+        const decBeats = toDec.getBeatLength();
 
-        var newLengths = [];
+        let newLengths = [];
         if (suspend) {
             newLengths = this.getNewLengthsSuspend(incBeats, decBeats, harmony, 0);
         } else {
@@ -52,8 +52,8 @@ class SuspAntStrategy {
 
     createVoiceLineHarmony(voiceLine, harmony, module) {
         //    logit("Entering voice line harmony " + voiceLine.size() + " <br />");
-        for (var i=0; i<voiceLine.size(); i++) {
-            var vle = voiceLine.get(i);
+        for (let i=0; i<voiceLine.size(); i++) {
+            const vle = voiceLine.get(i);
             if (vle.suspend) {
     //            logit("suspending " + i + ": " + arrayElementsPropertyToString(harmony.harmonyElements, "length").join(", ") + "<br /><br /><br />");
                 harmony = this.suspend(i, harmony, module);
@@ -66,7 +66,7 @@ class SuspAntStrategy {
     }
 
     suspend(index, harmony, module) {
-        var result = harmony;
+        let result = harmony;
 
         // Can not suspend final harmony element
         if (index < result.getCount() - 1) {
@@ -77,7 +77,7 @@ class SuspAntStrategy {
     }
 
     anticipate(index, harmony, module) {
-        var result = harmony;
+        let result = harmony;
 
         // Can not anticipate the first harmony element
         if (index > 0) {
@@ -103,14 +103,14 @@ class SimpleSuspAntStrategy extends SuspAntStrategy {
     }
 
     getNewLengthsSuspend(toIncreaseBeatLength, toDecreaseBeatLength, harmony, harmonyBeatOffset) {
-        var newIncreasedBeatLength = toIncreaseBeatLength;
-        var newDecreasedBeatLength = toDecreaseBeatLength;
+        let newIncreasedBeatLength = toIncreaseBeatLength;
+        let newDecreasedBeatLength = toDecreaseBeatLength;
 
-        var minBeatLength = positionUnitToBeats2(this.minLength, this.minLengthUnit, harmonyBeatOffset, harmony);
+        const minBeatLength = positionUnitToBeats2(this.minLength, this.minLengthUnit, harmonyBeatOffset, harmony);
 
-        for (var i=0; i<this.possibleLengthIncrements.length; i++) {
-            var testLength = this.possibleLengthIncrements[i];
-            var testBeats = positionUnitToBeats2(testLength, this.possibleLengthIncrementUnit, harmonyBeatOffset, harmony);
+        for (let i=0; i<this.possibleLengthIncrements.length; i++) {
+            const testLength = this.possibleLengthIncrements[i];
+            const testBeats = positionUnitToBeats2(testLength, this.possibleLengthIncrementUnit, harmonyBeatOffset, harmony);
 
             if (!arrayContains(this.possibleNewLengths, toDecreaseBeatLength - testBeats)) {
                 continue;

@@ -1,5 +1,5 @@
 
-var ControlChannelDatatype = {
+const ControlChannelDatatype = {
     DOUBLE: 0,
     INTEGER: 1,
     BOOLEAN: 2,
@@ -52,10 +52,10 @@ class SlotData {
     }
 }
 
-var ControlChannelControlWriteMode = {
+const ControlChannelControlWriteMode = {
     NONE: 0,
     SET_CONTROL: 1
-}
+};
 
 class ControlChannel {
     constructor() {
@@ -71,22 +71,22 @@ class ControlChannel {
     }
 
     getControlEvents(slotData, beatOffset, module) {
-        var result = [];
+        const result = [];
 
-        var active = getValueOrExpressionValue(this, "active", module);
+        const active = getValueOrExpressionValue(this, "active", module);
 
         if (this.controlWriteMode != ControlChannelControlWriteMode.NONE && active) {
 
-            var oldValue = 0;
-            var stepLength = 1.0 / this.slotsPerBeat;
-            for (var i=0; i<slotData.values.length; i++) {
-                var value = slotData.values[i];
+            let oldValue = 0;
+            const stepLength = 1.0 / this.slotsPerBeat;
+            for (let i=0; i<slotData.values.length; i++) {
+                let value = slotData.values[i];
                 if (typeof(value) === 'undefined') {
                     value = this.defaultValue;
                 }
                 if (i == 0 || value != oldValue) {
-                    var beatTime = beatOffset + i * stepLength;
-                    var ev = new SetControlEvent(value, beatTime, this);
+                    const beatTime = beatOffset + i * stepLength;
+                    const ev = new SetControlEvent(value, beatTime, this);
                     result.push(ev);
                 }
                 oldValue = value;
@@ -96,7 +96,7 @@ class ControlChannel {
     }
 
     createSlotData(beatCount) {
-        var result = new SlotData(Math.round(beatCount * this.slotsPerBeat), this.defaultValue, this.dataType);
+        const result = new SlotData(Math.round(beatCount * this.slotsPerBeat), this.defaultValue, this.dataType);
         return result;
     }
 
@@ -126,7 +126,7 @@ class ControlChannel {
 }
 
 
-var NumericControlChannelMixMode = {
+const NumericControlChannelMixMode = {
     ADD: 0,
     MULT: 1,
     MIN: 2,
@@ -201,8 +201,8 @@ class DoubleControlChannel extends ControlChannel {
         if (slotData.slotInRange(slot)) {
             if (slotData.slotDefined(slot) || this.mixWithDefault) {
                 // Mix it
-                var oldValue = slotData.read(slot);
-                var unclamped = NumericControlChannelMixMode.mix(this.mixMode, oldValue, doubleValue);
+                const oldValue = slotData.read(slot);
+                const unclamped = NumericControlChannelMixMode.mix(this.mixMode, oldValue, doubleValue);
                 var clamped = this.useRange ? clamp(unclamped, this.range[0], this.range[1]) : unclamped;
                 slotData.write(slot, clamped);
             } else {
@@ -242,9 +242,9 @@ class IntegerControlChannel extends ControlChannel {
         if (slotData.slotInRange(slot)) {
             if (slotData.slotDefined(slot) || this.mixWithDefault) {
                 // Mix it
-                var oldValue = slotData.read(slot);
-                var mixed = NumericControlChannelMixMode.mix(this.mixMode, oldValue, intValue);
-                var snapped = SnapMetrics.snap(mixed, this.mixSnapMetrics);
+                const oldValue = slotData.read(slot);
+                const mixed = NumericControlChannelMixMode.mix(this.mixMode, oldValue, intValue);
+                const snapped = SnapMetrics.snap(mixed, this.mixSnapMetrics);
                 var clamped = this.useRange ? clamp(snapped, this.range[0], this.range[1]) : snapped;
                 slotData.write(slot, clamped);
             } else {
@@ -258,7 +258,7 @@ class IntegerControlChannel extends ControlChannel {
 
 
 
-var BooleanControlChannelMixMode = {
+const BooleanControlChannelMixMode = {
     OR: 0,
     AND: 1,
     NOR: 2,
@@ -336,8 +336,8 @@ class BooleanControlChannel extends ControlChannel {
         if (slotData.slotInRange(slot)) {
             if (slotData.slotDefined(slot) || this.mixWithDefault) {
                 // Mix it
-                var oldValue = slotData.read(slot);
-                var mixed = BooleanControlChannelMixMode.mix(this.mixMode, oldValue, booleanValue);
+                const oldValue = slotData.read(slot);
+                const mixed = BooleanControlChannelMixMode.mix(this.mixMode, oldValue, booleanValue);
                 slotData.write(slot, mixed);
             } else {
                 // Write

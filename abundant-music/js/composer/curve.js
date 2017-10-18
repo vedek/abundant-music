@@ -17,7 +17,7 @@ class Curve {
 }
 
 
-var PredefinedCurveType = {
+const PredefinedCurveType = {
     LINEAR: 0,
     EXP: 1,
     QUADRATIC: 2,
@@ -127,11 +127,11 @@ class PredefinedCurve extends Curve {
     }
 
     getValue(module, x) {
-        var theType = getValueOrExpressionValue(this, "type", module);
-        var theAmp = getValueOrExpressionValue(this, "amplitude", module);
-        var theFreq = getValueOrExpressionValue(this, "frequency", module);
-        var thePhase = getValueOrExpressionValue(this, "phase", module);
-        var theSeed = getValueOrExpressionValue(this, "seed", module);
+        const theType = getValueOrExpressionValue(this, "type", module);
+        const theAmp = getValueOrExpressionValue(this, "amplitude", module);
+        const theFreq = getValueOrExpressionValue(this, "frequency", module);
+        const thePhase = getValueOrExpressionValue(this, "phase", module);
+        const theSeed = getValueOrExpressionValue(this, "seed", module);
         return this.getPredefinedValue(x, theType, theAmp, theFreq, thePhase, theSeed);
     }
 
@@ -145,7 +145,7 @@ class PredefinedCurve extends Curve {
     }
 
     getPredefinedValue(x, type, amplitude, frequency, phase, seed) {
-        var result = 0;
+        let result = 0;
 
         switch (type) {
             case PredefinedCurveType.CONSTANT:
@@ -244,9 +244,9 @@ class LinearInterpolationCurve extends Curve {
     }
 
     getValue(module, x) {
-        var createNew = this.interpolator == null;
-        var xValues = this.xValues;
-        var yValues = this.yValues;
+        let createNew = this.interpolator == null;
+        let xValues = this.xValues;
+        let yValues = this.yValues;
 
         if (this.evaluateExpressions) {
             xValues = getValueOrExpressionValue(this, "xValues", module);
@@ -257,7 +257,7 @@ class LinearInterpolationCurve extends Curve {
             createNew = true;
         } else {
             // Compare to the old values
-            for (var i=0; i<xValues.length; i++) {
+            for (let i=0; i<xValues.length; i++) {
                 if (xValues[i] != this.oldXValues[i]) {
                     createNew = true;
                     break;
@@ -292,9 +292,9 @@ class ExpressionCurve extends Curve {
     }
 
     getValue(module, x) {
-        var extraVars = {};
+        const extraVars = {};
         extraVars[this.inputVariableName] = x;
-        var result = getExpressionValue(this.valueExpression, module, extraVars);
+        const result = getExpressionValue(this.valueExpression, module, extraVars);
 
     //    logit("ehh?");
         return result;
@@ -368,7 +368,7 @@ class DelayCurveComputation extends CurveComputation {
         this.theInputCurve = this.getCurveReference(module, this.theInputCurve, this.inputCurve);
         this.theDelayCurve = this.getCurveReference(module, this.theDelayCurve, this.delayCurve);
 
-        var delay = this.getCurveOrConstantValue(module, x, this.theDelayCurve, this.delayConstant);
+        const delay = this.getCurveOrConstantValue(module, x, this.theDelayCurve, this.delayConstant);
 
         return this.getCurveOrConstantValue(module, x + delay, this.theInputCurve, 0);
     }
@@ -406,16 +406,16 @@ class RemapCurveComputation extends CurveComputation {
         this.theInputCurve = this.getCurveReference(module, this.theInputCurve, this.inputCurve);
         this.theRemapCurve = this.getCurveReference(module, this.theRemapCurve, this.remapCurve);
 
-        var inputValue = this.getCurveOrConstantValue(module, x, this.theInputCurve, 0);
+        const inputValue = this.getCurveOrConstantValue(module, x, this.theInputCurve, 0);
 
-        var fromRange = this.fromInterval[1] - this.fromInterval[0];
-        var toRange = this.fromInterval[1] - this.fromInterval[0];
+        const fromRange = this.fromInterval[1] - this.fromInterval[0];
+        const toRange = this.fromInterval[1] - this.fromInterval[0];
 
-        var fromFraction = (inputValue - this.fromInterval[0]) / fromRange;
+        const fromFraction = (inputValue - this.fromInterval[0]) / fromRange;
 
-        var remappedFraction = this.getCurveOrConstantValue(module, fromFraction, this.theRemapCurve, fromFraction);
+        const remappedFraction = this.getCurveOrConstantValue(module, fromFraction, this.theRemapCurve, fromFraction);
 
-        var result = this.toInterval[0] + toRange * remappedFraction;
+        const result = this.toInterval[0] + toRange * remappedFraction;
 
         if (this.clampResult) {
             return Math.clamp(result, this.toInterval[0], this.toInterval[1]);
@@ -444,8 +444,8 @@ class ClampCurveComputation extends CurveComputation {
         this.theUpperCurve = this.getCurveReference(module, this.theUpperCurve, this.upperCurve);
         this.theLowerCurve = this.getCurveReference(module, this.theLowerCurve, this.lowerCurve);
 
-        var upper = this.getCurveOrConstantValue(module, x, this.theUpperCurve, this.upperLimit);
-        var lower = this.getCurveOrConstantValue(module, x, this.theLowerCurve, this.lowerLimit);
+        const upper = this.getCurveOrConstantValue(module, x, this.theUpperCurve, this.upperLimit);
+        const lower = this.getCurveOrConstantValue(module, x, this.theLowerCurve, this.lowerLimit);
 
         return clamp(this.getCurveOrConstantValue(module, x, this.theInputCurve, 0), lower, upper);
     }
@@ -472,7 +472,7 @@ class MirrorCurveComputation extends CurveComputation {
 
 
 
-var Mix1DType = {
+const Mix1DType = {
     FUBAR: 0
 //
 };
@@ -500,10 +500,10 @@ class MixCurveComputation extends CurveComputation {
         this.theInputCurve2 = this.getCurveReference(module, this.theInputCurve2, this.inputCurve2);
         this.theMixCurve = this.getCurveReference(module, this.theMixCurve, this.mixCurve);
 
-        var mixFraction = this.getCurveOrConstantValue(module, x, this.theMixCurve, this.mixConstant);
+        const mixFraction = this.getCurveOrConstantValue(module, x, this.theMixCurve, this.mixConstant);
 
-        var value1 = this.getCurveOrConstantValue(module, x, this.theInputCurve1, 0);
-        var value2 = this.getCurveOrConstantValue(module, x, this.theInputCurve2, 0);
+        const value1 = this.getCurveOrConstantValue(module, x, this.theInputCurve1, 0);
+        const value2 = this.getCurveOrConstantValue(module, x, this.theInputCurve2, 0);
 
         return mixFraction * value1 + (1.0 - mixFraction) * value2;
     }
@@ -520,12 +520,12 @@ class PeriodicCurveComputation extends CurveComputation {
 
     getValue(module, x) {
         this.theInputCurve = this.getCurveReference(module, this.theInputCurve, this.inputCurve);
-        var period = this.period;
+        let period = this.period;
         if (this.evaluateExpressions) {
             period = getValueOrExpressionValue(this, "period", module);
         }
 
-        var result = this.getCurveOrConstantValue(module, mod(x, period), this.theInputCurve, 0);
+        const result = this.getCurveOrConstantValue(module, mod(x, period), this.theInputCurve, 0);
 
     //    if (this.verbose) {
     //        logit(this._constructorName + " x: " + x + " period: " + period + " result: " + result);
@@ -548,7 +548,7 @@ class SnapCurveComputation extends CurveComputation {
 
     getValue(module, x) {
         this.theInputCurve = this.getCurveReference(module, this.theInputCurve, this.inputCurve);
-        var value = this.getCurveOrConstantValue(module, x, this.theInputCurve, 0);
+        const value = this.getCurveOrConstantValue(module, x, this.theInputCurve, 0);
         return this.postMultiplier * SnapMetrics.snap(value * this.preMultiplier, this.snapMetrics);
     }
 }
@@ -581,9 +581,9 @@ class MultiInputCurveComputation extends CurveComputation {
     }
 
     updateReferences(module, referenceArr, nameArr) {
-        for (var i=0; i<nameArr.length; i++) {
-            var curve = referenceArr[i];
-            var curveName = nameArr[i];
+        for (let i=0; i<nameArr.length; i++) {
+            const curve = referenceArr[i];
+            const curveName = nameArr[i];
             referenceArr[i] = this.getCurveReference(module, curve, curveName);
         }
     }
@@ -608,25 +608,25 @@ class ExpressionCurveComputation extends MultiInputCurveComputation {
     }
 
     createCurveFunction(module, curve) {
-        var that = this;
+        const that = this;
         return function(input) {
             return that.getCurveOrConstantValue(module, input, curve, 0);
         };
     }
 
     getValueReferencesOk(module, x) {
-        var refs = this.theInputCurves;
+        const refs = this.theInputCurves;
 
-        var that = this;
+        const that = this;
 
-        var extraVars = {};
-        for (var i=0; i<refs.length; i++) {
-            var curve = refs[i];
+        const extraVars = {};
+        for (let i=0; i<refs.length; i++) {
+            const curve = refs[i];
             // This is wasteful... Should be done differently... To many functions constructed...
             extraVars[this.inputCurvePrefix + "" + (i + 1)] = this.createCurveFunction(module, curve);
         }
         extraVars[this.inputVariableName] = x;
-        var result = getExpressionValue(this.valueExpression, module, extraVars);
+        const result = getExpressionValue(this.valueExpression, module, extraVars);
         return result;
     }
 }
@@ -644,34 +644,34 @@ class OscillatorCurveComputation extends MultiInputCurveComputation {
     }
 
     getValueReferencesOk(module, x) {
-        var refs = this.theInputCurves;
-        var result = 0.0;
-        for (var i=0; i<this.count; i++) {
-            var curveIndex = 0;
+        const refs = this.theInputCurves;
+        let result = 0.0;
+        for (let i=0; i<this.count; i++) {
+            let curveIndex = 0;
             if (this.curveIndices.length > 0) {
                 curveIndex = this.curveIndices[i % this.curveIndices.length];
             }
-            var freq = this.baseFrequency;
-            var amp = 1.0;
+            const freq = this.baseFrequency;
+            let amp = 1.0;
             if (this.curveAmplitudes.length > 0) {
                 amp = this.curveAmplitudes[i % this.curveAmplitudes.length];
             }
-            var freqMult = 1.0;
+            let freqMult = 1.0;
             if (this.curveFrequencyMultipliers.length > 0) {
                 freqMult = this.curveFrequencyMultipliers[i % this.curveFrequencyMultipliers.length];
             }
-            var phase = 0.0;
+            let phase = 0.0;
             if (this.curvePhases.length > 0) {
                 phase = this.curvePhases[i % this.curvePhases.length];
             }
-            var curveValue = 0.0;
+            let curveValue = 0.0;
             if (refs.length > 0) {
-                var curve = refs[curveIndex % refs.length];
+                const curve = refs[curveIndex % refs.length];
                 curveValue = this.getCurveOrConstantValue(module, freq * freqMult * (x + phase), curve, 0);
             } else {
                 curveValue = Math.sin(freq * freqMult * Math.PI * 2 * (x + phase))
             }
-            var value = amp * curveValue;
+            const value = amp * curveValue;
             result += value;
         }
         return result;
@@ -685,10 +685,10 @@ class AddCurveComputation extends MultiInputCurveComputation {
     }
 
     getValueReferencesOk(module, x) {
-        var refs = this.theInputCurves;
-        var result = 0.0;
-        for (var i=0; i<refs.length; i++) {
-            var curve = refs[i];
+        const refs = this.theInputCurves;
+        let result = 0.0;
+        for (let i=0; i<refs.length; i++) {
+            const curve = refs[i];
             result += this.getCurveOrConstantValue(module, x, curve, 0);
         }
         return result;
@@ -702,10 +702,10 @@ class MultiplyCurveComputation extends MultiInputCurveComputation {
     }
 
     getValueReferencesOk(module, x) {
-        var refs = this.theInputCurves;
-        var result = 1.0;
-        for (var i=0; i<refs.length; i++) {
-            var curve = refs[i];
+        const refs = this.theInputCurves;
+        let result = 1.0;
+        for (let i=0; i<refs.length; i++) {
+            const curve = refs[i];
             result *= this.getCurveOrConstantValue(module, x, curve, 1);
         }
         return result;
@@ -719,12 +719,12 @@ class MinCurveComputation extends MultiInputCurveComputation {
     }
 
     getValueReferencesOk(module, x) {
-        var refs = this.theInputCurves;
-        var result = null;
-        for (var i=0; i<refs.length; i++) {
-            var curve = refs[i];
+        const refs = this.theInputCurves;
+        let result = null;
+        for (let i=0; i<refs.length; i++) {
+            const curve = refs[i];
 
-            var temp = this.getCurveOrConstantValue(module, x, curve, 1);
+            const temp = this.getCurveOrConstantValue(module, x, curve, 1);
             if (result === null) {
                 result = temp;
             } else {
@@ -742,12 +742,12 @@ class MaxCurveComputation extends MultiInputCurveComputation {
     }
 
     getValueReferencesOk(module, x) {
-        var refs = this.theInputCurves;
-        var result = null;
-        for (var i=0; i<refs.length; i++) {
-            var curve = refs[i];
+        const refs = this.theInputCurves;
+        let result = null;
+        for (let i=0; i<refs.length; i++) {
+            const curve = refs[i];
 
-            var temp = this.getCurveOrConstantValue(module, x, curve, 1);
+            const temp = this.getCurveOrConstantValue(module, x, curve, 1);
             if (result === null) {
                 result = temp;
             } else {

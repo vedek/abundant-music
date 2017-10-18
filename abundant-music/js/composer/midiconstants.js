@@ -1,6 +1,6 @@
 
 
-var MidiControllerType = {
+const MidiControllerType = {
     BANK_SELECT: 0,
     MODULATION: 1,
     BREATH_CONTROLLER: 2,
@@ -359,7 +359,7 @@ var MidiControllerType = {
 addPossibleValuesFunction(MidiControllerType, MidiControllerType.BANK_SELECT, MidiControllerType.POLY_OPERATION);
 
 
-var MidiDrum = {
+const MidiDrum = {
     BASS_DRUM_2: 35,
     BASS_DRUM_1: 36,
     RIMSHOT: 37,
@@ -410,7 +410,7 @@ var MidiDrum = {
 
 
     toString: function(type) {
-        var postfix = " (" + type + ", " + toPitchClassString(type) + "" + Math.floor(type / 12) + ")";
+        const postfix = " (" + type + ", " + toPitchClassString(type) + "" + Math.floor(type / 12) + ")";
         switch (type) {
             case MidiDrum.BASS_DRUM_1:
                 return "Bass drum 1" + postfix;
@@ -514,7 +514,7 @@ var MidiDrum = {
 addPossibleValuesFunction(MidiDrum, MidiDrum.BASS_DRUM_2, MidiDrum.VIBRA_SLAP);
 
 
-var MidiProgram = {
+const MidiProgram = {
     ACOUSTIC_GRAND_PIANO: 0,
     BRIGHT_ACOUSTIC_PIANO: 1,
     ELECTRIC_GRAND_PIANO: 2,

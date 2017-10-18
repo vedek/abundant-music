@@ -11,45 +11,45 @@ class LatticeNoise {
     }
 
     fillValueTab() {
-        for (var i = 0; i < this.TAB_SIZE; i++) {
+        for (let i = 0; i < this.TAB_SIZE; i++) {
             this.valueTab[i] = 1.0 - 2.0 * this.rnd.random();
         }
     }
 
     whiteNoise1(x) {
-        var ix = Math.floor(x);
+        const ix = Math.floor(x);
         return this.latticeValue1(ix);
     }
 
     whiteNoise2(x, y) {
-        var ix = Math.floor(x);
-        var iy = Math.floor(y);
+        const ix = Math.floor(x);
+        const iy = Math.floor(y);
         return this.latticeValue2(ix, iy);
     }
 
     lerpNoise1(x) {
-        var ix = Math.floor(x);
-        var fx = x - ix;
+        const ix = Math.floor(x);
+        const fx = x - ix;
         return lerp(fx, this.latticeValue1(ix), this.latticeValue1(ix + 1));
     }
 
     cubicNoise1(x) {
-        var ix = Math.floor(x);
-        var fx = x - ix;
+        const ix = Math.floor(x);
+        const fx = x - ix;
 
-        var xknots4 = [];
-        for (var i = -1; i <= 2; i++) {
+        const xknots4 = [];
+        for (let i = -1; i <= 2; i++) {
             xknots4[i + 1] = this.latticeValue1(ix + i);
         }
         return SplineInterpolation.interpolate(fx, xknots4);
     }
 
     quadraticNoise1(x) {
-        var ix = Math.floor(x);
-        var fx = x - ix;
+        const ix = Math.floor(x);
+        const fx = x - ix;
 
-        var xknots3 = [];
-        for (var i = -1; i <= 1; i++) {
+        const xknots3 = [];
+        for (let i = -1; i <= 1; i++) {
             xknots3[i + 1] = this.latticeValue1(ix + i);
         }
         return QuadraticSplineInterpolation.interpolate(fx, xknots3);

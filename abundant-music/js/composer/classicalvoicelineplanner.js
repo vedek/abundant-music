@@ -23,35 +23,35 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
 
     planVoices(voiceLines, chr, module, result) {
 
-        var constraints = [];
+        const constraints = [];
         for (var i=0; i<this.constraintZones.length; i++) {
-            var zone = this.constraintZones[i];
+            const zone = this.constraintZones[i];
             zone.applyZone(chr, constraints);
         }
 
-        var absoluteNoteRanges = [];
-        var penaltyAbsoluteNoteRanges = [];
-        var constants = [];
-        var undefines = [];
-        var hints = [];
-        var hintDistances = [];
-        var penaltyHintDistances = [];
-        var chordRootConstraints = [];
-        var chordBassConstraints = [];
-        var maxSpacings = [];
-        var penaltyMaxSpacings = [];
-        var suspensions = [];
-        var anticipations = [];
+        const absoluteNoteRanges = [];
+        const penaltyAbsoluteNoteRanges = [];
+        const constants = [];
+        const undefines = [];
+        const hints = [];
+        const hintDistances = [];
+        const penaltyHintDistances = [];
+        const chordRootConstraints = [];
+        const chordBassConstraints = [];
+        const maxSpacings = [];
+        const penaltyMaxSpacings = [];
+        const suspensions = [];
+        const anticipations = [];
 
         for (var i=0; i<voiceLines.length; i++) {
-            var line = voiceLines[i];
+            const line = voiceLines[i];
 
             if (line instanceof DoubledVoiceLine) {
                 // Doubled voice lines are dealt with after planning
                 continue;
             }
 
-            var lineElements = line.getSingleStepVoiceLineElements(chr, module)
+            const lineElements = line.getSingleStepVoiceLineElements(chr, module);
 
             hints[i] = [];
             hintDistances[i] = [];
@@ -69,23 +69,23 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
             suspensions[i] = [];
             anticipations[i] = [];
 
-            for (var j=0; j<lineElements.length; j++) {
-                var element = lineElements[j];
-                var absoluteNoteRange = arrayCopy(this.defaultAbsoluteNoteRange);
-                var penaltyAbsoluteNoteRange = arrayCopy(this.defaultAbsoluteNoteRange);
-                var harmonyElement = chr.get(j);
-                var isConstant = false;
-                var isUndefined = false;
-                var hintAbsNote = null;
-                var hintDistance = this.defaultHintDistance;
-                var penaltyHintDistance = this.defaultHintDistance;
-                var maxSpacing = this.defaultMaxSpacing;
-                var penaltyMaxSpacing = this.defaultMaxSpacing;
-                var chordBassConstraint = [];
-                var chordRootConstraint = [];
+            for (let j=0; j<lineElements.length; j++) {
+                const element = lineElements[j];
+                let absoluteNoteRange = arrayCopy(this.defaultAbsoluteNoteRange);
+                let penaltyAbsoluteNoteRange = arrayCopy(this.defaultAbsoluteNoteRange);
+                const harmonyElement = chr.get(j);
+                let isConstant = false;
+                let isUndefined = false;
+                let hintAbsNote = null;
+                let hintDistance = this.defaultHintDistance;
+                let penaltyHintDistance = this.defaultHintDistance;
+                let maxSpacing = this.defaultMaxSpacing;
+                let penaltyMaxSpacing = this.defaultMaxSpacing;
+                let chordBassConstraint = [];
+                let chordRootConstraint = [];
 
                 if (element instanceof ConstantVoiceLineElement) {
-                    var absNote = harmonyElement.getAbsoluteNoteConstantVoiceLineElement(element);
+                    const absNote = harmonyElement.getAbsoluteNoteConstantVoiceLineElement(element);
                     absoluteNoteRange = [absNote, absNote];
                     isConstant = true;
                 } else if (element instanceof ClassicalAdaptiveVoiceLineElement) {
@@ -106,8 +106,8 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
                         var upper = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, element.maxHintDistance, harmonyElement);
                         var lower = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, -element.maxHintDistance, harmonyElement);
                         hintDistance = Math.max(Math.abs(hintAbsNote - upper), Math.abs(hintAbsNote - lower));
-                        var penaltyUpper = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, element.penaltyMaxHintDistance, harmonyElement);
-                        var penaltyLower = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, -element.penaltyMaxHintDistance, harmonyElement);
+                        const penaltyUpper = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, element.penaltyMaxHintDistance, harmonyElement);
+                        const penaltyLower = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, -element.penaltyMaxHintDistance, harmonyElement);
                         penaltyHintDistance = Math.max(Math.abs(hintAbsNote - penaltyUpper), Math.abs(hintAbsNote - penaltyLower));
     //                    logit("Hinting " + hintAbsNote + " " + upper + " " + lower + " " + penaltyHintDistance);
                     }
@@ -148,7 +148,7 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
 
         //    logit("chord bass stuff: " + JSON.stringify(chordBassConstraints) + "<br />");
 
-        var options = {
+        const options = {
             voiceCount: voiceLines.length,
             harmony: chr,
             absoluteNoteRanges: absoluteNoteRanges,
@@ -168,16 +168,16 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
     //        reusables: module.reusables
         };
 
-        var vg = new ClassicalVoiceLineGenerator(options);
+        const vg = new ClassicalVoiceLineGenerator(options);
         vg.constraints = constraints;
 
         voiceLeadingTimer.start();
 
 
-        var plannedVoiceLines = null;
-        var reusableIndex = JSON.stringify(vg);
+        let plannedVoiceLines = null;
+        const reusableIndex = JSON.stringify(vg);
         vg.reusables = module.reusables;
-        var toReuse = module.reusables[reusableIndex];
+        const toReuse = module.reusables[reusableIndex];
         if (toReuse) {
     //        logit("Reusing voice leading solution!");
             plannedVoiceLines = copyValueDeep(toReuse);

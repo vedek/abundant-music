@@ -12,16 +12,16 @@ class AbstractZone {
     }
 
     convertLengthRange(startBeat, endBeat, harmony, harmonyBeatOffset) {
-        var minLengthBeats = positionUnitToBeats2(this.lengthRange[0], this.lengthRangeUnit, harmonyBeatOffset, harmony);
-        var maxLengthBeats = positionUnitToBeats2(this.lengthRange[1], this.lengthRangeUnit, harmonyBeatOffset, harmony);
-        var beatLength = endBeat - startBeat;
+        const minLengthBeats = positionUnitToBeats2(this.lengthRange[0], this.lengthRangeUnit, harmonyBeatOffset, harmony);
+        const maxLengthBeats = positionUnitToBeats2(this.lengthRange[1], this.lengthRangeUnit, harmonyBeatOffset, harmony);
+        let beatLength = endBeat - startBeat;
         beatLength = clamp(beatLength, minLengthBeats, maxLengthBeats);
         return startBeat + beatLength;
     }
 
     containsPosition(pos, harmony, harmonyBeatOffset) {
-        var startBeat = positionUnitToBeats2(this.start, this.positionUnit, harmonyBeatOffset, harmony);
-        var endBeat = positionUnitToBeats2(this.end, this.positionUnit, harmonyBeatOffset, harmony);
+        const startBeat = positionUnitToBeats2(this.start, this.positionUnit, harmonyBeatOffset, harmony);
+        let endBeat = positionUnitToBeats2(this.end, this.positionUnit, harmonyBeatOffset, harmony);
 
         if (this.useLengthRange) {
             endBeat = this.convertLengthRange(startBeat, endBeat, harmony, harmonyBeatOffset);
@@ -38,8 +38,8 @@ class AbstractZone {
     }
 
     intersectsRange(posRange, harmony, harmonyBeatOffset) {
-        var startBeat = positionUnitToBeats2(this.start, this.positionUnit, harmonyBeatOffset, harmony);
-        var endBeat = positionUnitToBeats2(this.end, this.positionUnit, harmonyBeatOffset, harmony);
+        const startBeat = positionUnitToBeats2(this.start, this.positionUnit, harmonyBeatOffset, harmony);
+        let endBeat = positionUnitToBeats2(this.end, this.positionUnit, harmonyBeatOffset, harmony);
 
         if (this.useLengthRange) {
             endBeat = this.convertLengthRange(startBeat, endBeat, harmony, harmonyBeatOffset);
@@ -52,7 +52,7 @@ class AbstractZone {
 
 
 
-var MotifZoneFillerLengthMode = {
+const MotifZoneFillerLengthMode = {
     ABSOLUTE: 0,
     RELATIVE_MULT: 1,
     RELATIVE_ADD: 2,
@@ -97,30 +97,30 @@ class MotifZone extends AbstractZone {
 
     addFillers(index, motifNote, module) {
 
-        var fillerOffsets = getValueOrExpressionValue(this, "fillerOffsets", module);
-        var offsetIndex = IndexBorderMode.getIndex(this.fillerIndexBorderMode, fillerOffsets.length, index);
+        const fillerOffsets = getValueOrExpressionValue(this, "fillerOffsets", module);
+        const offsetIndex = IndexBorderMode.getIndex(this.fillerIndexBorderMode, fillerOffsets.length, index);
         if (offsetIndex >= 0) {
-            var offsetArr = fillerOffsets[offsetIndex];
-            var onOff = this.fillerOnOffs[offsetIndex % this.fillerOnOffs.length];
+            const offsetArr = fillerOffsets[offsetIndex];
+            const onOff = this.fillerOnOffs[offsetIndex % this.fillerOnOffs.length];
             if (onOff == 0) {
                 return;
             }
-            var lengthMode = this.fillerLengthModes[offsetIndex % this.fillerLengthModes.length];
-            var relativeLengthArr = this.fillerRelativeLengths[offsetIndex % this.fillerRelativeLengths.length];
-            var relativeStrengthArr = this.fillerRelativeStrengths[offsetIndex % this.fillerRelativeStrengths.length];
-            var lengthArr = this.fillerLengths[offsetIndex % this.fillerLengths.length];
-            var lengthUnit = this.fillerLengthUnits[offsetIndex % this.fillerLengthUnits.length];
-            var positionOffsetArr = this.fillerPositionOffsets[offsetIndex % this.fillerPositionOffsets.length];
-            var positionOffsetUnit = this.fillerPositionOffsetUnits[offsetIndex % this.fillerPositionOffsetUnits.length];
-            var relativeType = this.fillerRelativeTypes[offsetIndex % this.fillerRelativeTypes.length];
-            var offsetType = this.fillerOffsetTypes[offsetIndex % this.fillerOffsetTypes.length];
-            var snapType = this.fillerSnapTypes[offsetIndex % this.fillerSnapTypes.length];
+            const lengthMode = this.fillerLengthModes[offsetIndex % this.fillerLengthModes.length];
+            const relativeLengthArr = this.fillerRelativeLengths[offsetIndex % this.fillerRelativeLengths.length];
+            const relativeStrengthArr = this.fillerRelativeStrengths[offsetIndex % this.fillerRelativeStrengths.length];
+            const lengthArr = this.fillerLengths[offsetIndex % this.fillerLengths.length];
+            const lengthUnit = this.fillerLengthUnits[offsetIndex % this.fillerLengthUnits.length];
+            const positionOffsetArr = this.fillerPositionOffsets[offsetIndex % this.fillerPositionOffsets.length];
+            const positionOffsetUnit = this.fillerPositionOffsetUnits[offsetIndex % this.fillerPositionOffsetUnits.length];
+            const relativeType = this.fillerRelativeTypes[offsetIndex % this.fillerRelativeTypes.length];
+            const offsetType = this.fillerOffsetTypes[offsetIndex % this.fillerOffsetTypes.length];
+            const snapType = this.fillerSnapTypes[offsetIndex % this.fillerSnapTypes.length];
 
 
-            for (var i=0; i<offsetArr.length; i++) {
-                var offset = offsetArr[i];
-                var positionOffset = positionOffsetArr[i % positionOffsetArr.length];
-                var note = new FillerNote();
+            for (let i=0; i<offsetArr.length; i++) {
+                const offset = offsetArr[i];
+                const positionOffset = positionOffsetArr[i % positionOffsetArr.length];
+                const note = new FillerNote();
 
                 note.offset = offset;
                 note.offsetType = offsetType;
@@ -129,8 +129,8 @@ class MotifZone extends AbstractZone {
                 note.positionOffset = positionOffset;
                 note.positionOffsetUnit = positionOffsetUnit;
 
-                var relativeLength = relativeLengthArr[i % relativeLengthArr.length];
-                var relativeStrength = relativeStrengthArr[i % relativeStrengthArr.length];
+                const relativeLength = relativeLengthArr[i % relativeLengthArr.length];
+                const relativeStrength = relativeStrengthArr[i % relativeStrengthArr.length];
 
                 note.strength = motifNote.strength * relativeStrength;
 
@@ -174,18 +174,18 @@ class SimpleVerticalRelativeMotifZone extends MotifZone {
     }
 
     applyMotifZone(elements, module) {
-        var result = [];
-        var noteIndex = 0;
-        for (var i=0; i<elements.length; i++) {
-            var e = elements[i];
+        const result = [];
+        let noteIndex = 0;
+        for (let i=0; i<elements.length; i++) {
+            const e = elements[i];
 
-            var me = new VerticalRelativeMotifElement();
+            const me = new VerticalRelativeMotifElement();
             me.length = e.length;
             me.lengthUnit = e.lengthUnit;
             me.rest = e.rest;
             me.strength = e.strength;
 
-            var index = 0;
+            let index = 0;
             if (this.indices.length > 0) {
                 index = IndexBorderMode.getIndex(this.indexBorderMode, this.indices.length, i);
             }
@@ -225,17 +225,17 @@ class SimpleHorizontalRelativeMotifZone extends MotifZone {
     }
 
     applyMotifZone(elements) {
-        var result = [];
-        for (var i=0; i<elements.length; i++) {
-            var e = elements[i];
+        const result = [];
+        for (let i=0; i<elements.length; i++) {
+            const e = elements[i];
 
-            var me = new HorizontalRelativeMotifElement();
+            const me = new HorizontalRelativeMotifElement();
             me.length = e.length;
             me.lengthUnit = e.lengthUnit;
             me.rest = e.rest;
             me.strength = e.strength;
 
-            var index = 0;
+            let index = 0;
             if (this.indices.length > 0) {
                 index = IndexBorderMode.getIndex(this.indexBorderMode, this.indices.length, i);
             }
@@ -276,13 +276,13 @@ class AdaptiveConnectMotifZone extends MotifZone {
     }
 
     applyMotifZone(elements, module) {
-        var result = [];
-        var addedFirst = false;
-        var lastNonRest = null;
-        for (var i=0; i<elements.length; i++) {
-            var e = elements[i];
+        const result = [];
+        let addedFirst = false;
+        let lastNonRest = null;
+        for (let i=0; i<elements.length; i++) {
+            const e = elements[i];
 
-            var me = new AdaptiveMotifElement();
+            const me = new AdaptiveMotifElement();
             me.length = e.length;
             me.lengthUnit = e.lengthUnit;
             me.rest = e.rest;
@@ -370,9 +370,9 @@ class AdaptiveEmbellishMotifZone extends MotifZone {
     }
 
     applyMotifZone(elements, module) {
-        var result = [];
+        const result = [];
 
-        var nonRestElements = [];
+        const nonRestElements = [];
         for (var i=0; i<elements.length; i++) {
             var e = elements[i];
             if (!e.rest) {
@@ -380,16 +380,16 @@ class AdaptiveEmbellishMotifZone extends MotifZone {
             }
         }
 
-        var nonRestCounter = 0;
-        var nonRestsCount = nonRestElements.length;
+        let nonRestCounter = 0;
+        const nonRestsCount = nonRestElements.length;
 
-        var theVerticalIndices = getValueOrExpressionValue(this, "verticalIndices", module);
-        var theStartVerticalIndices = getValueOrExpressionValue(this, "startVerticalIndices", module);
-        var theEndVerticalIndices = getValueOrExpressionValue(this, "endVerticalIndices", module);
+        const theVerticalIndices = getValueOrExpressionValue(this, "verticalIndices", module);
+        const theStartVerticalIndices = getValueOrExpressionValue(this, "startVerticalIndices", module);
+        const theEndVerticalIndices = getValueOrExpressionValue(this, "endVerticalIndices", module);
         for (var i=0; i<elements.length; i++) {
             var e = elements[i];
 
-            var me = new AdaptiveMotifElement();
+            const me = new AdaptiveMotifElement();
             me.length = e.length;
             me.lengthUnit = e.lengthUnit;
             me.rest = e.rest;
@@ -402,22 +402,22 @@ class AdaptiveEmbellishMotifZone extends MotifZone {
             me.constantVerticalOffset = this.constantVerticalOffset;
             me.constantVerticalOffsetType = this.constantVerticalOffsetType;
 
-            var doRender = true;
+            let doRender = true;
             if (theVerticalIndices.length == 0 && theStartVerticalIndices.length == 0 && theEndVerticalIndices.length == 0) {
                 doRender = false;
                 me.rest = true;
             }
 
             if (doRender && !me.rest) {
-                var verticalIndex = getItemFromArrayWithStartEndItems(0, theVerticalIndices, nonRestsCount, nonRestCounter,
+                const verticalIndex = getItemFromArrayWithStartEndItems(0, theVerticalIndices, nonRestsCount, nonRestCounter,
                     theStartVerticalIndices, theEndVerticalIndices);
-                var verticalOffsetDomain = getItemFromArrayWithStartEndItems(0, this.verticalOffsetDomains, nonRestsCount,
+                const verticalOffsetDomain = getItemFromArrayWithStartEndItems(0, this.verticalOffsetDomains, nonRestsCount,
                     nonRestCounter, this.startVerticalOffsetDomains, this.endVerticalOffsetDomains);
-                var verticalOffsetLikelihoods = getItemFromArrayWithStartEndItems(0, this.verticalOffsetLikelihoods, nonRestsCount,
+                const verticalOffsetLikelihoods = getItemFromArrayWithStartEndItems(0, this.verticalOffsetLikelihoods, nonRestsCount,
                     nonRestCounter, this.startVerticalOffsetLikelihoods, this.endVerticalOffsetLikelihoods);
 
-                var calculatedVerticalOffsetDomain = [];
-                for (var j=0; j<verticalOffsetDomain.length; j++) {
+                const calculatedVerticalOffsetDomain = [];
+                for (let j=0; j<verticalOffsetDomain.length; j++) {
                     calculatedVerticalOffsetDomain[j] = verticalOffsetDomain[j] + verticalIndex;
                 }
 
@@ -433,9 +433,9 @@ class AdaptiveEmbellishMotifZone extends MotifZone {
                     me.horizontalRelativeTypes = [HorizontalRelativeType.NEXT_NOTE];
                     me.horizontalDomainOffsetTypes = [OffsetType.SCALE];
 
-                    var horizontalOffsets = getItemFromArrayWithStartEndItems([-1, 0, 1], this.horizontalOffsets, nonRestsCount,
+                    const horizontalOffsets = getItemFromArrayWithStartEndItems([-1, 0, 1], this.horizontalOffsets, nonRestsCount,
                         nonRestCounter, this.startHorizontalOffsets, this.endHorizontalOffsets);
-                    var horizontalLikelihoods = getItemFromArrayWithStartEndItems([1], this.horizontalLikelihoods, nonRestsCount,
+                    const horizontalLikelihoods = getItemFromArrayWithStartEndItems([1], this.horizontalLikelihoods, nonRestsCount,
                         nonRestCounter, this.startHorizontalLikelihoods, this.endHorizontalLikelihoods);
 
                     me.horizontalDomainOffsetElements = [horizontalOffsets];

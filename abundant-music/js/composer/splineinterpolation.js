@@ -1,6 +1,6 @@
 
 
-var QuadraticSplineInterpolation = {
+const QuadraticSplineInterpolation = {
     CR00: 0.5,
     CR01: -1,
     CR02: 0.5,
@@ -14,16 +14,16 @@ var QuadraticSplineInterpolation = {
     CR22: 0.0,
 
     interpolate: function(x, knots) {
-        var nknots = knots.length;
-        var nspans = nknots - 2;
-        var knot = 0;
+        const nknots = knots.length;
+        const nspans = nknots - 2;
+        let knot = 0;
         if (nspans < 1) {
             logit(" quadratic spline has too few knots");
             return 0.0;
         }
         x = clamp(x, 0.0, 0.9999) * nspans;
         // println("clamped x: " + x);
-        var span = Math.floor(x);
+        let span = Math.floor(x);
         // println("span before: " + span);
         if (span >= nknots - 2) {
             span = nknots - 2;
@@ -34,19 +34,19 @@ var QuadraticSplineInterpolation = {
 
         // println("knot: " + knot + " knots.length: " + knots.length);
 
-        var knot0 = knots[knot];
-        var knot1 = knots[knot + 1];
-        var knot2 = knots[knot + 2];
+        const knot0 = knots[knot];
+        const knot1 = knots[knot + 1];
+        const knot2 = knots[knot + 2];
 
-        var c2 = this.CR00 * knot0 + this.CR01 * knot1 + this.CR02 * knot2;
-        var c1 = this.CR10 * knot0 + this.CR11 * knot1 + this.CR12 * knot2;
-        var c0 = this.CR20 * knot0 + this.CR21 * knot1 + this.CR22 * knot2;
+        const c2 = this.CR00 * knot0 + this.CR01 * knot1 + this.CR02 * knot2;
+        const c1 = this.CR10 * knot0 + this.CR11 * knot1 + this.CR12 * knot2;
+        const c0 = this.CR20 * knot0 + this.CR21 * knot1 + this.CR22 * knot2;
         return (c2 * x + c1) * x + c0;
     }
     
 };
 
-var SplineInterpolation = {
+const SplineInterpolation = {
 
     CR00: -0.5,
     CR01: 1.5,
@@ -74,16 +74,16 @@ var SplineInterpolation = {
     //    },
 
     interpolate: function(x, knots) {
-        var nknots = knots.length;
-        var nspans = nknots - 3;
-        var knot = 0;
+        const nknots = knots.length;
+        const nspans = nknots - 3;
+        let knot = 0;
         if (nspans < 1) {
             logit(" Spline has too few knots");
             return 0.0;
         }
         x = clamp(x, 0.0, 0.9999) * nspans;
         // println("clamped x: " + x);
-        var span = Math.floor(x);
+        let span = Math.floor(x);
         // println("span before: " + span);
         if (span >= nknots - 3) {
             span = nknots - 3;
@@ -94,15 +94,15 @@ var SplineInterpolation = {
 
         // println("knot: " + knot + " knots.length: " + knots.length);
 
-        var knot0 = knots[knot];
-        var knot1 = knots[knot + 1];
-        var knot2 = knots[knot + 2];
-        var knot3 = knots[knot + 3];
+        const knot0 = knots[knot];
+        const knot1 = knots[knot + 1];
+        const knot2 = knots[knot + 2];
+        const knot3 = knots[knot + 3];
 
-        var c3 = this.CR00 * knot0 + this.CR01 * knot1 + this.CR02 * knot2 + this.CR03 * knot3;
-        var c2 = this.CR10 * knot0 + this.CR11 * knot1 + this.CR12 * knot2 + this.CR13 * knot3;
-        var c1 = this.CR20 * knot0 + this.CR21 * knot1 + this.CR22 * knot2 + this.CR23 * knot3;
-        var c0 = this.CR30 * knot0 + this.CR31 * knot1 + this.CR32 * knot2 + this.CR33 * knot3;
+        const c3 = this.CR00 * knot0 + this.CR01 * knot1 + this.CR02 * knot2 + this.CR03 * knot3;
+        const c2 = this.CR10 * knot0 + this.CR11 * knot1 + this.CR12 * knot2 + this.CR13 * knot3;
+        const c1 = this.CR20 * knot0 + this.CR21 * knot1 + this.CR22 * knot2 + this.CR23 * knot3;
+        const c0 = this.CR30 * knot0 + this.CR31 * knot1 + this.CR32 * knot2 + this.CR33 * knot3;
         return ((c3 * x + c2) * x + c1) * x + c0;
     }
 

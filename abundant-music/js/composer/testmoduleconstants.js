@@ -1,13 +1,13 @@
 
 
-var SongStructureType = {
+const SongStructureType = {
     BUILD: 0,
     VERSE_CHORUS: 1,
     VERSE_CHORUS_BRIDGE: 2
 };
 
 
-var SimpleModuleGeneratorPhraseGroupType = {
+const SimpleModuleGeneratorPhraseGroupType = {
     SINGLE_COMPLETE: 0,
     TONIC_PROLONG_PLUS_COMPLETE: 1,
     DECEPTIVE_PLUS_COMPLETE: 2,
@@ -198,7 +198,7 @@ addPossibleValuesFunction(SimpleModuleGeneratorPhraseGroupType, SimpleModuleGene
 
 
 
-var SongPartType = {
+const SongPartType = {
     VERSE_1: 0,
     VERSE_2: 1,
     CHORUS_1: 2,
@@ -315,7 +315,7 @@ class MotifRythmInfo {
 }
 
 
-var MelodyOffsetLevel = {
+const MelodyOffsetLevel = {
     VERY_LOW: -2,
     LOW: -1,
     MIDDLE: 0,
@@ -460,7 +460,7 @@ addPossibleValuesFunction(PhraseGroupIndexProperty, PhraseGroupIndexProperty.MEL
 //    strong: [0.7],
 //    veryStrong: [1.0]
 
-var SongPartStrength = {
+const SongPartStrength = {
     DEFAULT: 0,
     VERY_WEAK: 1,
     WEAK: 2,

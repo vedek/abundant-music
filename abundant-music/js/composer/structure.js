@@ -9,13 +9,13 @@ class Structure {
     renderBatch(state, progressFunc) {
 
         composeTimer.start();
-        for (var i=0; i<this.references.length; i++) {
-            var ref = this.references[i];
+        for (let i=0; i<this.references.length; i++) {
+            const ref = this.references[i];
             if (ref.active) {
                 ref.renderBatch(state);
             }
             if (progressFunc) {
-                var fraction = 1;
+                let fraction = 1;
                 if (this.references.length > 1) {
                     fraction = i / (this.references.length - 1);
                 }
@@ -26,7 +26,7 @@ class Structure {
     }
 
     renderSection(state, index) {
-        var ref = this.references[index];
+        const ref = this.references[index];
         if (ref) {
             ref.renderBatch(state);
         } else {

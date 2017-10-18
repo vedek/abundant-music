@@ -44,30 +44,30 @@ class NoteVelocitiesSectionModifier extends SectionModifier {
     }
 
     beforeSectionFinalized(section, state) {
-        var events = state.data.getEvents();
+        const events = state.data.getEvents();
 
     //    logit("Applying " + this._constructorName + " at " + state.sectionTime);
 
-        var theCurve = state.module.getCurve(this.curve);
+        let theCurve = state.module.getCurve(this.curve);
         if (!theCurve) {
             theCurve = new PredefinedCurve().setType(PredefinedCurveType.CONSTANT).setAmplitude(1.0);
         }
 
-        var curveMultiplier = getValueOrExpressionValue(this, "curveMultiplier", state.module);
-        var curveBias = getValueOrExpressionValue(this, "curveBias", state.module);
+        const curveMultiplier = getValueOrExpressionValue(this, "curveMultiplier", state.module);
+        const curveBias = getValueOrExpressionValue(this, "curveBias", state.module);
 
-        for (var i=0; i<events.length; i++) {
-            var e = events[i];
+        for (let i=0; i<events.length; i++) {
+            const e = events[i];
 
             if (e.time >= state.oldSectionTime && e instanceof NoteOnEvent) {
                 if (!this.channel || e.renderChannel.id == this.channel) {
-                    var time = e.time;
+                    let time = e.time;
                     if (!this.curveGlobalTime) {
                         time = e.time - state.oldSectionTime;
                     }
-                    var curveValue = theCurve.getValue(state.module, time);
+                    const curveValue = theCurve.getValue(state.module, time);
     //                logit("vel curve value at " + e.time + ": " + curveValue);
-                    var value = curveMultiplier * curveValue + curveBias;
+                    const value = curveMultiplier * curveValue + curveBias;
                     e.onVelocity *= value;
                 }
             }
@@ -85,26 +85,26 @@ class ConditionalSuspendSectionModifier extends SectionModifier {
 
     modifyPlannedVoiceLines(voiceLines, state) {
 
-        var active = getValueOrExpressionValue(this, "active", state.module);
+        const active = getValueOrExpressionValue(this, "active", state.module);
 
         if (active) {
             voiceLines = copyValueDeep(voiceLines);
 
     //        logit(JSON.stringify(voiceLines));
 
-            var absNotes = [];
-            var prevAbsNotes = [];
-            var prevVles = [];
+            const absNotes = [];
+            const prevAbsNotes = [];
+            const prevVles = [];
 
-            var pitchClasses = [];
-            var prevPitchClasses = [];
+            const pitchClasses = [];
+            const prevPitchClasses = [];
 
             for (var i=0; i<voiceLines.length; i++) {
-                var vl = voiceLines[i];
-                var prevVle = vl.get(this.harmonyIndex);
-                var prevAbsNote = state.constantHarmony.get(this.harmonyIndex).getAbsoluteNoteConstantVoiceLineElement(prevVle);
-                var vle = vl.get(this.harmonyIndex + 1);
-                var absNote = state.constantHarmony.get(this.harmonyIndex + 1).getAbsoluteNoteConstantVoiceLineElement(vle);
+                const vl = voiceLines[i];
+                const prevVle = vl.get(this.harmonyIndex);
+                const prevAbsNote = state.constantHarmony.get(this.harmonyIndex).getAbsoluteNoteConstantVoiceLineElement(prevVle);
+                const vle = vl.get(this.harmonyIndex + 1);
+                const absNote = state.constantHarmony.get(this.harmonyIndex + 1).getAbsoluteNoteConstantVoiceLineElement(vle);
                 absNotes.push(absNote);
                 prevAbsNotes.push(prevAbsNote);
                 prevVles.push(prevVle);
@@ -117,13 +117,13 @@ class ConditionalSuspendSectionModifier extends SectionModifier {
     //        logit("suspendPairs: " + JSON.stringify(this.suspendPitchClassPairs));
 
 
-            for (var j=0; j<this.suspendPitchClassPairs.length; j++) {
-                var pair = this.suspendPitchClassPairs[j];
+            for (let j=0; j<this.suspendPitchClassPairs.length; j++) {
+                const pair = this.suspendPitchClassPairs[j];
                 for (var i=0; i<absNotes.length; i++) {
-                    var prevAbs = prevAbsNotes[i];
-                    var prevPc = prevAbs % 12;
-                    var toAbs = absNotes[i];
-                    var toPc = toAbs % 12;
+                    const prevAbs = prevAbsNotes[i];
+                    const prevPc = prevAbs % 12;
+                    const toAbs = absNotes[i];
+                    const toPc = toAbs % 12;
                     if (pair[0] == prevPc && pair[1] == toPc) {
     //                    logit(this._constructorName + " Modifying vle at " + this.harmonyIndex + " voice order: " + i);
                         if (prevAbs <= toAbs || prevAbs - toAbs > 2) {
@@ -175,7 +175,7 @@ class SetVariableValueSectionModifier extends SectionModifier {
                 temp = this.value;
             }
             if (!(typeof(temp) === 'undefined') && temp != null) {
-                var theVariable = state.module.getVariable(this.variable);
+                const theVariable = state.module.getVariable(this.variable);
                 if (theVariable) {
                     if (typeof(theVariable[this.variableProperty]) === 'undefined') {
                         logit("The variable " + this.variable + " does not have a property '" + this.variableProperty + "' <br />");
@@ -199,7 +199,7 @@ class SetVariableValueSectionModifier extends SectionModifier {
 
     sectionRendered(section, state) {
         if (this.restoreAfterRender && this.hasBeenSet) {
-            var theVariable = state.module.getVariable(this.variable);
+            const theVariable = state.module.getVariable(this.variable);
             if (theVariable) {
                 theVariable[this.variableProperty] = this.valueBefore;
             }
@@ -216,7 +216,7 @@ class ChangeHarmonySectionModifier extends SectionModifier {
     }
 
     modifySection(section, state) {
-        var copy = copyObjectDeep(section);
+        const copy = copyObjectDeep(section);
         copy.harmonicRythm = this.harmony;
         return copy;
     }
@@ -231,7 +231,7 @@ class ChangeTempoSectionModifier extends SectionModifier {
     }
 
     modifySection(section, state) {
-        var copy = copyObjectDeep(section);
+        const copy = copyObjectDeep(section);
         copy.tempo = this.tempo;
         return copy;
     }
@@ -246,9 +246,9 @@ class TransposeSectionModifier extends SectionModifier {
     }
 
     modifyConstantHarmony(harmony, state) {
-        var copy = copyObjectDeep(harmony);
-        for (var i=0; i<copy.getCount(); i++) {
-            var he = copy.get(i);
+        const copy = copyObjectDeep(harmony);
+        for (let i=0; i<copy.getCount(); i++) {
+            const he = copy.get(i);
             he.baseNote += this.semiSteps;
         }
         return copy;

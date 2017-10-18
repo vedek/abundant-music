@@ -1,5 +1,5 @@
 
-var MajorMixtureChordType = {
+const MajorMixtureChordType = {
     I: 0, // Lowered 3
     II6: 1, // Lowered 6
     IV: 2, // Lowered 6
@@ -7,12 +7,12 @@ var MajorMixtureChordType = {
 };
 
 
-var MinorMixtureChordType = {
+const MinorMixtureChordType = {
     I: 0 // Raised 3
 };
 
 
-var DynamicHarmonyModulationTarget = {
+const DynamicHarmonyModulationTarget = {
     NONE: -1,
     SUPERTONIC: 0,
     MEDIANT: 1,
@@ -40,7 +40,7 @@ var DynamicHarmonyModulationTarget = {
     },
 
     getScaleType: function(scaleType, modulationTarget, invertType) {
-        var otherScaleType = scaleType == ScaleType.MAJOR ? ScaleType.NATURAL_MINOR : ScaleType.MAJOR;
+        const otherScaleType = scaleType == ScaleType.MAJOR ? ScaleType.NATURAL_MINOR : ScaleType.MAJOR;
 
         switch (modulationTarget) {
             case DynamicHarmonyModulationTarget.SUPERTONIC:
@@ -75,7 +75,7 @@ var DynamicHarmonyModulationTarget = {
 addPossibleValuesFunction(DynamicHarmonyModulationTarget, DynamicHarmonyModulationTarget.NONE, DynamicHarmonyModulationTarget.SUBTONIC);
 
 
-var AppliedChordType = {
+const AppliedChordType = {
     V: 0,
     V6: 1,
     V7: 2,

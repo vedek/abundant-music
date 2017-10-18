@@ -1,7 +1,7 @@
 
 
 // Chord types
-var SoundFontType = {
+const SoundFontType = {
     STANDARD_LIGHT: 0,
     STANDARD_HEAVY: 1,
 //    NES_STYLE: 2,

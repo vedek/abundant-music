@@ -16,8 +16,8 @@ class PerfTimer {
     }
 
     pause() {
-        var now = Date.now();
-        var diff = now - this.lastStartTime;
+        const now = Date.now();
+        const diff = now - this.lastStartTime;
         this.intervals++;
         this.totalTime += diff;
         this.lastStartTime = now;
@@ -26,17 +26,17 @@ class PerfTimer {
 
 
 
-var moduleConstructTimer = new PerfTimer("module construct");
-var composeTimer = new PerfTimer("compose");
+const moduleConstructTimer = new PerfTimer("module construct");
+const composeTimer = new PerfTimer("compose");
 
-var harmonyTimer = new PerfTimer("harmony");
-var voiceLeadingTimer = new PerfTimer("voice leading");
-var voiceLeadingPrepareTimer = new PerfTimer("voice leading prepare");
-var figurationTimer = new PerfTimer("figuration");
+const harmonyTimer = new PerfTimer("harmony");
+const voiceLeadingTimer = new PerfTimer("voice leading");
+const voiceLeadingPrepareTimer = new PerfTimer("voice leading prepare");
+const figurationTimer = new PerfTimer("figuration");
 
-var perfTimer1 = new PerfTimer("timer 1");
-var perfTimer2 = new PerfTimer("timer 2");
-var perfTimer3 = new PerfTimer("timer 3");
+const perfTimer1 = new PerfTimer("timer 1");
+const perfTimer2 = new PerfTimer("timer 2");
+const perfTimer3 = new PerfTimer("timer 3");
 
 
 

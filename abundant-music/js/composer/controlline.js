@@ -14,20 +14,20 @@ class ControlLine {
     }
 
     renderBatch(state) {
-        var lines = this.getPrimitiveControlLines(state.module, state.constantHarmony);
+        const lines = this.getPrimitiveControlLines(state.module, state.constantHarmony);
 
-        var allElements = [];
-        var allChannels = [];
+        const allElements = [];
+        const allChannels = [];
 
 
-        for (var j=0; j<lines.length; j++) {
-            var controlLine = lines[j];
-            var controlChannel = state.module.getControlChannel(controlLine.channel);
+        for (let j=0; j<lines.length; j++) {
+            const controlLine = lines[j];
+            const controlChannel = state.module.getControlChannel(controlLine.channel);
             if (!controlChannel) {
                 logit(" could not find control channel " + controlLine.channel);
                 continue;
             }
-            var elements = controlLine.getPrimitiveControlElements(state.module, state.constantHarmony);
+            const elements = controlLine.getPrimitiveControlElements(state.module, state.constantHarmony);
             for (var i=0; i<elements.length; i++) {
                 allChannels.push(controlChannel);
             }
@@ -35,10 +35,10 @@ class ControlLine {
             addAll(allElements, elements);
         }
 
-        var beatLength = state.constantHarmony.getBeatLength();
+        const beatLength = state.constantHarmony.getBeatLength();
 
         for (var i=0; i<allElements.length; i++) {
-            var e = allElements[i];
+            const e = allElements[i];
             state.controlChannel = allChannels[i];
             state.controlSlotData = state.controlSlotDatas[state.controlChannel.id];
             if (! state.controlSlotData) {
@@ -61,9 +61,9 @@ class PrimitiveControlLine extends ControlLine {
     }
 
     getPrimitiveControlElements(module, harmony) {
-        var result = [];
-        for (var i=0; i<this.controlElements.length; i++) {
-            var e = this.controlElements[i];
+        const result = [];
+        for (let i=0; i<this.controlElements.length; i++) {
+            const e = this.controlElements[i];
             addAll(result, e.getPrimitiveControlElements(module, harmony));
         }
         return result;
@@ -116,20 +116,20 @@ class MultiStepControlElement extends PositionedControlElement {
     }
 
     getPrimitiveControlElements(module, harmony) {
-        var result = [];
+        const result = [];
 
-        var active = getValueOrExpressionValue(this, "active", module);
+        const active = getValueOrExpressionValue(this, "active", module);
         if (!active) {
             return result;
         }
 
-        var currentBeat = positionUnitToBeats2(this.startTime, this.startTimeUnit, 0, harmony);
+        let currentBeat = positionUnitToBeats2(this.startTime, this.startTimeUnit, 0, harmony);
 
-        var harmonyBeatLength = harmony.getBeatLength();
+        const harmonyBeatLength = harmony.getBeatLength();
 
-        var startIndices = getValueOrExpressionValue(this, "startIndices", module);
-        var indices = getValueOrExpressionValue(this, "indices", module);
-        var endIndices = getValueOrExpressionValue(this, "endIndices", module);
+        const startIndices = getValueOrExpressionValue(this, "startIndices", module);
+        const indices = getValueOrExpressionValue(this, "indices", module);
+        const endIndices = getValueOrExpressionValue(this, "endIndices", module);
 
     //    logit(startIndices + " " + indices + " " + endIndices);
 
@@ -137,20 +137,20 @@ class MultiStepControlElement extends PositionedControlElement {
             logit(this._constructorName + " " + startIndices + " " + indices + " " + endIndices + " " + this.activeExpression + " " + this.activeUseExpression);
         }
 
-        var that = this;
+        const that = this;
 
         function getLength(testIndices, beatOffset, elements) {
-            var result = 0;
-            for (var i=0; i<testIndices.length; i++) {
-                var index = testIndices[i];
+            let result = 0;
+            for (let i=0; i<testIndices.length; i++) {
+                const index = testIndices[i];
                 if (index < elements.length) {
-                    var element = elements[index];
-                    var primitiveElements = element.getPrimitiveControlElements(module, harmony);
+                    const element = elements[index];
+                    const primitiveElements = element.getPrimitiveControlElements(module, harmony);
 
-                    var maxEndBeat = 0;
-                    for (var j=0; j<primitiveElements.length; j++) {
-                        var pElement = primitiveElements[j];
-                        var endBeat = positionUnitToBeats2(pElement.endTime, pElement.endTimeUnit, result, harmony);
+                    let maxEndBeat = 0;
+                    for (let j=0; j<primitiveElements.length; j++) {
+                        const pElement = primitiveElements[j];
+                        const endBeat = positionUnitToBeats2(pElement.endTime, pElement.endTimeUnit, result, harmony);
     //                    logit("   endBeat in getLength(): " + endBeat + " pElement.endTime: " + pElement.endTime + " pElement.endTimeUnit: " + pElement.endTimeUnit);
     //                    logit("    " + JSON.stringify(pElement));
                         maxEndBeat = Math.max(maxEndBeat, endBeat);
@@ -168,19 +168,19 @@ class MultiStepControlElement extends PositionedControlElement {
             }
 
 
-            var beatStep = 1;
+            const beatStep = 1;
             if (index < elements.length) {
-                var element = elements[index];
+                let element = elements[index];
                 element = copyObjectDeep(element);
-                var primitiveElements = element.getPrimitiveControlElements(module, harmony);
+                const primitiveElements = element.getPrimitiveControlElements(module, harmony);
 
-                var maxEndBeat = 0;
-                for (var i=0; i<primitiveElements.length; i++) {
-                    var pElement = primitiveElements[i];
+                let maxEndBeat = 0;
+                for (let i=0; i<primitiveElements.length; i++) {
+                    const pElement = primitiveElements[i];
 
                     // Shift the position
-                    var startBeat = positionUnitToBeats2(pElement.startTime, pElement.startTimeUnit, 0, harmony);
-                    var endBeat = positionUnitToBeats2(pElement.endTime, pElement.endTimeUnit, 0, harmony);
+                    const startBeat = positionUnitToBeats2(pElement.startTime, pElement.startTimeUnit, 0, harmony);
+                    const endBeat = positionUnitToBeats2(pElement.endTime, pElement.endTimeUnit, 0, harmony);
 
                     pElement.startTime = startBeat + beatOffset;
                     pElement.startTimeUnit = PositionUnit.BEATS;
@@ -196,15 +196,15 @@ class MultiStepControlElement extends PositionedControlElement {
             return beatStep;
         }
 
-        var stepIndex = 0;
+        let stepIndex = 0;
         while (currentBeat < harmonyBeatLength) {
 
-            var beatStep = 1;
+            let beatStep = 1;
 
             // Check the length of the end
-            var endLength = getLength(endIndices, currentBeat, this.elements);
+            const endLength = getLength(endIndices, currentBeat, this.elements);
 
-            var renderEnd = false;
+            let renderEnd = false;
 
             if (stepIndex < startIndices.length) {
                 var index = startIndices[stepIndex];
@@ -229,8 +229,8 @@ class MultiStepControlElement extends PositionedControlElement {
             if (renderEnd) {
                 beatStep = harmonyBeatLength - currentBeat;
                 currentBeat = harmonyBeatLength - endLength;
-                var totalBeatStep = 0;
-                for (var i=0; i<endIndices.length; i++) {
+                let totalBeatStep = 0;
+                for (let i=0; i<endIndices.length; i++) {
                     totalBeatStep += appendWithIndex(endIndices[i], currentBeat, this.elements);
                 }
                 if (totalBeatStep > 0.01) {
@@ -257,16 +257,16 @@ class MultiParallelControlElement extends PositionedControlElement {
     }
 
     getPrimitiveControlElements(module, harmony) {
-        var result = [];
+        const result = [];
 
-        var active = getValueOrExpressionValue(this, "active", module);
+        const active = getValueOrExpressionValue(this, "active", module);
         if (!active) {
             return result;
         }
 
-        var currentBeat = positionUnitToBeats2(this.startTime, this.startTimeUnit, 0, harmony);
+        const currentBeat = positionUnitToBeats2(this.startTime, this.startTimeUnit, 0, harmony);
 
-        var indices = getValueOrExpressionValue(this, "indices", module);
+        const indices = getValueOrExpressionValue(this, "indices", module);
 
     //    logit(startIndices + " " + indices + " " + endIndices);
 
@@ -274,7 +274,7 @@ class MultiParallelControlElement extends PositionedControlElement {
             logit(this._constructorName + " " + indices + " " + this.activeExpression + " " + this.activeUseExpression);
         }
 
-        var that = this;
+        const that = this;
 
 
         function appendWithIndex(index, beatOffset, elements) {
@@ -282,16 +282,16 @@ class MultiParallelControlElement extends PositionedControlElement {
                 logit(that._constructorName + " Rendering at index " + index + " beat: " + beatOffset);
             }
             if (index < elements.length) {
-                var element = elements[index];
+                let element = elements[index];
                 element = copyObjectDeep(element);
-                var primitiveElements = element.getPrimitiveControlElements(module, harmony);
+                const primitiveElements = element.getPrimitiveControlElements(module, harmony);
 
-                for (var i=0; i<primitiveElements.length; i++) {
-                    var pElement = primitiveElements[i];
+                for (let i=0; i<primitiveElements.length; i++) {
+                    const pElement = primitiveElements[i];
 
                     // Shift the position
-                    var startBeat = positionUnitToBeats2(pElement.startTime, pElement.startTimeUnit, 0, harmony);
-                    var endBeat = positionUnitToBeats2(pElement.endTime, pElement.endTimeUnit, 0, harmony);
+                    const startBeat = positionUnitToBeats2(pElement.startTime, pElement.startTimeUnit, 0, harmony);
+                    const endBeat = positionUnitToBeats2(pElement.endTime, pElement.endTimeUnit, 0, harmony);
 
                     pElement.startTime = startBeat + beatOffset;
                     pElement.startTimeUnit = PositionUnit.BEATS;
@@ -303,7 +303,7 @@ class MultiParallelControlElement extends PositionedControlElement {
             }
         }
 
-        for (var i=0; i<indices.length; i++) {
+        for (let i=0; i<indices.length; i++) {
             appendWithIndex(indices[i], currentBeat, this.elements);
         }
 
@@ -321,30 +321,30 @@ class PrimitiveControlElement extends PositionedControlElement {
 
     renderBatch(state) {
 
-        var active = getValueOrExpressionValue(this, "active", state.module);
+        const active = getValueOrExpressionValue(this, "active", state.module);
 
         if (!active) {
             return;
         }
 
-        var harmony = state.constantHarmony;
+        const harmony = state.constantHarmony;
 
-        var startBeatTime = positionUnitToBeats(this.startTime, this.startTimeUnit,
+        const startBeatTime = positionUnitToBeats(this.startTime, this.startTimeUnit,
             harmony.tsNumerator, harmony.tsDenominator, harmony);
-        var endBeatTime = positionUnitToBeats(this.endTime, this.endTimeUnit,
+        const endBeatTime = positionUnitToBeats(this.endTime, this.endTimeUnit,
             harmony.tsNumerator, harmony.tsDenominator, harmony);
 
-        var slotData = state.controlSlotData;
-        var channel = state.controlChannel;
+        const slotData = state.controlSlotData;
+        const channel = state.controlChannel;
 
-        var startSlot = channel.slotsPerBeat * startBeatTime;
-        var endSlot = channel.slotsPerBeat * endBeatTime - 1;
+        const startSlot = channel.slotsPerBeat * startBeatTime;
+        const endSlot = channel.slotsPerBeat * endBeatTime - 1;
 
-        var slotCount = endSlot - startSlot + 1;
+        const slotCount = endSlot - startSlot + 1;
 
         if (this.batched) {
-            var slotIndices = [];
-            var slotFractions = [];
+            const slotIndices = [];
+            const slotFractions = [];
             for (var i=startSlot; i<=endSlot; i++) {
                 var slotFraction = (i - startSlot) / slotCount;
                 slotFractions.push(slotFraction);
@@ -414,14 +414,14 @@ class CurveControlElement extends PrimitiveControlElement {
         slotData
     ) {
 
-        var x = slotFraction;
+        const x = slotFraction;
 
         this.theCurve = CurveComputation.prototype.getCurveReference(state.module, this.theCurve, this.curve);
 
-        var rawValue = CurveComputation.prototype.getCurveOrConstantValue(state.module,
+        const rawValue = CurveComputation.prototype.getCurveOrConstantValue(state.module,
             this.frequencyMultiplier * (x + this.phase),
             this.theCurve, this.constantValue);
-        var value = this.bias + this.amplitude * rawValue;
+        const value = this.bias + this.amplitude * rawValue;
 
         if (this.verbose) {
             logit(this._constructorName + " writing " + value + " at " + slotIndex + " rawValue: " + rawValue + " amp: " + this.amplitude + " bias: " + this.bias + " slotFraction: " + slotFraction);
@@ -462,22 +462,22 @@ class NaturalTempoCurveControlElement extends PrimitiveControlElement {
         slotData
     ) {
 
-        var baseTempo = getValueOrExpressionValue(this, "baseTempo", state.module);
-        var prevTempo = getValueOrExpressionValue(this, "prevTempo", state.module);
-        var currentTempo = getValueOrExpressionValue(this, "currentTempo", state.module);
-        var nextTempo = getValueOrExpressionValue(this, "nextTempo", state.module);
+        const baseTempo = getValueOrExpressionValue(this, "baseTempo", state.module);
+        const prevTempo = getValueOrExpressionValue(this, "prevTempo", state.module);
+        const currentTempo = getValueOrExpressionValue(this, "currentTempo", state.module);
+        const nextTempo = getValueOrExpressionValue(this, "nextTempo", state.module);
 
     //    logit(this._constructorName + " prev: " + prevTempo + " cur: " + currentTempo + " next: " + nextTempo);
 
-        var largeFraction = 0.95;
-        var smallFraction = 1.0 - largeFraction;
+        const largeFraction = 0.95;
+        const smallFraction = 1.0 - largeFraction;
 
-        var fractionAboveCurrent = currentTempo / baseTempo;
-        var fractionAbovePrev = prevTempo / baseTempo;
-        var fractionAboveNext = nextTempo / baseTempo;
+        const fractionAboveCurrent = currentTempo / baseTempo;
+        const fractionAbovePrev = prevTempo / baseTempo;
+        const fractionAboveNext = nextTempo / baseTempo;
 
-        var halfPrev = 0.5 * (fractionAbovePrev + 1.0);
-        var halfNext = 0.5 * (fractionAboveCurrent + 1.0);
+        const halfPrev = 0.5 * (fractionAbovePrev + 1.0);
+        const halfNext = 0.5 * (fractionAboveCurrent + 1.0);
 
         // End increase always ends with the current fraction
         // Start increase always starts with previous fraction
@@ -485,20 +485,20 @@ class NaturalTempoCurveControlElement extends PrimitiveControlElement {
         // End decrease always ends with half between current and base fraction
         //
 
-        var increaseXValues = [0, 1];
-        var increaseYValues = [fractionAbovePrev, fractionAboveCurrent];
+        const increaseXValues = [0, 1];
+        const increaseYValues = [fractionAbovePrev, fractionAboveCurrent];
 
-        var increaseDecreaseXValues = [0, largeFraction, 1];
-        var increaseDecreaseYValues = [fractionAbovePrev, fractionAboveCurrent, halfNext];
+        const increaseDecreaseXValues = [0, largeFraction, 1];
+        const increaseDecreaseYValues = [fractionAbovePrev, fractionAboveCurrent, halfNext];
 
-        var decreaseIncreaseXValues = [0.0, smallFraction, 1];
-        var decreaseIncreaseYValues = [halfPrev, 1.0, fractionAboveCurrent];
+        const decreaseIncreaseXValues = [0.0, smallFraction, 1];
+        const decreaseIncreaseYValues = [halfPrev, 1.0, fractionAboveCurrent];
 
-        var decreaseIncreaseDecreaseXValues = [0.0, smallFraction, largeFraction, 1];
-        var decreaseIncreaseDecreaseYValues = [halfPrev, 1.0, fractionAboveCurrent, halfNext];
+        const decreaseIncreaseDecreaseXValues = [0.0, smallFraction, largeFraction, 1];
+        const decreaseIncreaseDecreaseYValues = [halfPrev, 1.0, fractionAboveCurrent, halfNext];
 
-        var xValues = increaseXValues;
-        var yValues = increaseYValues;
+        let xValues = increaseXValues;
+        let yValues = increaseYValues;
     //    logit("prev: " + prevTempo + " cur: " + currentTempo + " next: " + nextTempo);
         if (currentTempo < prevTempo) {
             if (nextTempo >= currentTempo) {
@@ -519,15 +519,15 @@ class NaturalTempoCurveControlElement extends PrimitiveControlElement {
             }
         }
         // Creating a new interpolator for each call, wasteful but maybe not that terrible...
-        var func = new LinearInterpolator(xValues, yValues);
+        const func = new LinearInterpolator(xValues, yValues);
 
 
     //    logit("  xValues: " + xValues.join(", ") + " yValues: " + yValues.join(", "));
 
-        for (var i=0; i<slotIndices.length; i++) {
-            var x = slotFractions[i];
-            var slotIndex = slotIndices[i];
-            var value = func.interpolate(x);
+        for (let i=0; i<slotIndices.length; i++) {
+            const x = slotFractions[i];
+            const slotIndex = slotIndices[i];
+            const value = func.interpolate(x);
 
             state.controlChannel.writeDouble(slotIndex, slotData, value);
         }

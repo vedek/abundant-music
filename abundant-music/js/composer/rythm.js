@@ -16,9 +16,9 @@ class Rythm {
     }
 
     getNoteRythmElements(module, harmony, harmonyBeatOffset) {
-        var result = [];
-        for (var i=0; i<this.rythmElements.length; i++) {
-            var re = this.rythmElements[i];
+        const result = [];
+        for (let i=0; i<this.rythmElements.length; i++) {
+            const re = this.rythmElements[i];
             addAll(result, re.getNoteRythmElements(module, harmony, harmonyBeatOffset));
         }
         return result;
@@ -66,7 +66,7 @@ class RythmElement {
     }
 }
 
-var NoteRythmElementLengthType = {
+const NoteRythmElementLengthType = {
     NORMAL: 0,
     DOT: 1,
     TRIPLET: 2,
@@ -87,7 +87,7 @@ var NoteRythmElementLengthType = {
     getPossibleValues: function() {
         if (!NoteRythmElementLengthType.possibleValues) {
             NoteRythmElementLengthType.possibleValues = [];
-            for (var i=NoteRythmElementLengthType.NORMAL; i<=NoteRythmElementLengthType.TRIPLET; i++) {
+            for (let i=NoteRythmElementLengthType.NORMAL; i<=NoteRythmElementLengthType.TRIPLET; i++) {
                 NoteRythmElementLengthType.possibleValues.push(i);
             }
         }
@@ -144,38 +144,38 @@ class SequenceRythmElement extends RythmElement {
 
     getNoteRythmElements(module, harmony, harmonyBeatOffset) {
 
-        var result = [];
+        const result = [];
 
         if (this.elementLengths.length == 0) {
             return result;
         }
 
-        var harmonyElement = harmony.getHarmonyAt(harmonyBeatOffset);
+        const harmonyElement = harmony.getHarmonyAt(harmonyBeatOffset);
 
-        var totalLength = positionUnitToBeats2(this.length, this.lengthUnit, harmonyBeatOffset, harmony);
+        const totalLength = positionUnitToBeats2(this.length, this.lengthUnit, harmonyBeatOffset, harmony);
 
-        var minBeatLength = positionUnitToBeats2(this.minElementLength, harmonyBeatOffset, harmony);
+        const minBeatLength = positionUnitToBeats2(this.minElementLength, harmonyBeatOffset, harmony);
 
-        var index = 0;
-        var currentPosition = 0;
+        let index = 0;
+        let currentPosition = 0;
         while (currentPosition < totalLength) {
-            var realElementIndex = IndexBorderMode.getIndex(this.elementLengthBorderMode, this.elementLengths.length, index);
+            const realElementIndex = IndexBorderMode.getIndex(this.elementLengthBorderMode, this.elementLengths.length, index);
             if (realElementIndex == -1) {
                 break;
             }
-            var elementLength = this.elementLengths[realElementIndex];
-            var beatLength = positionUnitToBeats(elementLength, this.elementLengthUnit,
+            const elementLength = this.elementLengths[realElementIndex];
+            let beatLength = positionUnitToBeats(elementLength, this.elementLengthUnit,
                 harmonyElement.tsNumerator, harmonyElement.tsDenominator, harmony);
 
-            var rest = false;
+            let rest = false;
             if (this.restPattern.length > 0) {
-                var realRestIndex = IndexBorderMode.getIndex(this.restPatternBorderMode, this.restPattern.length, index);
+                const realRestIndex = IndexBorderMode.getIndex(this.restPatternBorderMode, this.restPattern.length, index);
                 if (realRestIndex >= 0) {
                     rest = this.restPattern[realRestIndex] != 0;
                 }
             }
 
-            var isLast = false;
+            let isLast = false;
             if (currentPosition + beatLength > totalLength) {
                 // cut or stop
                 isLast = true;
@@ -186,7 +186,7 @@ class SequenceRythmElement extends RythmElement {
                 }
             }
             if (!isLast || beatLength >= minBeatLength) {
-                var rythmElement = new NoteRythmElement().setLength(beatLength).setLengthUnit(PositionUnit.BEATS);
+                const rythmElement = new NoteRythmElement().setLength(beatLength).setLengthUnit(PositionUnit.BEATS);
                 rythmElement.rest = rest;
                 result.push(rythmElement);
             }
@@ -228,10 +228,10 @@ class SplitRythmElement extends RythmElement {
 
     getNoteRythmElements(module, harmony, harmonyBeatOffset) {
 
-        var theNoteCount = getValueOrExpressionValue(this, "noteCount", module);
-        var theExtraNoteCount = getValueOrExpressionValue(this, "extraNoteCount", module);
-        var startLengthType = getValueOrExpressionValue(this, "startLengthType", module);
-        var length = getValueOrExpressionValue(this, "length", module);
+        let theNoteCount = getValueOrExpressionValue(this, "noteCount", module);
+        const theExtraNoteCount = getValueOrExpressionValue(this, "extraNoteCount", module);
+        const startLengthType = getValueOrExpressionValue(this, "startLengthType", module);
+        const length = getValueOrExpressionValue(this, "length", module);
 
 
         theNoteCount = CountUnit.getCount(theNoteCount, this.noteCountUnit, harmony, harmonyBeatOffset);
@@ -240,27 +240,27 @@ class SplitRythmElement extends RythmElement {
         theNoteCount = Math.round(theNoteCount);
         // logit("the note counte: " + theNoteCount + "<br />");
 
-        var harmonyElement = harmony.getHarmonyAt(harmonyBeatOffset);
-        var szc = this.splitZoneCollection;
+        const harmonyElement = harmony.getHarmonyAt(harmonyBeatOffset);
+        const szc = this.splitZoneCollection;
         szc.minLength = this.minLength;
         szc.minLengthUnit = this.minLengthUnit;
 
-        var beatLength = positionUnitToBeats2(length, this.lengthUnit, harmonyBeatOffset, harmony);
+        const beatLength = positionUnitToBeats2(length, this.lengthUnit, harmonyBeatOffset, harmony);
 
-        var startElement = new NoteRythmElement().setLength(beatLength).setLengthUnit(PositionUnit.BEATS);
+        const startElement = new NoteRythmElement().setLength(beatLength).setLengthUnit(PositionUnit.BEATS);
 
 
         if (this.autoDetectLengthType) {
             // Try to detect the length type
-            var possibleLengthTypes =
+            const possibleLengthTypes =
                 [NoteRythmElementLengthType.NORMAL, NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.TRIPLET];
 
-            var closestDistance = 9999999;
-            var closestIndex = 0;
-            var possibleLengthFractions = [1, 1.5, 1.0/3.0];
-            for (var i=0; i<possibleLengthFractions.length; i++) {
-                var targetFraction = possibleLengthFractions[i];
-                var currentFraction = beatLength;
+            let closestDistance = 9999999;
+            let closestIndex = 0;
+            const possibleLengthFractions = [1, 1.5, 1.0/3.0];
+            for (let i=0; i<possibleLengthFractions.length; i++) {
+                const targetFraction = possibleLengthFractions[i];
+                let currentFraction = beatLength;
                 var theDistance = Math.abs(currentFraction - targetFraction);
                 if (theDistance < closestDistance) {
                     closestDistance = theDistance;
@@ -290,7 +290,7 @@ class SplitRythmElement extends RythmElement {
         }
         //    logit("Setting lengthType to " + NoteRythmElementLengthType.toString(startElement.lengthType));
 
-        var theCurve = module.getCurve(this.densityCurve);
+        let theCurve = module.getCurve(this.densityCurve);
         if (theCurve == null) {
             logit("Could not find curve " + this.densityCurve + "<br />");
             theCurve = {
@@ -299,8 +299,8 @@ class SplitRythmElement extends RythmElement {
                 }
             };
         } else {
-            var originalCurve = theCurve;
-            var that = this;
+            const originalCurve = theCurve;
+            const that = this;
             theCurve = {
                 getValue: function(m, x) {
                     return that.densityCurveBias +
@@ -310,7 +310,7 @@ class SplitRythmElement extends RythmElement {
             }
         }
 
-        var rythmElements = szc.getSplitBeat(module, [startElement], theNoteCount, theCurve, harmonyElement.tsNumerator, harmonyElement.tsDenominator);
+        const rythmElements = szc.getSplitBeat(module, [startElement], theNoteCount, theCurve, harmonyElement.tsNumerator, harmonyElement.tsDenominator);
 
     //    if (this.verbose) {
     //        var beatLengths = [];

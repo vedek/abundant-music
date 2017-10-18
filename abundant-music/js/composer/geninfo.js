@@ -890,8 +890,8 @@ GenInfo.prototype.randomize = function(rnd) {
 
 
 GenInfo.prototype.set = function(inputGenInfo) {
-    for (var prop in inputGenInfo) {
-        var old = this[prop];
+    for (const prop in inputGenInfo) {
+        const old = this[prop];
         if (typeof(old) == 'undefined') {
             logit("Tried to set a value in genInfo that did not exist. Probably a bug to look for ;). Property name: '" + prop + "'");
         } else {

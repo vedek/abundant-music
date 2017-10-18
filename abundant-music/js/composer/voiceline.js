@@ -38,11 +38,11 @@ class VoiceLine {
     }
 
     getSingleStepVoiceLineElements(harmony, module) {
-        var result = [];
-        var offset = 0;
-        for (var i=0; i<this.lineElements.length; i++) {
-            var le = this.lineElements[i];
-            var singleSteps = le.getSingleStepVoiceLineElements(harmony, module, offset);
+        const result = [];
+        let offset = 0;
+        for (let i=0; i<this.lineElements.length; i++) {
+            const le = this.lineElements[i];
+            const singleSteps = le.getSingleStepVoiceLineElements(harmony, module, offset);
             addAll(result, singleSteps);
             offset += singleSteps.length;
         }
@@ -59,9 +59,9 @@ class DoubledVoiceLine extends VoiceLine {
     }
 
     doubleVoiceLine(constantLines) {
-        var toDouble = null;
+        let toDouble = null;
         for (var i=0; i<constantLines.length; i++) {
-            var line = constantLines[i];
+            const line = constantLines[i];
             if (line.id == this.toDouble) {
                 toDouble = line;
                 break;
@@ -69,9 +69,9 @@ class DoubledVoiceLine extends VoiceLine {
         }
         if (toDouble) {
             // All elements must be constant or undefined
-            var elements = toDouble.getVoiceLineElements();
+            const elements = toDouble.getVoiceLineElements();
 
-            var result = [];
+            const result = [];
 
             for (var i=0; i<elements.length; i++) {
                 result[i] = elements[i].copy();
@@ -94,14 +94,14 @@ class SimpleBassVoiceLine extends VoiceLine {
     }
 
     getSingleStepVoiceLineElements(harmony, module) {
-        var result = [];
-        for (var i=0; i<harmony.getCount(); i++) {
-            var harmonyElement = harmony.get(i);
-            var vle = new ConstantVoiceLineElement();
+        const result = [];
+        for (let i=0; i<harmony.getCount(); i++) {
+            const harmonyElement = harmony.get(i);
+            const vle = new ConstantVoiceLineElement();
 
-            var absNote = harmonyElement.getAbsoluteNoteFromChordBassIndex(0);
+            let absNote = harmonyElement.getAbsoluteNoteFromChordBassIndex(0);
 
-            var octave = getItemWithDefaultWithStartEndItems(this.octaves, harmony.getCount(), i,
+            const octave = getItemWithDefaultWithStartEndItems(this.octaves, harmony.getCount(), i,
                 this.startOctaves, this.endOctaves);
             absNote += octave * 12;
             vle.index = harmonyElement.getScaleIndexAndChromaticOffsetForAbsoluteNote(absNote)[0];
@@ -206,20 +206,20 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
     }
 
     getSingleStepVoiceLineElements(harmony, module) {
-        var result = [];
+        const result = [];
 
-        var harmonyLength = harmony.getCount();
+        const harmonyLength = harmony.getCount();
 
-        var theCurve = null;
+        let theCurve = null;
 
-        var useHintCurve = getValueOrExpressionValue(this, "useHintCurve", module);
+        const useHintCurve = getValueOrExpressionValue(this, "useHintCurve", module);
 
         if (useHintCurve) {
     //        if (this.hintCurveExpression) {
     //            logit(this._constructorName + " evaluating " + this.hintCurveExpression);
     //        }
 
-            var hintCurveId = getValueOrExpressionValue(this, "hintCurve", module);
+            const hintCurveId = getValueOrExpressionValue(this, "hintCurve", module);
 
     //        logit("Generating with hint curve " + hintCurveId);
     //        if (this.hintCurveExpression) {
@@ -232,26 +232,26 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
             }
         }
 
-        var hintCurveMultiplier = getValueOrExpressionValue(this, "hintCurveMultiplier", module);
-        var hintCurveBias = getValueOrExpressionValue(this, "hintCurveBias", module);
-        var hintIndices = getValueOrExpressionValue(this, "hintIndices", module);
-        var startHintIndices = getValueOrExpressionValue(this, "startHintIndices", module);
-        var endHintIndices = getValueOrExpressionValue(this, "endHintIndices", module);
-        var suspendPattern = getValueOrExpressionValue(this, "suspendPattern", module);
-        var startSuspendPattern = getValueOrExpressionValue(this, "startSuspendPattern", module);
-        var endSuspendPattern = getValueOrExpressionValue(this, "endSuspendPattern", module);
-        var phraseSuspendPattern = getValueOrExpressionValue(this, "phraseSuspendPattern", module);
-        var startPhraseSuspendPattern = getValueOrExpressionValue(this, "startPhraseSuspendPattern", module);
-        var endPhraseSuspendPattern = getValueOrExpressionValue(this, "endPhraseSuspendPattern", module);
+        let hintCurveMultiplier = getValueOrExpressionValue(this, "hintCurveMultiplier", module);
+        const hintCurveBias = getValueOrExpressionValue(this, "hintCurveBias", module);
+        const hintIndices = getValueOrExpressionValue(this, "hintIndices", module);
+        const startHintIndices = getValueOrExpressionValue(this, "startHintIndices", module);
+        const endHintIndices = getValueOrExpressionValue(this, "endHintIndices", module);
+        let suspendPattern = getValueOrExpressionValue(this, "suspendPattern", module);
+        let startSuspendPattern = getValueOrExpressionValue(this, "startSuspendPattern", module);
+        let endSuspendPattern = getValueOrExpressionValue(this, "endSuspendPattern", module);
+        const phraseSuspendPattern = getValueOrExpressionValue(this, "phraseSuspendPattern", module);
+        const startPhraseSuspendPattern = getValueOrExpressionValue(this, "startPhraseSuspendPattern", module);
+        const endPhraseSuspendPattern = getValueOrExpressionValue(this, "endPhraseSuspendPattern", module);
 
-        var chordBassPitchClassConstraints = getValueOrExpressionValue(this, "chordBassPitchClassConstraints", module);
-        var startChordBassPitchClassConstraints = getValueOrExpressionValue(this, "startChordBassPitchClassConstraints", module);
-        var endChordBassPitchClassConstraints = getValueOrExpressionValue(this, "endChordBassPitchClassConstraints", module);
+        const chordBassPitchClassConstraints = getValueOrExpressionValue(this, "chordBassPitchClassConstraints", module);
+        const startChordBassPitchClassConstraints = getValueOrExpressionValue(this, "startChordBassPitchClassConstraints", module);
+        const endChordBassPitchClassConstraints = getValueOrExpressionValue(this, "endChordBassPitchClassConstraints", module);
 
-        var useHintCurveLengthFractionAmplitudeMultiplier = getValueOrExpressionValue(this, "useHintCurveLengthFractionAmplitudeMultiplier", module);
+        const useHintCurveLengthFractionAmplitudeMultiplier = getValueOrExpressionValue(this, "useHintCurveLengthFractionAmplitudeMultiplier", module);
 
         if (useHintCurveLengthFractionAmplitudeMultiplier) {
-            var referenceFraction = harmonyLength / this.hintCurveReferenceCount;
+            const referenceFraction = harmonyLength / this.hintCurveReferenceCount;
 
             if (referenceFraction < 1) {
                 // ax + b
@@ -267,7 +267,7 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
                 // (1 - 1 + 2f)x -2f + 1
                 // 2fx - 2f + 1
 
-                var ampMultiplier = Math.max(0, Math.min(1,
+                const ampMultiplier = Math.max(0, Math.min(1,
                     2 * this.hintCurveLengthFractionAmplitudeMultiplier * referenceFraction -
                         2 * this.hintCurveLengthFractionAmplitudeMultiplier + 1));
 
@@ -278,7 +278,7 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
             }
 
         }
-        var fractionMultiplier = harmonyLength > 1 ? (1.0 / (harmonyLength - 1)) : 1.0;
+        const fractionMultiplier = harmonyLength > 1 ? (1.0 / (harmonyLength - 1)) : 1.0;
         for (var i=0; i<harmonyLength; i++) {
             if (this.isUndefined) {
                 var vle = new UndefinedVoiceLineElement();
@@ -287,11 +287,11 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
 
                 var vle = new ClassicalAdaptiveVoiceLineElement();
 
-                var theHintIndex = null;
+                let theHintIndex = null;
 
-                var fraction = i * fractionMultiplier;
+                const fraction = i * fractionMultiplier;
                 if (theCurve) {
-                    var valueBeforeSnap = hintCurveBias + hintCurveMultiplier * theCurve.getValue(module, fraction);
+                    const valueBeforeSnap = hintCurveBias + hintCurveMultiplier * theCurve.getValue(module, fraction);
                     theHintIndex = SnapMetrics.snap(valueBeforeSnap, this.hintCurveSnapMetrics);
     //                logit(i + " The hint index " + theHintIndex +  " for fraction " + fraction + " bias: " + hintCurveBias + " mult: " + hintCurveMultiplier);
                 } else {
@@ -299,33 +299,33 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
                         startHintIndices, endHintIndices);
                 }
 
-                var maxHintDistance = getItemFromArrayWithStartEndItems(6, this.maxHintDistances, harmonyLength, i,
+                const maxHintDistance = getItemFromArrayWithStartEndItems(6, this.maxHintDistances, harmonyLength, i,
                     this.startMaxHintDistances, this.endMaxHintDistances);
 
-                var penaltyMaxHintDistance = getItemFromArrayWithStartEndItems(3, this.penaltyMaxHintDistances, harmonyLength, i,
+                const penaltyMaxHintDistance = getItemFromArrayWithStartEndItems(3, this.penaltyMaxHintDistances, harmonyLength, i,
                     this.startPenaltyMaxHintDistances, this.endPenaltyMaxHintDistances);
 
-                var theChordBassConstraint = getItemFromArrayWithStartEndItems([], chordBassPitchClassConstraints, harmonyLength, i,
+                const theChordBassConstraint = getItemFromArrayWithStartEndItems([], chordBassPitchClassConstraints, harmonyLength, i,
                     startChordBassPitchClassConstraints, endChordBassPitchClassConstraints);
 
-                var theChordRootConstraint = getItemFromArrayWithStartEndItems([], this.chordRootPitchClassConstraints, harmonyLength, i,
+                const theChordRootConstraint = getItemFromArrayWithStartEndItems([], this.chordRootPitchClassConstraints, harmonyLength, i,
                     this.startChordRootPitchClassConstraints, this.endChordRootPitchClassConstraints);
 
-                var maxSpacing = getItemFromArrayWithStartEndItems([], this.maxSpacings, harmonyLength, i,
+                const maxSpacing = getItemFromArrayWithStartEndItems([], this.maxSpacings, harmonyLength, i,
                     this.startMaxSpacings, this.endMaxSpacings);
 
-                var penaltyMaxSpacing = getItemFromArrayWithStartEndItems([], this.penaltyMaxSpacings, harmonyLength, i,
+                const penaltyMaxSpacing = getItemFromArrayWithStartEndItems([], this.penaltyMaxSpacings, harmonyLength, i,
                     this.startPenaltyMaxSpacings, this.endPenaltyMaxSpacings);
 
                 var suspend = getItemFromArrayWithStartEndItems(0, suspendPattern, harmonyLength, i,
                     startSuspendPattern, endSuspendPattern);
 
-                var anticipate = getItemFromArrayWithStartEndItems(0, this.anticipatePattern, harmonyLength, i,
+                const anticipate = getItemFromArrayWithStartEndItems(0, this.anticipatePattern, harmonyLength, i,
                     this.startAnticipatePattern, this.endAnticipatePattern);
 
-                var range = getItemFromArrayWithStartEndItems(0, this.ranges, harmonyLength, i,
+                const range = getItemFromArrayWithStartEndItems(0, this.ranges, harmonyLength, i,
                     this.startRanges, this.endRanges);
-                var penaltyRange = getItemFromArrayWithStartEndItems(0, this.penaltyRanges, harmonyLength, i,
+                const penaltyRange = getItemFromArrayWithStartEndItems(0, this.penaltyRanges, harmonyLength, i,
                     this.startPenaltyRanges, this.endPenaltyRanges);
 
                 //        logit("Setting chord bass constraint to " + theChordBassConstraint + " default: " + [] +
@@ -354,9 +354,9 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
 
         if (!this.isUndefined) {
             if (phraseSuspendPattern.length > 0 || startPhraseSuspendPattern.length > 0 || endPhraseSuspendPattern.length > 0) {
-                var phraseRanges = harmony.getPhraseRanges();
+                const phraseRanges = harmony.getPhraseRanges();
                 for (var i=0; i<phraseRanges.length; i++) {
-                    var phraseRange = phraseRanges[i];
+                    const phraseRange = phraseRanges[i];
 
 
                     suspendPattern = [];
@@ -374,8 +374,8 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
 
     //            logit("Suspend stuff " + i + " " + [JSON.stringify(suspendPattern), JSON.stringify(startSuspendPattern), JSON.stringify(endSuspendPattern)].join(";;;") + "<br />");
 
-                    for (var j=phraseRange[0]; j<=phraseRange[1]; j++) {
-                        var phraseIndex = j - phraseRange[0];
+                    for (let j=phraseRange[0]; j<=phraseRange[1]; j++) {
+                        const phraseIndex = j - phraseRange[0];
                         var suspend = getItemFromArrayWithStartEndItems(0, suspendPattern, phraseRange[1] - phraseRange[0] + 1, phraseIndex,
                             startSuspendPattern, endSuspendPattern);
                         var vle = result[j];
@@ -399,14 +399,14 @@ class ConstantVoiceLine extends VoiceLine {
     }
 
     toString(options) {
-        var result = "[";
-        for (var i=0; i<this.lineElements.length; i++) {
-            var e = this.lineElements[i];
+        let result = "[";
+        for (let i=0; i<this.lineElements.length; i++) {
+            const e = this.lineElements[i];
             result += e.index;
-            var innerStrs = [];
+            const innerStrs = [];
             if (options && options.showAbsoluteNote && options.harmony) {
-                var he = options.harmony.get(i);
-                var absNote = he.getAbsoluteNoteConstantVoiceLineElement(e);
+                const he = options.harmony.get(i);
+                const absNote = he.getAbsoluteNoteConstantVoiceLineElement(e);
                 innerStrs.push("abs: " + absNote);
             }
             if (innerStrs.length > 0) {
@@ -421,7 +421,7 @@ class ConstantVoiceLine extends VoiceLine {
     }
 }
 
-var HarmonyStepLengthType = {
+const HarmonyStepLengthType = {
     HARMONY_STEPS: 0,
     HARMONY_LENGTH_PLUS_STEPS: 1,
 
