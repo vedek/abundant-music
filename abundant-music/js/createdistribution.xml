@@ -89,15 +89,15 @@
         <!--<filelist dir="${src.dir}/"	files="${javaofflinesourcefiles}" />-->
         <!--</concat>-->
         <concat destfile="${build.dir}/nodesource.js">
-            <filelist dir="${src.dir}/"	files="${offlinesourcefiles}" />
+            <filelist dir="${src.dir}/composer/"	files="${offlinesourcefiles}" />
             <filelist dir="${src.dir}/"	files="${nodesourcefiles}" />
         </concat>
         <concat destfile="${build.dir}/public/js/composeworkersource.js">
-            <filelist dir="${src.dir}/"	files="${offlinesourcefiles}" />
+            <filelist dir="${src.dir}/composer/"	files="${offlinesourcefiles}" />
         </concat>
 
         <concat destfile="${build.dir}/public/js/midisynthsourceconcat.js">
-            <filelist dir="${build.dir}/public/js/"	files="${midisynthsourcefiles}" />
+            <filelist dir="${build.dir}/public/js/midisynth/"	files="${midisynthsourcefiles}" />
         </concat>
 
 
