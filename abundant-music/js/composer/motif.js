@@ -99,8 +99,7 @@ class Motif {
                     let zone = this.motifZones[i];
                     if (zone.useNoteRangeIfEmpty && zoneElements[i].length == 0) {
                         // Get the rythm elements that haven't been taken yet
-                        for (let j=0; j<rangeZoneElements[i].length; j++) {
-                            const index = rangeZoneElements[i][j];
+                        for (const index of rangeZoneElements[i]) {
                             if (elementZones[index] == -1) {
                                 // Not taken yet...
                                 zoneElements[i].push(index);
@@ -152,16 +151,14 @@ class Motif {
             }
 
         } else {
-            for (let i=0; i<this.motifElements.length; i++) {
-                const e = this.motifElements[i];
+            for (const e of this.motifElements) {
                 let list = e.getConstantMotifElements(module, harmony, harmonyBeatOffset, visitedMotifs);
                 addAll(result, list);
             }
         }
 
         // Apply the modifiers
-        for (let i=0; i<this.modifiers.length; i++) {
-            const m = this.modifiers[i];
+        for (const m of this.modifiers) {
             result = m.apply(module, result);
         }
 

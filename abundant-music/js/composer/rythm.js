@@ -17,10 +17,11 @@ class Rythm {
 
     getNoteRythmElements(module, harmony, harmonyBeatOffset) {
         const result = [];
-        for (let i=0; i<this.rythmElements.length; i++) {
-            const re = this.rythmElements[i];
+
+        for (const re of this.rythmElements) {
             addAll(result, re.getNoteRythmElements(module, harmony, harmonyBeatOffset));
         }
+
         return result;
     }
 }

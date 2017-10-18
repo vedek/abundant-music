@@ -62,12 +62,12 @@ class IndexedVoiceLinePlannerConstraintZone extends AbstractVoiceLinePlannerCons
         if (constraintCount > 0) {
             const harmonyCount = harmony.getCount();
 
-            for (let i=0; i<this.globalIndices.length; i++) {
-                let cIndex = this.globalIndices[i];
+            for (let cIndex of this.globalIndices) {
                 for (let j=0; j<harmonyCount; j++) {
                     this.checkAndAddConstraint(cIndex, resultConstraints, j)
                 }
             }
+
             if (this.indexPattern.length > 0) {
                 for (let i=0; i<harmonyCount; i++) {
                     let cIndex = getItemFromArrayWithStartEndItems(0, this.indexPattern, harmonyCount, i, this.startIndexPattern, this.endIndexPattern);
@@ -346,8 +346,7 @@ class LeapRangeVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
             return count;
         }
 
-        for (let i=0; i<this.voiceIndices.length; i++) {
-            const voiceIndex = this.voiceIndices[i];
+        for (const voiceIndex of this.voiceIndices) {
             if (voiceIndex < absNotes.length) {
                 const fromAbs = prevAbsNotes[voiceIndex];
                 const toAbs = absNotes[voiceIndex];

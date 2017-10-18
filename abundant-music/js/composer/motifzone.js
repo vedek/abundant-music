@@ -373,8 +373,8 @@ class AdaptiveEmbellishMotifZone extends MotifZone {
         const result = [];
 
         const nonRestElements = [];
-        for (let i=0; i<elements.length; i++) {
-            let e = elements[i];
+
+        for (let e of elements) {
             if (!e.rest) {
                 nonRestElements.push(e);
             }

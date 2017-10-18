@@ -193,8 +193,8 @@ SequenceHarmonyElement.prototype.getBeatLengths = function(module) {
             }
             return temp;
         }
-        for (let i=0; i<result.length; i++) {
-            const beats = result[i];
+
+        for (const beats of result) {
             addAll(newResult, splitOrKeep(beats));
         }
 
@@ -291,8 +291,7 @@ SimpleSequenceHarmonyElement.prototype.getConstantHarmonyElements = function(mod
             const constraintIndices = getItemFromArrayWithStartEndItems([], this.voiceLineConstraintIndices, beatLengths.length, i, this.startVoiceLineConstraintIndices, this.endVoiceLineConstraintIndices);
 //            logit("Voice line constraints " + JSON.stringify(this.voiceLineConstraints) + " and indices" + JSON.stringify(constraintIndices));
             if (constraintIndices.length > 0) {
-                for (let j=0; j<constraintIndices.length; j++) {
-                    const cIndex = constraintIndices[j];
+                for (const cIndex of constraintIndices) {
                     if (cIndex >= 0) {
                         const constraint = this.voiceLineConstraints[cIndex % this.voiceLineConstraints.length];
                         che.voiceLineConstraints.push(constraint);

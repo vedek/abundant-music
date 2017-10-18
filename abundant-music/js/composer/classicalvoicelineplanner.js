@@ -22,10 +22,9 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
     }
 
     planVoices(voiceLines, chr, module, result) {
-
         const constraints = [];
-        for (let i=0; i<this.constraintZones.length; i++) {
-            const zone = this.constraintZones[i];
+
+        for (const zone of this.constraintZones) {
             zone.applyZone(chr, constraints);
         }
 

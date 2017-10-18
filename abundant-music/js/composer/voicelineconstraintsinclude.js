@@ -64,8 +64,8 @@ class MinVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
 
     getCheckCostSteps() {
         const result = [];
-        for (let i=0; i<this.constraints.length; i++) {
-            const c = this.constraints[i];
+
+        for (const c of this.constraints) {
             const steps = c.getCheckCostSteps();
             for (let j=0; j<steps.length; j++) {
                 if (!arrayContains(result, steps[j])) {
@@ -73,6 +73,7 @@ class MinVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
                 }
             }
         }
+
         return result;
     };
     
@@ -81,10 +82,11 @@ class MinVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
             return 0;
         }
         let result = 99999999;
-        for (let i=0; i<this.constraints.length; i++) {
-            const c = this.constraints[i];
+
+        for (const c of this.constraints) {
             result = Math.min(result, c.zeroStepCost(harmonyIndex, stateIndex, planner));
         }
+
         return result;
     };
     oneStepCost(harmonyIndex, prevStateIndex, stateIndex, planner) {
@@ -92,10 +94,11 @@ class MinVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
             return 0;
         }
         let result = 99999999;
-        for (let i=0; i<this.constraints.length; i++) {
-            const c = this.constraints[i];
+
+        for (const c of this.constraints) {
             result = Math.min(result, c.oneStepCost(harmonyIndex, prevStateIndex, stateIndex, planner));
         }
+
         return result;
     };
     twoStepCost(harmonyIndex, prevPrevStateIndex, prevStateIndex, stateIndex, planner) {
@@ -103,10 +106,11 @@ class MinVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
             return 0;
         }
         let result = 99999999;
-        for (let i=0; i<this.constraints.length; i++) {
-            const c = this.constraints[i];
+
+        for (const c of this.constraints) {
             result = Math.min(result, c.twoStepCost(harmonyIndex, prevPrevStateIndex, prevStateIndex, stateIndex, planner));
         }
+
         return result;
     };
     

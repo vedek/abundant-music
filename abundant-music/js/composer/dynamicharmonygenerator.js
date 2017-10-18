@@ -757,7 +757,6 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
         likelihoods,
         costs
     ) {
-
         const isMinor = scaleType == ScaleType.NATURAL_MINOR;
 
         const appliedChordTypes = isMinor ? this.minorAppliedChords : this.majorAppliedChords;
@@ -766,8 +765,7 @@ class DynamicHarmonyGenerator extends HarmonyGenerator {
 
         const chordInfos = [];
 
-        for (let i=0; i<appliedChordTypes.length; i++) {
-            const type = appliedChordTypes[i];
+        for (const type of appliedChordTypes) {
             switch (type) {
                 case AppliedChordType.V:
                     chordInfos.push({

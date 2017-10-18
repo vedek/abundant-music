@@ -1,9 +1,9 @@
 
 function applyHarmonyModifiers(elements, modifiers, module) {
-    for (let i=0; i<modifiers.length; i++) {
-        const modifier = modifiers[i];
+    for (const modifier of modifiers) {
         elements = modifier.modifyConstantHarmonyElements(elements, module);
     }
+
     return elements;
 }
 
@@ -47,11 +47,12 @@ class ConstantHarmonicRythm {
 
     getConstantHarmonyElements(module, beatOffset) {
         const result = [];
-        for (let i=0; i<this.harmonyElements.length; i++) {
-            const element = this.harmonyElements[i];
+
+        for (const element of this.harmonyElements) {
             const list = element.getConstantHarmonyElements(module, beatOffset);
             addAll(result, list);
         }
+
         return applyHarmonyModifiers(result, this.modifiers, module);
     }
 
@@ -87,12 +88,13 @@ class ConstantHarmonicRythm {
     getPhraseRangeAt(beatTime) {
         const harmonyIndex = this.getHarmonyIndexAt(beatTime);
         const phraseRanges = this.getPhraseRanges();
-        for (let i=0; i<phraseRanges.length; i++) {
-            const range = phraseRanges[i];
+
+        for (const range of phraseRanges) {
             if (range[0] <= harmonyIndex && harmonyIndex <= range[1]) {
                 return [range[0], range[1]];
             }
         }
+
         return [0, this.getCount() - 1];
     }
 
@@ -133,11 +135,12 @@ class ConstantHarmonicRythm {
 
     getBeatLength() {
         let result = 0.0;
-        for (let i=0; i<this.harmonyElements.length; i++) {
-            const e = this.harmonyElements[i];
+
+        for (const e of this.harmonyElements) {
             const beatLength = positionUnitToBeats(e.length, e.lengthUnit, e.tsNumerator, e.tsDenominator);
             result += beatLength;
         }
+
         return result;
     }
 }

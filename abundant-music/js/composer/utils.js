@@ -160,12 +160,12 @@ function positiveMod(a, b) {
 
 
 function getObjectWithId(id, arr) {
-    for (let i=0; i<arr.length; i++) {
-        const obj = arr[i];
+    for (const obj of arr) {
         if (obj.id == id) {
             return obj;
         }
     }
+
     return null;
 }
 
@@ -810,8 +810,7 @@ function traverseValue(value, visitor, visited) {
 //let expressionData = {};
 
 function getExpressionValue(expression, module, extraVars, verbose, object, propName) {
-
-//    perfTimer3.start();
+    //    perfTimer3.start();
 
     let result = null;
 
@@ -866,7 +865,7 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
             }
         }
     } while (myArray != null && replaceSuccess);
-//    logit(JSON.stringify(myArray));
+    //    logit(JSON.stringify(myArray));
     if (replaceSuccess) {
 //            logit("transformed " + expression + " to " + tempExpr);
         try {
@@ -905,15 +904,16 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
         let v = foundVars[varId];
         pub[v.id] = prop(v.id, v.getValue(module));
     }
-//    let variables = module.getVariables();
-//    for (let i=0; i<variables.length; i++) {
-//        let v = variables[i];
-//        pub[v.id] = prop(v.id, v.getValue(module));
-//    }
-    for (let i=0; i<module.procedures.length; i++) {
-        let v = module.procedures[i];
+
+    //    let variables = module.getVariables();
+    //    for (let i=0; i<variables.length; i++) {
+    //        let v = variables[i];
+    //        pub[v.id] = prop(v.id, v.getValue(module));
+    //    }
+    for (let v of module.procedures) {
         pub[v.id] = prop(v.id, v.getProcedure(module));
     }
+
     if (extraVars) {
         for (let varName in extraVars) {
             pub[varName] = prop(varName, extraVars[varName]);
@@ -921,13 +921,13 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
     }
 
     pub.getTheValue = () => {
-        /*with (prv) {
+        with (prv) {
             return eval(expression);
-        }*/
+        }
     };
 
     result = pub.getTheValue();
-//    perfTimer3.pause();
+    //    perfTimer3.pause();
 
     return result;
 }
@@ -1104,12 +1104,13 @@ function stringStartsWith(str, prefix) {
 function userToDirName(user) {
     const oldUser = user;
     const strs = ["http://www.", "https://www."];
-    for (let i=0; i<strs.length; i++) {
-        const str = strs[i];
+
+    for (const str of strs) {
         if (user.indexOf(str) == 0) {
             user = user.substring(str.length);
         }
     }
+
     const temp = user;
     const result = temp.replace(/[^a-zA-Z\d_]/g, "_");
     return result;
@@ -1182,14 +1183,13 @@ function validateValueWithSafeValue(testValue, safeValue, allowedTypes, defaultA
     const wasValid = true;
 
     if (isArray(testValue)) {
-
         if (!isArray(safeValue)) {
             return false;
         }
 
         let arrayOk = true;
-        for (let i=0; i<testValue.length; i++) {
-            const val = testValue[i];
+
+        for (const val of testValue) {
             const typeValid = validateArrayValue(val, allowedTypes, defaultAllowedArrayTypes, correct);
             if (!typeValid) {
                 logit(`Type not valid in array ${val} ${typeof(val)} ${allowedTypes}`);
@@ -1197,6 +1197,7 @@ function validateValueWithSafeValue(testValue, safeValue, allowedTypes, defaultA
                 break;
             }
         }
+
         if (!arrayOk) {
             if (correct) {
                 testValue.length = 0; // Just nuke the whole array
@@ -1205,7 +1206,6 @@ function validateValueWithSafeValue(testValue, safeValue, allowedTypes, defaultA
                 return false;
             }
         }
-
     } else if (testType == 'object') {
         for (const prop in testValue) {
             const oldValue = safeValue[prop];

@@ -17,8 +17,7 @@ class RenderLine {
             const allElements = [];
             const allChannels = [];
 
-            for (let j=0; j<lines.length; j++) {
-                const renderLine = lines[j];
+            for (const renderLine of lines) {
                 const renderChannel = state.module.getRenderChannel(renderLine.channel);
                 if (!renderChannel) {
                     logit(` could not find render channel ${renderLine.channel}`);
@@ -52,8 +51,8 @@ class RenderLine {
             const lines = this.getPrimitiveRenderLines(module, harmony);
             for (let j=0; j<lines.length; j++) {
                 const elements = lines[j].renderElements;
-                for (let i=0; i<elements.length; i++) {
-                    const e = elements[i];
+
+                for (const e of elements) {
                     const pe = e.getPositionedRenderElements(module, harmony, beatOffset, state);
                     addAll(result, pe)
                 }
@@ -198,7 +197,6 @@ class ZonesRenderElement extends PositionedRenderElement {
         const activated = getValueOrExpressionValue(this, "activated", module);
 
         if (activated) {
-
             // Three possible ways to select zone:
             // * sample
             // * most specific
@@ -206,8 +204,8 @@ class ZonesRenderElement extends PositionedRenderElement {
             const renderedMutexes = {};
 
             let renderedSomething = false;
-            for (let i=0; i<this.zones.length; i++) {
-                let z = this.zones[i];
+
+            for (let z of this.zones) {
                 const mut = renderedMutexes[z.mutexClassIndex];
                 if (!mut && z.applicable(module, harmony)) {
                     let list = z.getPositionedRenderElements(module, harmony, beatOffset, state);
@@ -217,9 +215,9 @@ class ZonesRenderElement extends PositionedRenderElement {
                     break;
                 }
             }
+
             if (!renderedSomething && this.useDefaultIfNoneApplicable && this.zones.length > 0) {
-                for (let i=0; i<this.defaultZoneIndices.length; i++) {
-                    const defaultZoneIndex = this.defaultZoneIndices[i];
+                for (const defaultZoneIndex of this.defaultZoneIndices) {
                     let z = this.zones[defaultZoneIndex % this.zones.length];
                     let list = z.getPositionedRenderElements(module, harmony, beatOffset, state);
                     addAll(result, list);
@@ -259,15 +257,13 @@ class HarmonyCountRenderElementZone extends RenderElementZone {
     applicable(module, harmony) {
         const harmonyCount = harmony.getCount();
 
-        for (let i=0; i<this.harmonyCounts.length; i++) {
-            const count = this.harmonyCounts[i];
+        for (const count of this.harmonyCounts) {
             if (count == harmonyCount) {
                 return true;
             }
         }
 
-        for (let i=0; i<this.harmonyCountDividers.length; i++) {
-            const divider = this.harmonyCountDividers[i];
+        for (const divider of this.harmonyCountDividers) {
             if ((harmonyCount % divider) == 0) {
                 return true;
             }
@@ -281,8 +277,7 @@ class HarmonyCountRenderElementZone extends RenderElementZone {
 
         //    let startBeat = positionUnitToBeats(this.startTime, this.startTimeUnit, numerator, denominator, harmony);
 
-        for (let i=0; i<this.renderElements.length; i++) {
-            const re = this.renderElements[i];
+        for (const re of this.renderElements) {
             let currentBeat = beatOffset;
             if (this.onePerHarmonyIndex) {
                 for (let j=0; j<harmony.getCount(); j++) {
@@ -298,6 +293,7 @@ class HarmonyCountRenderElementZone extends RenderElementZone {
                 addAll(result, list);
             }
         }
+
         return result;
     }
 }
@@ -509,27 +505,28 @@ class HarmonyIndexIndexPatternMotifRenderElement extends AbstractHarmonyIndexPat
 
 
         const result = [];
-        for (let i=0; i<indices.length; i++) {
-            const index = indices[i];
+
+        for (const index of indices) {
             if (index >= 0 && this.motifs.length > 0) {
                 const motifId = this.motifs[index % this.motifs.length];
                 result.push(motifId);
             }
-    //        if (index < this.motifs.length) {
-    //            result.push(this.motifs[index]);
-    //        }
+            //        if (index < this.motifs.length) {
+            //            result.push(this.motifs[index]);
+            //        }
         }
-    //    if (this.voiceLine == "bassVoiceLine") {
-    //        logit([this._constructorName,
-    //            " getMotifIdsAtIndex() ",
-    //            " theIndices: " + theIndices + " ",
-    //            " theStartIndices: " + theStartIndices + " ",
-    //            " theEndIndices: " + theEndIndices + " ",
-    //            " indices: " + indices + " ",
-    //            " result: " + result.join(", ") + " ",
-    //
-    //            " <br />"].join("") );
-    //    }
+
+        //    if (this.voiceLine == "bassVoiceLine") {
+        //        logit([this._constructorName,
+        //            " getMotifIdsAtIndex() ",
+        //            " theIndices: " + theIndices + " ",
+        //            " theStartIndices: " + theStartIndices + " ",
+        //            " theEndIndices: " + theEndIndices + " ",
+        //            " indices: " + indices + " ",
+        //            " result: " + result.join(", ") + " ",
+        //
+        //            " <br />"].join("") );
+        //    }
         return result;
     }
 
@@ -541,8 +538,8 @@ class HarmonyIndexIndexPatternMotifRenderElement extends AbstractHarmonyIndexPat
 
 
         const result = [];
-        for (let i=0; i<indices.length; i++) {
-            const index = indices[i];
+
+        for (const index of indices) {
             if (index >= 0 && this.channels.length > 0) {
                 const channelId = this.channels[index % this.channels.length];
                 result.push(channelId);
@@ -654,13 +651,13 @@ class AbstractPercussionMotifRenderElement extends PositionedRenderElement {
         const theMotif = state.module.getPercussionMotif(motifId);
         const elements = theMotif.getPrimitivePercussionMotifElements(state.module, harmony, beatOffset);
 
-        for (let j=0; j<elements.length; j++) {
-            const element = elements[j];
+        for (const element of elements) {
             const elementBeatLength = positionUnitToBeats2(element.length, element.lengthUnit, beatOffset, harmony);
             const elementStartBeat = positionUnitToBeats2(element.startTime, element.startTimeUnit, beatOffset, harmony);
             const endBeat = elementStartBeat + elementBeatLength;
             result = Math.max(result, endBeat);
         }
+
         return result;
     }
 
@@ -707,10 +704,9 @@ class AbstractPercussionMotifRenderElement extends PositionedRenderElement {
         state.data.addEvent(noteOffEvent);
 
         if (element.fillers) {
-            for (let k=0; k<element.fillers.length; k++) {
-                const filler = element.fillers[k];
-                // continue here...
-            }
+            for (const filler of element.fillers)
+                {}
+            // continue here...
         }
     }
 }
@@ -801,9 +797,9 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
 
             let he = harmony.get(0);
 
-    //        if (this.verbose) {
-    //            logit(this._constructorName + " " + he.tsNumerator);
-    //        }
+            //        if (this.verbose) {
+            //            logit(this._constructorName + " " + he.tsNumerator);
+            //        }
             const startBeatTime = positionUnitToBeats2(this.startTime, this.startTimeUnit, 0, harmony);
             const maxBeatLength = positionUnitToBeats2(this.maxLength, this.maxLengthUnit, 0, harmony);
 
@@ -814,10 +810,11 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
             const clampCount = 64;
 
             const clampedMotifs = [];
-            for (let i=0; i<this.startMotifs.length; i++) {
-                let motifId = this.startMotifs[i];
+
+            for (let motifId of this.startMotifs) {
                 clampedMotifs.push(motifId);
             }
+
             if (this.motifs.length > 0) {
                 for (let i=0; i<clampCount; i++) {
                     let motifId = this.motifs[i % this.motifs.length];
@@ -831,8 +828,8 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
             const theEndMotifIndices = getValueOrExpressionValue(this, "endMotifIndices", state.module);
 
             const clampedMotifIndices = [];
-            for (let i=0; i<theStartMotifIndices.length; i++) {
-                let motifIndex = theStartMotifIndices[i];
+
+            for (let motifIndex of theStartMotifIndices) {
                 clampedMotifIndices.push(motifIndex);
             }
 
@@ -843,12 +840,12 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
                 }
             }
 
-    //        if (this.verbose) {
-    //            logit("Rendering " + this._constructorName + " at " + currentBeat + " with max beat length " + maxBeatLength + " motifIndices: " + theMotifIndices.join(", "));
-    //            logit("clamped motif indices: " + clampedMotifIndices.join(", ") + " end motif indices: " + theEndMotifIndices.join(", "));
-    //        }
+            //        if (this.verbose) {
+            //            logit("Rendering " + this._constructorName + " at " + currentBeat + " with max beat length " + maxBeatLength + " motifIndices: " + theMotifIndices.join(", "));
+            //            logit("clamped motif indices: " + clampedMotifIndices.join(", ") + " end motif indices: " + theEndMotifIndices.join(", "));
+            //        }
 
-    //        logit([theMotifIndices.join(", "), theEndMotifIndices.join(", ")].join("; ") + "<br />");
+            //        logit([theMotifIndices.join(", "), theEndMotifIndices.join(", ")].join("; ") + "<br />");
 
             let i = 0;
             while (currentBeat < harmonyBeatLength) {
@@ -856,8 +853,8 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
                 let theEndMotifs = this.endMotifs;
                 if (this.useIndexedMotifs) {
                     theEndMotifs = [];
-                    for (let j=0; j<theEndMotifIndices.length; j++) {
-                        const endIndex = theEndMotifIndices[j];
+
+                    for (const endIndex of theEndMotifIndices) {
                         const mId = this.indexedMotifs[endIndex];
                         if (mId) {
                             theEndMotifs.push(mId);
@@ -918,8 +915,8 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
 
                     if (this.useIndexedMotifs) {
                         let endMotifId = null;
-                        for (let j=0; j<theEndMotifIndices.length; j++) {
-                            const endMotifIndex = theEndMotifIndices[j];
+
+                        for (const endMotifIndex of theEndMotifIndices) {
                             let endMotifId = this.indexedMotifs[endMotifIndex];
                             this.renderPercussionMotif(endMotifId, currentBeat, harmony, he, state);
                             let tempLength = this.getPercussionMotifBeatLength(endMotifId, currentBeat, harmony, he, state);
@@ -930,8 +927,7 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
                             currentBeat = this.snapBeat(currentBeat);
                         }
                     } else {
-                        for (let j=0; j<this.endMotifs.length; j++) {
-                            let endMotifId = this.endMotifs[j];
+                        for (let endMotifId of this.endMotifs) {
                             this.renderPercussionMotif(endMotifId, currentBeat, harmony, he, state);
                             let tempLength = this.getPercussionMotifBeatLength(endMotifId, currentBeat, harmony, he, state);
                             if (tempLength < 0.01) {

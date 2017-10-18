@@ -388,9 +388,9 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
                 const incrementCost = absCosts[k];
                 const passingChords = this.getBassPassingChords(currentHarmony.copy(), targetHarmony, absIncrement,
                     passingChordRoots, passingChordInversions);
-    //            logit("Getting " + passingChords.length + " passing chords from " + currentHarmony.toRomanString() + " to " + targetHarmony.toRomanString());
-                for (let j=0; j<passingChords.length; j++) {
-                    const pc = passingChords[j];
+
+                //            logit("Getting " + passingChords.length + " passing chords from " + currentHarmony.toRomanString() + " to " + targetHarmony.toRomanString());
+                for (const pc of passingChords) {
                     harmonies.push(pc);
                     pc.note = `S, ${towardsAux ? "PA" : "PB"}`;
                     likelihoods.push(incrementLikelihood);
@@ -547,13 +547,13 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
                     const auxRootDown = auxRootUp - scale.length;
                     const auxHarmony = this.getAuxiliaryHarmony(increment > 0 ? auxRootUp : auxRootDown);
 
-    //                logit("Passing from " + this.baseRoot + " to " + auxHarmony.chordRoot);
+                    //                logit("Passing from " + this.baseRoot + " to " + auxHarmony.chordRoot);
                     const passingChords = this.getBassPassingChords(this.baseHarmony.copy(), auxHarmony, Math.abs(increment),
                         this.majorPassingChordRoots, this.majorPassingChordInversions);
-    //                logit("Found " + passingChords.length + " passing chords " + increment);
-                    for (let j=0; j<passingChords.length; j++) {
-                        const pc = passingChords[j];
-    //                    logit("  " + pc.toRomanString() + " " + (incrementLikelihood * auxLikelihood));
+
+                    //                logit("Found " + passingChords.length + " passing chords " + increment);
+                    for (const pc of passingChords) {
+                        //                    logit("  " + pc.toRomanString() + " " + (incrementLikelihood * auxLikelihood));
                         harmonies.push(pc);
                         targetHarmonies.push(auxHarmony.copy());
                         likelihoods.push(auxLikelihood * incrementLikelihood);

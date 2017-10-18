@@ -40,12 +40,13 @@ class VoiceLine {
     getSingleStepVoiceLineElements(harmony, module) {
         const result = [];
         let offset = 0;
-        for (let i=0; i<this.lineElements.length; i++) {
-            const le = this.lineElements[i];
+
+        for (const le of this.lineElements) {
             const singleSteps = le.getSingleStepVoiceLineElements(harmony, module, offset);
             addAll(result, singleSteps);
             offset += singleSteps.length;
         }
+
         return result;
     }
 }
@@ -60,13 +61,14 @@ class DoubledVoiceLine extends VoiceLine {
 
     doubleVoiceLine(constantLines) {
         let toDouble = null;
-        for (let i=0; i<constantLines.length; i++) {
-            const line = constantLines[i];
+
+        for (const line of constantLines) {
             if (line.id == this.toDouble) {
                 toDouble = line;
                 break;
             }
         }
+
         if (toDouble) {
             // All elements must be constant or undefined
             const elements = toDouble.getVoiceLineElements();

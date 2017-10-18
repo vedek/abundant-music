@@ -356,18 +356,17 @@ class SplitZoneCollection {
     }
 
     getBestSplitIndex(module, input, density, numerator, denominator) {
-
         const minLengthBeats = positionUnitToBeats(this.minLength, this.minLengthUnit, numerator, denominator);
 
-    //    logit("Min length beats " + minLengthBeats + " minLength: " + this.minLength);
+        //    logit("Min length beats " + minLengthBeats + " minLength: " + this.minLength);
 
         const noteCount = input.length;
         // The intensity determines what is over and under 0.5 in the function
 
         // Mean note length = 1 / beatIntensity
         let totalTicksLength = 0.0;
-        for (let i=0; i<input.length; i++) {
-            const noteRythmElement = input[i];
+
+        for (const noteRythmElement of input) {
             totalTicksLength += positionUnitToBeats(noteRythmElement.length, noteRythmElement.lengthUnit, numerator, denominator);
         }
 
@@ -402,7 +401,7 @@ class SplitZoneCollection {
             }
             currentPosition += beatLength;
         }
-        
+
 
         return bestIndex;
     }
@@ -435,17 +434,17 @@ class SplitZoneCollection {
         beatPosition += 0.5 * positionUnitToBeats(input[bestSplitIndex].length, input[bestSplitIndex].lengthUnit, numerator, denominator);
 
         const applicable = [];
-        for (let i=0; i<this.zones.length; i++) {
-            const z = this.zones[i];
+
+        for (const z of this.zones) {
             let applications = applicationMap.get(z);
             if (typeof(applications) === 'undefined') {
                 applications = 0;
                 applicationMap.put(z, applications);
             }
             const ok = applications < z.maxApplications;
-    //        if (!ok) {
-    //            logit(applications + ", " + z.maxApplications);
-    //        }
+            //        if (!ok) {
+            //            logit(applications + ", " + z.maxApplications);
+            //        }
             if (ok && z.applicable(toSplit, beatIntensity, iteration, numerator, denominator, beatPosition)) {
                 applicable.push(z);
             }

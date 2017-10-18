@@ -36,10 +36,8 @@ class MotifRenderElement extends PositionedRenderElement {
 
         const harmonyBeatLength = harmony.getBeatLength();
 
-    //    logit("  " + this._constructorName + " Rendering at time " + currentTime + " " + this.motif);
-        for (let i=0; i<elements.length; i++) {
-            const e = elements[i];
-
+        //    logit("  " + this._constructorName + " Rendering at time " + currentTime + " " + this.motif);
+        for (const e of elements) {
             const harmonyIndex = harmony.getHarmonyIndexAt(currentTime);
             const che = harmony.get(harmonyIndex);
             const voiceLineElement = theVoiceLine.get(harmonyIndex);
@@ -124,8 +122,8 @@ class MotifRenderElement extends PositionedRenderElement {
                         // Add filler notes if available
                         if (e.fillers) {
                             const oldRenderChannel = renderChannel;
-                            for (let j=0; j<e.fillers.length; j++) {
-                                const filler = e.fillers[j];
+
+                            for (const filler of e.fillers) {
                                 const fillerAbsNote = filler.getAbsoluteNote(absoluteNote, che, voiceLineElement);
                                 const fillerPosition = currentTime + state.sectionTime + positionUnitToBeats(filler.positionOffset, filler.positionOffsetUnit,
                                     che.tsNumerator, che.tsDenominator);
@@ -175,8 +173,7 @@ class MotifRenderElement extends PositionedRenderElement {
             }
             currentTime += beatLength;
         }
-    //    logit("leaving renderLine<br />");
-
+        //    logit("leaving renderLine<br />");
     }
 
     figurate(
@@ -197,8 +194,7 @@ class MotifRenderElement extends PositionedRenderElement {
         const searchClusters = [];
         let currentCluster = [];
 
-        for (let i = 0; i < elements.length; i++) {
-            const ve = elements[i];
+        for (const ve of elements) {
             if (!ve.rest) {
                 //            logit("ve: " + ve + "<br />");
                 const absNote = noteAbsoluteNotes.get(ve);
@@ -215,13 +211,14 @@ class MotifRenderElement extends PositionedRenderElement {
                 }
             }
         }
+
         // Finishing off the final cluster
         if (currentCluster.length > 0) {
             searchClusters.push(currentCluster);
         }
+
         // Set the position fraction for all clusters
-        for (let i=0; i<searchClusters.length; i++) {
-            let cluster = searchClusters[i];
+        for (let cluster of searchClusters) {
             const clusterPosition = 0;
             const positions = [];
             for (let j=0; j<cluster.length; j++) {
@@ -298,7 +295,6 @@ class MotifRenderElement extends PositionedRenderElement {
                 logit(`Failed to find solution to figuration problem in cluster ${i}<br />`);
             }
         }
-
     }
 
     assignHorizontalRelativeMotifElements(
@@ -397,9 +393,7 @@ class MotifRenderElement extends PositionedRenderElement {
         voiceVoiceLineElements,
         noteAbsoluteNotes
     ) {
-        for (let i = 0; i < voiceElements.length; i++) {
-            const vnme = voiceElements[i];
-
+        for (const vnme of voiceElements) {
             const harmonyElement = voiceHarmonyElements
                 .get(vnme);
             const voiceLineElement = voiceVoiceLineElements
@@ -416,7 +410,6 @@ class MotifRenderElement extends PositionedRenderElement {
                 noteAbsoluteNotes.put(vnme, absNote);
             }
         }
-
     }
 
     gatherVoiceAndHarmonyInfo(
@@ -430,7 +423,6 @@ class MotifRenderElement extends PositionedRenderElement {
         previousVoiceElements,
         nextVoiceElements
     ) {
-
         const he = harmony.get(0);
         const startBeatTime = positionUnitToBeats(this.startTime, this.startTimeUnit, he.tsNumerator, he.tsDenominator, harmony);
 
@@ -438,8 +430,7 @@ class MotifRenderElement extends PositionedRenderElement {
 
         const startHarmonyIndex = harmony.getHarmonyIndexAt(currentTime);
 
-        for (let i=0; i<elements.length; i++) {
-            const e = elements[i];
+        for (const e of elements) {
             let harmonyIndex = harmony.getHarmonyIndexAt(currentTime);
 
             let stop = false;
@@ -497,8 +488,6 @@ class MotifRenderElement extends PositionedRenderElement {
             previousVoiceElements.put(vnme, prev);
             nextVoiceElements.put(vnme, next);
         }
-
-
     }
 
     getOrCreateVoiceLine(state, harmony) {

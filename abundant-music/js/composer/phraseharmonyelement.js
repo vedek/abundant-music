@@ -159,14 +159,15 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
         const successors = this.getSuccessors(currentIndices, lengthInfos, beatLengths);
         let bestPenalty = 9999999;
         let result = successors[0];
-        for (let i=0; i<successors.length; i++) {
-            const succ = successors[i];
+
+        for (const succ of successors) {
             const penalty = this.getPenalty(succ, lengthInfos, beatLengths, totalLength);
             if (penalty < bestPenalty) {
                 result = succ;
                 bestPenalty = penalty;
             }
         }
+
         return result;
     };
 
@@ -354,8 +355,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 }
             }
             if (allSame && sum > 0) {
-                for (let i=0; i<lengthInfos.length; i++) {
-                    const lengthInfo = lengthInfos[i];
+                for (const lengthInfo of lengthInfos) {
                     lengthInfo.length = 100 * (lengthInfo.length / sum);
                 }
             }
@@ -669,8 +669,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
 
             function raiseLeading(sol, scaleType, scaleBase, roots, verbose) {
                 if (raiseLeadingTone) {
-                    for (let i=0; i<sol.length; i++) {
-                        const s = sol[i];
+                    for (const s of sol) {
                         if (s.scaleMode == 0 &&
                             s.scaleType == ScaleType.NATURAL_MINOR &&
                             s.scaleType == scaleType && s.baseNote == scaleBase) {
@@ -691,10 +690,11 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
 
             function getBeatStrengths(indices, beatStrengths) {
                 const result = [];
-                for (let i=0; i<indices.length; i++) {
-                    const index = indices[i];
+
+                for (const index of indices) {
                     result.push(beatStrengths[index % beatStrengths.length]);
                 }
+
                 return result;
             }
 
@@ -992,8 +992,8 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 let beatsBeforeDominant = 0;
                 for (let i=0; i<dominantIndex - 1; i++) {
                     const indicesBefore = indices[i];
-                    for (let j=0; j<indicesBefore.length; j++) {
-                        const indexBefore = indicesBefore[j];
+
+                    for (const indexBefore of indicesBefore) {
                         beatsBeforeDominant += beatLengths[indexBefore];
                     }
                 }
@@ -1416,8 +1416,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
     //                    logit("Splicing at " + index + " new length; " + solution.length);
                     }
                 } else {
-                    for (let i=0; i<extraSolution.length; i++) {
-                        let extra = extraSolution[i];
+                    for (let extra of extraSolution) {
                         if (extra) {
                             solution.push(extra);
                         }

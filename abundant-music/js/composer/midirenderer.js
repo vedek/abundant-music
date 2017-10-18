@@ -41,21 +41,21 @@ class MidiRenderer {
         const emptyChannels = {};
 
         const controlChannelMaps = {};
-        for (let i=0; i<this.controlChannelMaps.length; i++) {
-            let map = this.controlChannelMaps[i];
+
+        for (let map of this.controlChannelMaps) {
             controlChannelMaps[map.controlChannel] = map;
-    //        logit("Adding control channel map " + map.controlChannel);
+            //        logit("Adding control channel map " + map.controlChannel);
         }
+
         const channelMaps = {};
-        for (let i=0; i<this.channelMaps.length; i++) {
-            let map = this.channelMaps[i];
+
+        for (let map of this.channelMaps) {
             channelMaps[map.renderChannel] = map;
             emptyChannels[map.channel] = true;
         }
 
         // Avoid adding events to channels that have no notes
-        for (let i=0; i<events.length; i++) {
-            let event = events[i];
+        for (let event of events) {
             if (event.type == "noteOn" || event.type == "noteOff") {
                 let channelMap = channelMaps[event.renderChannel.id];
                 if (channelMap) {
@@ -67,10 +67,8 @@ class MidiRenderer {
         const sentProgramChanges = {};
 
         // Set all initial programs
-        for (let i=0; i<this.channelMaps.length; i++) {
-            let map = this.channelMaps[i];
+        for (let map of this.channelMaps) {
             if (!emptyChannels[map.channel]) {
-
                 if (!sentProgramChanges[map.channel]) {
                     let trackEvent = {
                         eventTime: 0,
@@ -83,10 +81,9 @@ class MidiRenderer {
                     trackEvents.push(trackEvent);
                     sentProgramChanges[map.channel] = true;
                 }
-                // Add some initial control values
-                for (let j=0; j<map.initialControllerMessages.length; j++) {
-                    const message = map.initialControllerMessages[j];
 
+                // Add some initial control values
+                for (const message of map.initialControllerMessages) {
                     let controllerType = MidiControllerType.getValue(message.type);
                     if (options.exportEffects && message.type != MidiControllerType.VOLUME ||
                         options.exportVolume && message.type == MidiControllerType.VOLUME) {
@@ -114,9 +111,8 @@ class MidiRenderer {
 
 
         let ticks = 0;
-        for (let i=0; i<events.length; i++) {
-            let event = events[i];
 
+        for (let event of events) {
             const deltaTime = event.time - time;
 
             const eventTime = Math.round(quarterTicks * deltaTime);

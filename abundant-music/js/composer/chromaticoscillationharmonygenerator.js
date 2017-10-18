@@ -50,13 +50,12 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
     }
 
     getStartStates(result, likelihoods, costs) {
-        for (let i=0; i<this.startScaleBaseChordRootScaleModeTuples.length; i++) {
-            let tuple = this.startScaleBaseChordRootScaleModeTuples[i];
+        for (let tuple of this.startScaleBaseChordRootScaleModeTuples) {
             this.addTuple(tuple, 1, 0, 0, result, likelihoods, costs);
         }
+
         // Adding the goals as well to avoid search failure
-        for (let i=0; i<this.endScaleBaseChordRootScaleModeTuples.length; i++) {
-            let tuple = this.endScaleBaseChordRootScaleModeTuples[i];
+        for (let tuple of this.endScaleBaseChordRootScaleModeTuples) {
             this.addTuple(tuple, 0.1, 1000, 0, result, likelihoods, costs);
         }
     }
@@ -70,10 +69,9 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
     }
 
     isGoalState(state) {
-
         const harmony = state.harmony;
-        for (let i=0; i<this.endScaleBaseChordRootScaleModeTuples.length; i++) {
-            const tuple = this.endScaleBaseChordRootScaleModeTuples[i];
+
+        for (const tuple of this.endScaleBaseChordRootScaleModeTuples) {
             if ((tuple[0] % 12) == (harmony.baseNote % 12) &&
                 (tuple[1] % 7) == (harmony.chordRoot % 12) &&
                 (tuple[2] % 7) == (harmony.scaleMode % 7)) {
@@ -81,6 +79,7 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -89,8 +88,6 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
     }
 
     getSuccessors(state, states, likelihoods, costs) {
-
-
         switch (state.mode) {
             case 1:
                 this.getStartStates(states, likelihoods, costs);
@@ -108,8 +105,7 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
         const scaleProgressionLikelihoods = [0.25, 0.25, 1, 1, 1, 0.1, 1, 1, 1, 0.25, 0.25];
         const scaleProgressionCosts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-        for (let i=0; i<this.endScaleBaseChordRootScaleModeTuples.length; i++) {
-            const tuple = this.endScaleBaseChordRootScaleModeTuples[i];
+        for (const tuple of this.endScaleBaseChordRootScaleModeTuples) {
             this.addTuple(tuple, 0.0001, 1000, 0, states, likelihoods, costs);
         }
 
@@ -121,11 +117,11 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
             cost += costs[index % costs.length];
         }
 
-    //    for (let i=0; i<rootProgressions.length; i++) {
-    //        let rp = rootProgressions[i];
+        //    for (let i=0; i<rootProgressions.length; i++) {
+        //        let rp = rootProgressions[i];
         const rp = 0;
-        for (let j=0; j<modeProgressions.length; j++) {
-            const mp = modeProgressions[j];
+
+        for (const mp of modeProgressions) {
             let newState = state.copy();
             let harmony = newState.harmony;
             let oldChordRoot = harmony.chordRoot;
@@ -147,19 +143,18 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
                 cost += 20;
             }
 
-    //            logit(oldChordRoot + " -> " + harmony.chordRoot + " " + oldScaleMode + " -> " + harmony.scaleMode + " " + lik + " " + cost);
+            //            logit(oldChordRoot + " -> " + harmony.chordRoot + " " + oldScaleMode + " -> " + harmony.scaleMode + " " + lik + " " + cost);
             likelihoods.push(lik);
             costs.push(cost);
         }
 
-        for (let j=0; j<scaleProgressions.length; j++) {
-            const sp = scaleProgressions[j];
+        for (const sp of scaleProgressions) {
             let newState = state.copy();
             let harmony = newState.harmony;
             let oldChordRoot = harmony.chordRoot;
             const oldBaseNote = harmony.baseNote;
             harmony.chordRoot = positiveMod(harmony.chordRoot + rp, 7);
-            harmony.baseNote = ((harmony.baseNote + sp) % 12) + 60;;
+            harmony.baseNote = ((harmony.baseNote + sp) % 12) + 60;
             newState.mode = (rp == 0 && sp == 0) ? 0 : 1;
             harmony.note = `mode ${newState.mode} rp: ${rp} sp: ${sp}`;
             states.push(newState);
@@ -176,22 +171,22 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
                 cost += 20;
             }
 
-    //            logit(oldChordRoot + " -> " + harmony.chordRoot + " " + oldScaleMode + " -> " + harmony.scaleMode + " " + lik + " " + cost);
+            //            logit(oldChordRoot + " -> " + harmony.chordRoot + " " + oldScaleMode + " -> " + harmony.scaleMode + " " + lik + " " + cost);
             likelihoods.push(lik);
             costs.push(cost);
         }
 
-    //    }
-    //    for (let i=0; i<likelihoods.length; i++) {
-    //        if (typeof(likelihoods[i]) == "undefined") {
-    //            logit("undef like");
-    //        }
-    //    }
-    //    for (let i=0; i<costs.length; i++) {
-    //        if (typeof(costs[i]) == "undefined") {
-    //            logit("undef cost");
-    //        }
-    //    }
+        //    }
+        //    for (let i=0; i<likelihoods.length; i++) {
+        //        if (typeof(likelihoods[i]) == "undefined") {
+        //            logit("undef like");
+        //        }
+        //    }
+        //    for (let i=0; i<costs.length; i++) {
+        //        if (typeof(costs[i]) == "undefined") {
+        //            logit("undef cost");
+        //        }
+        //    }
     }
 
     getSuccessorIterator(node) {
