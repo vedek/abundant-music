@@ -60,7 +60,7 @@ class MotifRenderElement extends PositionedRenderElement {
                     if (nextHarmonyIndex != harmonyIndex || currentTime + beatLength > harmonyBeatLength) {
                         // Cuts harmony border
 
-                        //                    var startHarmonyBeat = harmony.getBeatLengthUntilIndex(harmonyIndex);
+                        //                    let startHarmonyBeat = harmony.getBeatLengthUntilIndex(harmonyIndex);
                         const endHarmonyBeat = harmony.getBeatLengthUntilIndex(harmonyIndex + 1);
 
                         const overlapBeats = currentTime + beatLength - endHarmonyBeat;
@@ -197,7 +197,7 @@ class MotifRenderElement extends PositionedRenderElement {
         const searchClusters = [];
         let currentCluster = [];
 
-        for (var i = 0; i < elements.length; i++) {
+        for (let i = 0; i < elements.length; i++) {
             const ve = elements[i];
             if (!ve.rest) {
                 //            logit("ve: " + ve + "<br />");
@@ -220,11 +220,11 @@ class MotifRenderElement extends PositionedRenderElement {
             searchClusters.push(currentCluster);
         }
         // Set the position fraction for all clusters
-        for (var i=0; i<searchClusters.length; i++) {
-            var cluster = searchClusters[i];
+        for (let i=0; i<searchClusters.length; i++) {
+            let cluster = searchClusters[i];
             const clusterPosition = 0;
             const positions = [];
-            for (var j=0; j<cluster.length; j++) {
+            for (let j=0; j<cluster.length; j++) {
                 positions[j] = clusterPosition;
                 // Need length of voice element here...
             }
@@ -233,7 +233,7 @@ class MotifRenderElement extends PositionedRenderElement {
             if (clusterLength < 0.000001) {
                 clusterLength = cluster.length; // Just use the index as fraction
             }
-            for (var j=0; j<cluster.length; j++) {
+            for (let j=0; j<cluster.length; j++) {
                 cluster[j].clusterPositionFraction = positions[j] / clusterLength;
             }
         }
@@ -243,12 +243,12 @@ class MotifRenderElement extends PositionedRenderElement {
         const rnd = new MersenneTwister(theSeed);
 
         // Perform the search
-        for (var i=0; i<searchClusters.length; i++) {
-            var cluster = searchClusters[i];
+        for (let i=0; i<searchClusters.length; i++) {
+            let cluster = searchClusters[i];
             //        logit("Searching in cluster " + i + " " + cluster + " with size " + cluster.length + "<br />");
 
             const harmonyIndices = [];
-            for (var j=0; j<cluster.length; j++) {
+            for (let j=0; j<cluster.length; j++) {
                 harmonyIndices.push(elementHarmonyIndices.get(cluster[j]));
             }
             const defaultOptions = {
@@ -288,7 +288,7 @@ class MotifRenderElement extends PositionedRenderElement {
                 if (solution.length != cluster.length) {
                     logit("Mitchmatch between solution and cluster lengths " + solution.length + " " + cluster.length + "<br />");
                 }
-                for (var j=0; j<cluster.length; j++) {
+                for (let j=0; j<cluster.length; j++) {
                     if (typeof(solution[j]) === 'string') {
                         logit("abs note is a string!!!");
                     }
@@ -380,11 +380,11 @@ class MotifRenderElement extends PositionedRenderElement {
             }
 
             // Propagate forward
-            for (var i = 0; i < voiceElements.length; i++) {
+            for (let i = 0; i < voiceElements.length; i++) {
                 propagate(i);
             }
             // Propagate backward
-            for (var i = voiceElements.length - 1; i>=0; i--) {
+            for (let i = voiceElements.length - 1; i>=0; i--) {
                 propagate(i);
             }
         }
@@ -438,7 +438,7 @@ class MotifRenderElement extends PositionedRenderElement {
 
         const startHarmonyIndex = harmony.getHarmonyIndexAt(currentTime);
 
-        for (var i=0; i<elements.length; i++) {
+        for (let i=0; i<elements.length; i++) {
             const e = elements[i];
             let harmonyIndex = harmony.getHarmonyIndexAt(currentTime);
 
@@ -480,7 +480,7 @@ class MotifRenderElement extends PositionedRenderElement {
 
         // Make sure that every voice element has a previous and next element
         // Create dummys for initial and final
-        for (var i = 0; i < voiceElements.length; i++) {
+        for (let i = 0; i < voiceElements.length; i++) {
             const vnme = voiceElements[i];
             let prev = null;
             if (i > 0) {

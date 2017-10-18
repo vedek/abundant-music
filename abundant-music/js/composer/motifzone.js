@@ -25,9 +25,9 @@ class AbstractZone {
 
         if (this.useLengthRange) {
             endBeat = this.convertLengthRange(startBeat, endBeat, harmony, harmonyBeatOffset);
-    //        var minLengthBeats = positionUnitToBeats2(this.lengthRange[0], this.lengthRangeUnit, harmonyBeatOffset, harmony);
-    //        var maxLengthBeats = positionUnitToBeats2(this.lengthRange[1], this.lengthRangeUnit, harmonyBeatOffset, harmony);
-    //        var beatLength = endBeat - startBeat;
+    //        let minLengthBeats = positionUnitToBeats2(this.lengthRange[0], this.lengthRangeUnit, harmonyBeatOffset, harmony);
+    //        let maxLengthBeats = positionUnitToBeats2(this.lengthRange[1], this.lengthRangeUnit, harmonyBeatOffset, harmony);
+    //        let beatLength = endBeat - startBeat;
     //        beatLength = clamp(beatLength, minLengthBeats, maxLengthBeats);
     //        endBeat = startBeat + beatLength;
         }
@@ -296,8 +296,8 @@ class AdaptiveConnectMotifZone extends MotifZone {
             me.verticalDomainOffsetElements = [-1, 0, 1];
             me.verticalDomainOffsetElementLikelihoods = [1, 1, 1];
 
-            var offsets = this.horizontalOffsets;
-            var likelihoods = this.horizontalLikelihoods;
+            let offsets = this.horizontalOffsets;
+            let likelihoods = this.horizontalLikelihoods;
             if (i == elements.length - 1 &&
                 this.lastToNextHorizontalLikelihoods.length > 0 && this.lastToNextHorizontalOffsets.length > 0) {
                 offsets = this.lastToNextHorizontalOffsets;
@@ -311,8 +311,8 @@ class AdaptiveConnectMotifZone extends MotifZone {
 
             if (!addedFirst && !me.rest) {
                 if (this.firstConnectToPrevious) {
-                    var offsets = this.horizontalOffsets;
-                    var likelihoods = this.horizontalLikelihoods;
+                    let offsets = this.horizontalOffsets;
+                    let likelihoods = this.horizontalLikelihoods;
                     if (this.firstToPreviousHorizontalOffsets.length > 0 &&
                         this.firstToPreviousHorizontalLikelihoods.length > 0) {
                         offsets = this.firstToPreviousHorizontalOffsets;
@@ -373,8 +373,8 @@ class AdaptiveEmbellishMotifZone extends MotifZone {
         const result = [];
 
         const nonRestElements = [];
-        for (var i=0; i<elements.length; i++) {
-            var e = elements[i];
+        for (let i=0; i<elements.length; i++) {
+            let e = elements[i];
             if (!e.rest) {
                 nonRestElements.push(e);
             }
@@ -386,8 +386,8 @@ class AdaptiveEmbellishMotifZone extends MotifZone {
         const theVerticalIndices = getValueOrExpressionValue(this, "verticalIndices", module);
         const theStartVerticalIndices = getValueOrExpressionValue(this, "startVerticalIndices", module);
         const theEndVerticalIndices = getValueOrExpressionValue(this, "endVerticalIndices", module);
-        for (var i=0; i<elements.length; i++) {
-            var e = elements[i];
+        for (let i=0; i<elements.length; i++) {
+            let e = elements[i];
 
             const me = new AdaptiveMotifElement();
             me.length = e.length;

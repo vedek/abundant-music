@@ -10,12 +10,12 @@ class ClassicalNoise {
         [1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],
         [0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]];
         this.p = [];
-        for (var i=0; i<256; i++) {
+        for (let i=0; i<256; i++) {
             this.p[i] = Math.floor(r.random()*256);
         }
         // To remove the need for index wrapping, double the permutation table length
         this.perm = [];
-        for(var i=0; i<512; i++) {
+        for(let i=0; i<512; i++) {
             this.perm[i]=this.p[i & 255];
         }
     }

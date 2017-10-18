@@ -40,7 +40,7 @@ class Motif {
                 } else {
                     // Make sure that we add ourself to the visited motifs
                     visitedMotifs.put(this, this);
-                    var list = motif
+                    let list = motif
                         .getConstantMotifElements(module, harmony, harmonyBeatOffset, visitedMotifs);
 
                     addAll(result, list);
@@ -51,7 +51,7 @@ class Motif {
             if (theRythm) {
                 // Getting the note rythm elements
                 const startHarmonyIndex = harmony.getHarmonyIndexAt(harmonyBeatOffset);
-                //            var startHarmonyElement = harmony.get(startHarmonyIndex);
+                //            let startHarmonyElement = harmony.get(startHarmonyIndex);
                 let noteRythmElements = theRythm.getNoteRythmElements(module, harmony, harmonyBeatOffset);
 
                 noteRythmElements = arrayCopyWithCopy(noteRythmElements);
@@ -63,8 +63,8 @@ class Motif {
                 const rangeZoneElements = [];
 
                 let currentPosition = 0;
-                for (var j=0; j<noteRythmElements.length; j++) {
-                    var rythmElement = noteRythmElements[j];
+                for (let j=0; j<noteRythmElements.length; j++) {
+                    let rythmElement = noteRythmElements[j];
                     const elementBeatLength = positionUnitToBeats2(rythmElement.length, rythmElement.lengthUnit, harmonyBeatOffset, harmony);
                     rythmElement.length = elementBeatLength; // Use beats to simplify the rest of the processing
                     rythmElement.lengthUnit = PositionUnit.BEATS;
@@ -73,20 +73,20 @@ class Motif {
                     const harmonyIndex = harmony.getHarmonyIndexAt(currentPosition + harmonyBeatOffset);
                     const harmonyElement = harmony.get(harmonyIndex);
 
-                    for (var i=0; i<this.motifZones.length; i++) {
+                    for (let i=0; i<this.motifZones.length; i++) {
                         if (!zoneElements[i]) {
                             zoneElements[i] = [];
                         }
                         if (!rangeZoneElements[i]) {
                             rangeZoneElements[i] = [];
                         }
-                        var zone = this.motifZones[i];
+                        let zone = this.motifZones[i];
                         if (zone.intersectsRange([currentPosition, currentPosition + elementBeatLength], harmony, harmonyBeatOffset)) {
                             rangeZoneElements[i].push(j);
                         }
                     }
-                    for (var i=0; i<this.motifZones.length; i++) {
-                        var zone = this.motifZones[i];
+                    for (let i=0; i<this.motifZones.length; i++) {
+                        let zone = this.motifZones[i];
                         if (zone.containsPosition(currentPosition, harmony, harmonyBeatOffset)) {
                             zoneElements[i].push(j);
                             elementZones[j] = i;
@@ -97,11 +97,11 @@ class Motif {
                 }
 
                 // Check if the zone can't be empty
-                for (var i=0; i<this.motifZones.length; i++) {
-                    var zone = this.motifZones[i];
+                for (let i=0; i<this.motifZones.length; i++) {
+                    let zone = this.motifZones[i];
                     if (zone.useNoteRangeIfEmpty && zoneElements[i].length == 0) {
                         // Get the rythm elements that haven't been taken yet
-                        for (var j=0; j<rangeZoneElements[i].length; j++) {
+                        for (let j=0; j<rangeZoneElements[i].length; j++) {
                             const index = rangeZoneElements[i][j];
                             if (elementZones[index] == -1) {
                                 // Not taken yet...
@@ -117,8 +117,8 @@ class Motif {
                 //            logit("element zones: " + JSON.stringify(elementZones) + "<br />");
 
                 const appliedZones = {};
-                for (var j=0; j<noteRythmElements.length; j++) {
-                    var rythmElement = noteRythmElements[j];
+                for (let j=0; j<noteRythmElements.length; j++) {
+                    let rythmElement = noteRythmElements[j];
                     if (rythmElement.rest || elementZones[j] == -1) {
                         // Elements that have no zones become rests
                         const rest = new ConstantMotifElement();
@@ -130,7 +130,7 @@ class Motif {
                         // Element has a zone and is not a rest
                         const zoneIndex = elementZones[j];
                         if (!appliedZones[zoneIndex]) {
-                            var zone = this.motifZones[elementZones[j]];
+                            let zone = this.motifZones[elementZones[j]];
 
 
                             const elementIndices = zoneElements[elementZones[j]];
@@ -154,15 +154,15 @@ class Motif {
             }
 
         } else {
-            for (var i=0; i<this.motifElements.length; i++) {
+            for (let i=0; i<this.motifElements.length; i++) {
                 const e = this.motifElements[i];
-                var list = e.getConstantMotifElements(module, harmony, harmonyBeatOffset, visitedMotifs);
+                let list = e.getConstantMotifElements(module, harmony, harmonyBeatOffset, visitedMotifs);
                 addAll(result, list);
             }
         }
 
         // Apply the modifiers
-        for (var i=0; i<this.modifiers.length; i++) {
+        for (let i=0; i<this.modifiers.length; i++) {
             const m = this.modifiers[i];
             result = m.apply(module, result);
         }

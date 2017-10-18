@@ -12,17 +12,17 @@ class RenderData {
         const renderChannelNames = [];
         const controlChannelIndices = {};
         const controlChannelNames = [];
-        for (var i=0; i<this.events.length; i++) {
+        for (let i=0; i<this.events.length; i++) {
             const e = this.events[i];
             if (e.renderChannel) {
-                var index = renderChannelIndices[e.renderChannel.id];
+                let index = renderChannelIndices[e.renderChannel.id];
                 if (typeof(index) === 'undefined') {
                     renderChannelIndices[e.renderChannel.id] = renderChannelNames.length;
                     renderChannelNames.push(e.renderChannel.id);
                 }
             }
             if (e.controlChannel) {
-                var index = controlChannelIndices[e.controlChannel.id];
+                let index = controlChannelIndices[e.controlChannel.id];
                 if (typeof(index) === 'undefined') {
                     controlChannelIndices[e.controlChannel.id] = controlChannelNames.length;
                     controlChannelNames.push(e.controlChannel.id);
@@ -35,7 +35,7 @@ class RenderData {
 
         resultArr.push("\"events\": [");
         const resultArr2 = [];
-        for (var i=0; i<this.events.length; i++) {
+        for (let i=0; i<this.events.length; i++) {
             resultArr2.push(this.events[i].toNetJSON(renderChannelIndices, controlChannelIndices));
         }
         resultArr.push(resultArr2.join(",\n"));

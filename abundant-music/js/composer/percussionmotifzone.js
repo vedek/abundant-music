@@ -56,12 +56,12 @@ class VersatilePercussionMotifZone extends PercussionMotifZone {
         const missingBeatCondition = this.beatConditionQuotients.length == 0 && this.beatConditionRemainders.length == 0;
 
     //    logit(" Entering " + this._constructorName);
+        let nre;
 
+        for (let i=0; i<noteRythmElements.length; i++) {
+            let he = harmony.getHarmonyAt(currentBeat + harmonyBeatOffset);
 
-        for (var i=0; i<noteRythmElements.length; i++) {
-            var he = harmony.getHarmonyAt(currentBeat + harmonyBeatOffset);
-
-            var nre = noteRythmElements[i];
+            nre = noteRythmElements[i];
             const beatLength = positionUnitToBeats(nre.length, nre.lengthUnit, he.tsNumerator, he.tsDenominator, harmony);
 
             let ok = activated;
@@ -79,7 +79,7 @@ class VersatilePercussionMotifZone extends PercussionMotifZone {
                 const remainder = mod(beatCheck, beatDivisor);
 
 
-                for (var j=0; j<this.beatConditionQuotients.length; j++) {
+                for (let j=0; j<this.beatConditionQuotients.length; j++) {
                     const q = this.beatConditionQuotients[j];
                     if (Math.abs(q - quotient) <= this.beatConditionMaxRelativeDistance) {
                         ok = activated;
@@ -89,7 +89,7 @@ class VersatilePercussionMotifZone extends PercussionMotifZone {
                         break;
                     }
                 }
-                for (var j=0; j<this.beatConditionRemainders.length; j++) {
+                for (let j=0; j<this.beatConditionRemainders.length; j++) {
                     const r = this.beatConditionRemainders[j];
                     if (Math.abs(r - remainder) <= this.beatConditionMaxRelativeDistance) {
                         ok = activated;
@@ -116,7 +116,7 @@ class VersatilePercussionMotifZone extends PercussionMotifZone {
         const maxRythmEndTime = currentBeat;
         let maxActiveEndTime = 0;
 
-        for (var i=0; i<activeElements.length; i++) {
+        for (let i=0; i<activeElements.length; i++) {
 
             const noteIndices = getItemFromArrayWithStartEndItems([], this.noteIndexPattern,
                 activeElements.length, i, this.startNoteIndexPattern, this.endNoteIndexPattern);
@@ -128,9 +128,9 @@ class VersatilePercussionMotifZone extends PercussionMotifZone {
                 positionOffsets = [0];
             }
 
-            var he = elementHarmonies[i];
-            for (var j=0; j<noteIndices.length; j++) {
-                var me = new PrimitivePercussionMotifElement();
+            let he = elementHarmonies[i];
+            for (let j=0; j<noteIndices.length; j++) {
+                let me = new PrimitivePercussionMotifElement();
 
                 const posOffset = positionUnitToBeats(positionOffsets[j % positionOffsets.length],
                     this.positionOffsetUnit, he.tsNumerator, he.tsDenominator, harmony);
@@ -166,7 +166,7 @@ class VersatilePercussionMotifZone extends PercussionMotifZone {
         }
 
         if (maxActiveEndTime < maxRythmEndTime) {
-            var me = new PrimitivePercussionMotifElement();
+            let me = new PrimitivePercussionMotifElement();
 
             me.startTime = maxActiveEndTime;
             me.startTimeUnit = PositionUnit.BEATS;

@@ -21,7 +21,7 @@ class MersenneTwister {
     init_genrand(s) {
         this.mt[0] = s >>> 0;
         for (this.mti=1; this.mti<this.N; this.mti++) {
-            var s = this.mt[this.mti-1] ^ (this.mt[this.mti-1] >>> 30);
+            let s = this.mt[this.mti-1] ^ (this.mt[this.mti-1] >>> 30);
             this.mt[this.mti] = (((((s & 0xffff0000) >>> 16) * 1812433253) << 16) + (s & 0x0000ffff) * 1812433253)
             + this.mti;
             /* See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier. */
@@ -44,7 +44,7 @@ class MersenneTwister {
         j=0;
         k = (this.N>key_length ? this.N : key_length);
         for (; k; k--) {
-            var s = this.mt[i-1] ^ (this.mt[i-1] >>> 30)
+            let s = this.mt[i-1] ^ (this.mt[i-1] >>> 30)
             this.mt[i] = (this.mt[i] ^ (((((s & 0xffff0000) >>> 16) * 1664525) << 16) + ((s & 0x0000ffff) * 1664525)))
             + init_key[j] + j; /* non linear */
             this.mt[i] >>>= 0; /* for WORDSIZE > 32 machines */
@@ -57,7 +57,7 @@ class MersenneTwister {
             if (j>=key_length) j=0;
         }
         for (k=this.N-1; k; k--) {
-            var s = this.mt[i-1] ^ (this.mt[i-1] >>> 30);
+            let s = this.mt[i-1] ^ (this.mt[i-1] >>> 30);
             this.mt[i] = (this.mt[i] ^ (((((s & 0xffff0000) >>> 16) * 1566083941) << 16) + (s & 0x0000ffff) * 1566083941))
             - i; /* non linear */
             this.mt[i] >>>= 0; /* for WORDSIZE > 32 machines */

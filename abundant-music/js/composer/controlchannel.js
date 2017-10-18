@@ -203,11 +203,11 @@ class DoubleControlChannel extends ControlChannel {
                 // Mix it
                 const oldValue = slotData.read(slot);
                 const unclamped = NumericControlChannelMixMode.mix(this.mixMode, oldValue, doubleValue);
-                var clamped = this.useRange ? clamp(unclamped, this.range[0], this.range[1]) : unclamped;
+                let clamped = this.useRange ? clamp(unclamped, this.range[0], this.range[1]) : unclamped;
                 slotData.write(slot, clamped);
             } else {
                 // Write
-                var clamped = this.useRange ? clamp(doubleValue, this.range[0], this.range[1]) : doubleValue;
+                let clamped = this.useRange ? clamp(doubleValue, this.range[0], this.range[1]) : doubleValue;
                 slotData.write(slot, clamped);
             }
         }
@@ -245,11 +245,11 @@ class IntegerControlChannel extends ControlChannel {
                 const oldValue = slotData.read(slot);
                 const mixed = NumericControlChannelMixMode.mix(this.mixMode, oldValue, intValue);
                 const snapped = SnapMetrics.snap(mixed, this.mixSnapMetrics);
-                var clamped = this.useRange ? clamp(snapped, this.range[0], this.range[1]) : snapped;
+                let clamped = this.useRange ? clamp(snapped, this.range[0], this.range[1]) : snapped;
                 slotData.write(slot, clamped);
             } else {
                 // Write
-                var clamped = this.useRange ? clamp(intValue, this.range[0], this.range[1]) : intValue;
+                let clamped = this.useRange ? clamp(intValue, this.range[0], this.range[1]) : intValue;
                 slotData.write(slot, clamped);
             }
         }

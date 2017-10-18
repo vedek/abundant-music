@@ -193,7 +193,7 @@ class SplitZoneCollection {
         numerator,
         denominator
     ) {
-        for (var i = 0; i < notes.length; i++) {
+        for (let i = 0; i < notes.length; i++) {
             const ticks = positionUnitToBeats(notes[i].length, notes[i].lengthUnit, numerator, denominator);
             if (ticks < minLengthTicks) {
                 return null;
@@ -201,7 +201,7 @@ class SplitZoneCollection {
         }
         const result = [];
 
-        for (var i = 0; i < current.length; i++) {
+        for (let i = 0; i < current.length; i++) {
             const currentNote = current[i];
             const velocity = currentNote.strength;
             if (i == bestSplitIndex) {
@@ -366,7 +366,7 @@ class SplitZoneCollection {
 
         // Mean note length = 1 / beatIntensity
         let totalTicksLength = 0.0;
-        for (var i=0; i<input.length; i++) {
+        for (let i=0; i<input.length; i++) {
             const noteRythmElement = input[i];
             totalTicksLength += positionUnitToBeats(noteRythmElement.length, noteRythmElement.lengthUnit, numerator, denominator);
         }
@@ -382,7 +382,7 @@ class SplitZoneCollection {
         let bestIndex = 0;
 
         let currentPosition = 0;
-        for (var i = 0; i < input.length; i++) {
+        for (let i = 0; i < input.length; i++) {
             const note = input[i];
             const beatLength = positionUnitToBeats(note.length, note.lengthUnit, numerator, denominator);
 
@@ -428,16 +428,16 @@ class SplitZoneCollection {
 
         let beatPosition = 0.0;
         // We also want to know what tick that note is
-        for (var i = 0; i < bestSplitIndex; i++) {
+        for (let i = 0; i < bestSplitIndex; i++) {
             beatPosition += positionUnitToBeats(input[i].length, input[i].lengthUnit, numerator, denominator);
         }
         // Use the center tick
         beatPosition += 0.5 * positionUnitToBeats(input[bestSplitIndex].length, input[bestSplitIndex].lengthUnit, numerator, denominator);
 
         const applicable = [];
-        for (var i=0; i<this.zones.length; i++) {
+        for (let i=0; i<this.zones.length; i++) {
             const z = this.zones[i];
-            var applications = applicationMap.get(z);
+            let applications = applicationMap.get(z);
             if (typeof(applications) === 'undefined') {
                 applications = 0;
                 applicationMap.put(z, applications);
@@ -467,7 +467,7 @@ class SplitZoneCollection {
                 let zone = null;
                 if (applicable.length > 1) {
                     const likelihoods = [];
-                    for (var i = 0; i < likelihoods.length; i++) {
+                    for (let i = 0; i < likelihoods.length; i++) {
                         likelihoods[i] = applicable[i].likelihood;
                     }
                     if (this.rnd == null) {
@@ -480,15 +480,15 @@ class SplitZoneCollection {
                     // No need to sample
                     zone = applicable[0];
                 }
-                var applications = applicationMap.get(zone);
+                let applications = applicationMap.get(zone);
                 applications++;
                 applicationMap.put(zone, applications);
 
                 const splitStrategy = getValueOrExpressionValue(zone, "splitStrategy", module);
 
     //            function getBeatLengths(arr) {
-    //                var result = [];
-    //                for (var k =0; k<arr.length; k++) {
+    //                let result = [];
+    //                for (let k =0; k<arr.length; k++) {
     //                    result[k] = arr[k].length;
     //                }
     //                return result;

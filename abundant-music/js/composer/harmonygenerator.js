@@ -172,7 +172,7 @@ class HarmonyGenerator extends DfsSolver {
                     const cost = this.calculateBeatStrengthRepetitionCost(fromHarmony, fromBeatStrength, toHarmony, toBeatStrength);
 
                     if (cost > 0) {
-    //                    var likelihood = possibleNextStateLikelihoods[i];
+    //                    let likelihood = possibleNextStateLikelihoods[i];
     //                    possibleNextStateLikelihoods[i] = likelihood * multiplier;
                         possibleNextStateCosts[i] += cost;
                     }
@@ -232,14 +232,14 @@ class HarmonyGenerator extends DfsSolver {
         }
 
         if (seventhLikelihood > 0) {
-            var stateCopy = copyValueDeep(state);
+            let stateCopy = copyValueDeep(state);
             stateCopy.harmony.addSeventh();
             resultStates.push(stateCopy);
             resultLikelihoods.push(likelihood * seventhLikelihood);
             resultCosts.push(cost + seventhCost);
         }
         if (triadLikelihood > 0) {
-            var stateCopy = copyValueDeep(state);
+            let stateCopy = copyValueDeep(state);
             stateCopy.harmony.removeSeventh();
             resultStates.push(stateCopy);
             resultLikelihoods.push(likelihood * triadLikelihood);
@@ -247,7 +247,7 @@ class HarmonyGenerator extends DfsSolver {
         }
 
         if (seventhLikelihood == 0 && triadLikelihood == 0) {
-            var stateCopy = copyValueDeep(state);
+            let stateCopy = copyValueDeep(state);
             resultStates.push(stateCopy);
             resultLikelihoods.push(likelihood);
             resultCosts.push(cost);
@@ -357,7 +357,7 @@ class HarmonyGenerator extends DfsSolver {
                 (chord.scaleType == ScaleType.MAJOR || fromHarmony.scaleType == ScaleType.MAJOR);
 
             if (!isSus && !isMixture && possibleRoots) {
-                var index = possibleRoots.indexOf(chordRoot);
+                let index = possibleRoots.indexOf(chordRoot);
                 if (index >= 0) {
                     if (possibleInversions) {
                         const inversions = possibleInversions[index];
@@ -373,7 +373,7 @@ class HarmonyGenerator extends DfsSolver {
             }
             if (!isMixture && isSus) {
                 if (possibleSusRoots) {
-                    var index = possibleSusRoots.indexOf(chordRoot);
+                    let index = possibleSusRoots.indexOf(chordRoot);
                     if (index >= 0) {
                     } else {
                         ok = false;

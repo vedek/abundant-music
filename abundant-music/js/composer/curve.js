@@ -202,19 +202,19 @@ class PredefinedCurve extends Curve {
                 result = amplitude * (2.0 * mod((x - phase) * frequency, 1) - 1);
                 break;
             case PredefinedCurveType.SQUARE:
-                var temp = mod((x - phase) * frequency, 1);
-                if (temp < 0.5) {
+                let temp1 = mod((x - phase) * frequency, 1);
+                if (temp1 < 0.5) {
                     result = amplitude;
                 } else {
                     result = -amplitude;
                 }
                 break;
             case PredefinedCurveType.TRIANGLE:
-                var temp = mod((x - phase) * frequency, 1);
-                if (temp < 0.5) {
-                    result = amplitude * (4.0 * temp - 1.0);
+                let temp2 = mod((x - phase) * frequency, 1);
+                if (temp2 < 0.5) {
+                    result = amplitude * (4.0 * temp2 - 1.0);
                 } else {
-                    result = amplitude * (3.0 - 4.0 * temp);
+                    result = amplitude * (3.0 - 4.0 * temp2);
                 }
                 break;
         }

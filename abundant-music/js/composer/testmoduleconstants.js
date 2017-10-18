@@ -365,7 +365,7 @@ class IndexPropertyIndex {
 
 
 
-var PhraseGroupIndexProperty = {
+let PhraseGroupIndexProperty = {
     MELODY_SHAPE: 0,
     BASS_SHAPE: 1,
     HARMONY: 2,

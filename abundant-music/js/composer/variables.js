@@ -426,7 +426,7 @@ class MarkovRandomIntegerArrayEditorVariable extends IntegerArrayEditorVariable 
         if (theStateDomains.length == 0) {
             theStateDomains = [[0]];
         }
-        for (var i=0; i<theStateDomains.length; i++) {
+        for (let i=0; i<theStateDomains.length; i++) {
             const dom = theStateDomains[i];
             if (dom.length == 0) {
                 theStateDomains[i] = [0];
@@ -434,16 +434,16 @@ class MarkovRandomIntegerArrayEditorVariable extends IntegerArrayEditorVariable 
         }
 
         const stateDomainDistributions = [];
-        for (var i=0; i<this.stateDomainLikelihoods.length; i++) {
-            var lik = this.stateDomainLikelihoods[i];
-            var dist = getProbabilityDistribution(lik);
+        for (let i=0; i<this.stateDomainLikelihoods.length; i++) {
+            let lik = this.stateDomainLikelihoods[i];
+            let dist = getProbabilityDistribution(lik);
             stateDomainDistributions[i] = dist;
         }
 
         const stateTransitionDistributions = [];
-        for (var i=0; i<this.stateTransitionLikelihoods.length; i++) {
-            var lik = this.stateTransitionLikelihoods[i];
-            var dist = getProbabilityDistribution(lik);
+        for (let i=0; i<this.stateTransitionLikelihoods.length; i++) {
+            let lik = this.stateTransitionLikelihoods[i];
+            let dist = getProbabilityDistribution(lik);
             stateTransitionDistributions[i] = dist;
         }
 
@@ -453,7 +453,7 @@ class MarkovRandomIntegerArrayEditorVariable extends IntegerArrayEditorVariable 
         let currentState = sampleIndexIntegerDistribution(rnd, startStateDistribution);
 
         const result = [];
-        for (var i=0; i<theCount; i++) {
+        for (let i=0; i<theCount; i++) {
             // Sample from the domain
             const domain = theStateDomains[currentState % theStateDomains.length];
 

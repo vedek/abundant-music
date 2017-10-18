@@ -60,7 +60,7 @@ class DoubledVoiceLine extends VoiceLine {
 
     doubleVoiceLine(constantLines) {
         let toDouble = null;
-        for (var i=0; i<constantLines.length; i++) {
+        for (let i=0; i<constantLines.length; i++) {
             const line = constantLines[i];
             if (line.id == this.toDouble) {
                 toDouble = line;
@@ -73,7 +73,7 @@ class DoubledVoiceLine extends VoiceLine {
 
             const result = [];
 
-            for (var i=0; i<elements.length; i++) {
+            for (let i=0; i<elements.length; i++) {
                 result[i] = elements[i].copy();
             }
             return result;
@@ -279,13 +279,13 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
 
         }
         const fractionMultiplier = harmonyLength > 1 ? (1.0 / (harmonyLength - 1)) : 1.0;
-        for (var i=0; i<harmonyLength; i++) {
+        for (let i=0; i<harmonyLength; i++) {
             if (this.isUndefined) {
-                var vle = new UndefinedVoiceLineElement();
+                let vle = new UndefinedVoiceLineElement();
                 result.push(vle);
             } else {
 
-                var vle = new ClassicalAdaptiveVoiceLineElement();
+                let vle = new ClassicalAdaptiveVoiceLineElement();
 
                 let theHintIndex = null;
 
@@ -317,7 +317,7 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
                 const penaltyMaxSpacing = getItemFromArrayWithStartEndItems([], this.penaltyMaxSpacings, harmonyLength, i,
                     this.startPenaltyMaxSpacings, this.endPenaltyMaxSpacings);
 
-                var suspend = getItemFromArrayWithStartEndItems(0, suspendPattern, harmonyLength, i,
+                let suspend = getItemFromArrayWithStartEndItems(0, suspendPattern, harmonyLength, i,
                     startSuspendPattern, endSuspendPattern);
 
                 const anticipate = getItemFromArrayWithStartEndItems(0, this.anticipatePattern, harmonyLength, i,
@@ -355,7 +355,7 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
         if (!this.isUndefined) {
             if (phraseSuspendPattern.length > 0 || startPhraseSuspendPattern.length > 0 || endPhraseSuspendPattern.length > 0) {
                 const phraseRanges = harmony.getPhraseRanges();
-                for (var i=0; i<phraseRanges.length; i++) {
+                for (let i=0; i<phraseRanges.length; i++) {
                     const phraseRange = phraseRanges[i];
 
 
@@ -376,9 +376,9 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
 
                     for (let j=phraseRange[0]; j<=phraseRange[1]; j++) {
                         const phraseIndex = j - phraseRange[0];
-                        var suspend = getItemFromArrayWithStartEndItems(0, suspendPattern, phraseRange[1] - phraseRange[0] + 1, phraseIndex,
+                        let suspend = getItemFromArrayWithStartEndItems(0, suspendPattern, phraseRange[1] - phraseRange[0] + 1, phraseIndex,
                             startSuspendPattern, endSuspendPattern);
-                        var vle = result[j];
+                        let vle = result[j];
                         vle.suspend = !!suspend;
     //                if (vle.suspend) {
     //                    logit("Setting suspend for index " + j + "<br />");

@@ -899,8 +899,8 @@ GenInfo.prototype.set = function(inputGenInfo) {
         }
 //        logit("setting " + prop + " to " + inputGenInfo[prop]);
     }
-//    for (var prop in this) {
-//        var test = inputGenInfo[prop];
+//    for (let prop in this) {
+//        let test = inputGenInfo[prop];
 //        if (typeof(test) === 'undefined') {
 //            console.log("Not setting prop: " + prop);
 //        }

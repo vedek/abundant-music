@@ -62,13 +62,13 @@ class ChromaticTransitionHarmonyGenerator extends HarmonyGenerator {
         const costs = [];
 
 
-        for (var i=0; i<this.scaleBaseChordRootScaleModeTuples.length; i++) {
-            var tuple = this.scaleBaseChordRootScaleModeTuples[i];
+        for (let i=0; i<this.scaleBaseChordRootScaleModeTuples.length; i++) {
+            let tuple = this.scaleBaseChordRootScaleModeTuples[i];
             this.addTuple(tuple, 1, 0, result, likelihoods, costs);
         }
         // Adding the goals as well to avoid search failure
-        for (var i=0; i<this.endScaleBaseChordRootScaleModeTuples.length; i++) {
-            var tuple = this.endScaleBaseChordRootScaleModeTuples[i];
+        for (let i=0; i<this.endScaleBaseChordRootScaleModeTuples.length; i++) {
+            let tuple = this.endScaleBaseChordRootScaleModeTuples[i];
             this.addTuple(tuple, 0.1, 1000, result, likelihoods, costs);
         }
         return new RandomDfsStateIterator2(result, likelihoods, costs, this.rnd);
@@ -104,7 +104,7 @@ class ChromaticTransitionHarmonyGenerator extends HarmonyGenerator {
         const scaleProgressionLikelihoods = [1, 0.25, 0.25, 1, 1, 1, 0.1, 1, 1, 1, 0.25, 0.25];
         const scaleProgressionCosts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-        for (var i=0; i<this.endScaleBaseChordRootScaleModeTuples.length; i++) {
+        for (let i=0; i<this.endScaleBaseChordRootScaleModeTuples.length; i++) {
             const tuple = this.endScaleBaseChordRootScaleModeTuples[i];
             this.addTuple(tuple, 0.1, 1000, states, likelihoods, costs);
         }
@@ -116,13 +116,13 @@ class ChromaticTransitionHarmonyGenerator extends HarmonyGenerator {
             cost += costs[index % costs.length];
         }
 
-        for (var i=0; i<rootProgressions.length; i++) {
+        for (let i=0; i<rootProgressions.length; i++) {
             const rp = rootProgressions[i];
-            for (var j=0; j<modeProgressions.length; j++) {
+            for (let j=0; j<modeProgressions.length; j++) {
                 const mp = modeProgressions[j];
-                var newState = state.copy();
-                var harmony = newState.harmony;
-                var oldChordRoot = harmony.chordRoot;
+                let newState = state.copy();
+                let harmony = newState.harmony;
+                let oldChordRoot = harmony.chordRoot;
                 const oldScaleMode = harmony.scaleMode;
                 harmony.chordRoot = positiveMod(harmony.chordRoot + rp, 7);
                 harmony.scaleMode = positiveMod(harmony.scaleMode + mp, 7);
@@ -158,11 +158,11 @@ class ChromaticTransitionHarmonyGenerator extends HarmonyGenerator {
                 costs.push(cost);
             }
 
-            for (var j=0; j<scaleProgressions.length; j++) {
+            for (let j=0; j<scaleProgressions.length; j++) {
                 const sp = scaleProgressions[j];
-                var newState = state.copy();
-                var harmony = newState.harmony;
-                var oldChordRoot = harmony.chordRoot;
+                let newState = state.copy();
+                let harmony = newState.harmony;
+                let oldChordRoot = harmony.chordRoot;
                 const oldBaseNote = harmony.baseNote;
                 harmony.chordRoot = positiveMod(harmony.chordRoot + rp, 7);
                 harmony.baseNote = ((harmony.baseNote + sp) % 12) + 60;;

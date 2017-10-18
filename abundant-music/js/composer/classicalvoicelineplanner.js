@@ -24,7 +24,7 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
     planVoices(voiceLines, chr, module, result) {
 
         const constraints = [];
-        for (var i=0; i<this.constraintZones.length; i++) {
+        for (let i=0; i<this.constraintZones.length; i++) {
             const zone = this.constraintZones[i];
             zone.applyZone(chr, constraints);
         }
@@ -43,7 +43,7 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
         const suspensions = [];
         const anticipations = [];
 
-        for (var i=0; i<voiceLines.length; i++) {
+        for (let i=0; i<voiceLines.length; i++) {
             const line = voiceLines[i];
 
             if (line instanceof DoubledVoiceLine) {
@@ -90,21 +90,21 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
                     isConstant = true;
                 } else if (element instanceof ClassicalAdaptiveVoiceLineElement) {
                     if (element.range && element.range.length == 2) {
-                        var lower = harmonyElement.getAbsoluteNoteWithIndexType(element.range[0], element.rangeIndexType);
-                        var upper = harmonyElement.getAbsoluteNoteWithIndexType(element.range[1], element.rangeIndexType);
+                        let lower = harmonyElement.getAbsoluteNoteWithIndexType(element.range[0], element.rangeIndexType);
+                        let upper = harmonyElement.getAbsoluteNoteWithIndexType(element.range[1], element.rangeIndexType);
                         absoluteNoteRange = [lower, upper];
                     }
                     if (element.penaltyRange && element.penaltyRange.length == 2) {
-                        var lower = harmonyElement.getAbsoluteNoteWithIndexType(element.penaltyRange[0], element.rangeIndexType);
-                        var upper = harmonyElement.getAbsoluteNoteWithIndexType(element.penaltyRange[1], element.rangeIndexType);
+                        let lower = harmonyElement.getAbsoluteNoteWithIndexType(element.penaltyRange[0], element.rangeIndexType);
+                        let upper = harmonyElement.getAbsoluteNoteWithIndexType(element.penaltyRange[1], element.rangeIndexType);
                         penaltyAbsoluteNoteRange = [lower, upper];
                     }
                     if (element.hintIndex === null || element.maxHintDistance === null) {
                         // Not defined in the adaptive element. This signals the use of default value in planner
                     } else {
                         hintAbsNote = harmonyElement.getAbsoluteNoteWithIndexType(element.hintIndex, element.hintIndexType);
-                        var upper = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, element.maxHintDistance, harmonyElement);
-                        var lower = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, -element.maxHintDistance, harmonyElement);
+                        let upper = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, element.maxHintDistance, harmonyElement);
+                        let lower = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, -element.maxHintDistance, harmonyElement);
                         hintDistance = Math.max(Math.abs(hintAbsNote - upper), Math.abs(hintAbsNote - lower));
                         const penaltyUpper = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, element.penaltyMaxHintDistance, harmonyElement);
                         const penaltyLower = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, -element.penaltyMaxHintDistance, harmonyElement);
@@ -191,7 +191,7 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
 
 
         if (plannedVoiceLines) {
-            for (var i=0; i<plannedVoiceLines.length; i++) {
+            for (let i=0; i<plannedVoiceLines.length; i++) {
                 plannedVoiceLines[i].id = voiceLines[i].id;
             }
         } else {

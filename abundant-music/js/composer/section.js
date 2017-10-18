@@ -18,14 +18,14 @@ class AbstractSection {
         let done = false;
         do {
             done = true;
-            for (var i=0; i<result.length; i++) {
+            for (let i=0; i<result.length; i++) {
                 if (!(result[i] instanceof Section)) {
                     done = false;
                 }
             }
             if (!done) {
                 const newResult = [];
-                for (var i=0; i<result.length; i++) {
+                for (let i=0; i<result.length; i++) {
                     const list = result[i].getConcreteSections(state);
                     addAll(newResult, list);
                 }
@@ -46,20 +46,20 @@ class AbstractSection {
                 logit("Failed to concretize section... " + concreteSection._constructorName + " <br />");
                 continue;
             }
-            for (var j=0; j<this.modifiers.length; j++) {
-                var sm = this.modifiers[j];
+            for (let j=0; j<this.modifiers.length; j++) {
+                let sm = this.modifiers[j];
                 concreteSection = sm.modifySection(concreteSection, state);
             }
             state.oldSectionTime = state.sectionTime;
             if (concreteSection.active) {
                 concreteSection.renderBatch(state);
             }
-            for (var j=0; j<this.modifiers.length; j++) {
-                var sm = this.modifiers[j];
+            for (let j=0; j<this.modifiers.length; j++) {
+                let sm = this.modifiers[j];
                 sm.beforeSectionFinalized(concreteSection, state);
             }
-            for (var j=0; j<this.modifiers.length; j++) {
-                var sm = this.modifiers[j];
+            for (let j=0; j<this.modifiers.length; j++) {
+                let sm = this.modifiers[j];
                 sm.sectionRendered(concreteSection, state);
             }
         }
@@ -177,8 +177,8 @@ class Section extends AbstractSection {
 
         } else {
 
-            for (var i=0; i<voiceLines.length; i++) {
-                var line = voiceLines[i];
+            for (let i=0; i<voiceLines.length; i++) {
+                let line = voiceLines[i];
 
                 if (line instanceof DoubledVoiceLine) {
                     // Doubled voice lines are dealt with when there are only ConstantVoiceLineElements (and undefined) left
@@ -202,8 +202,8 @@ class Section extends AbstractSection {
         }
 
         // After all the planning is done, take care of the voice lines that are derived from other lines
-        for (var i=0; i<voiceLines.length; i++) {
-            var line = voiceLines[i];
+        for (let i=0; i<voiceLines.length; i++) {
+            let line = voiceLines[i];
             if (line instanceof DoubledVoiceLine) {
                 const doubled = line.doubleVoiceLine(result);
                 if (doubled) {
@@ -227,8 +227,8 @@ class Section extends AbstractSection {
 
         state.oldSectionTime = state.sectionTime;
 
-        for (var i=0; i<this.modifiers.length; i++) {
-            var sm = this.modifiers[i];
+        for (let i=0; i<this.modifiers.length; i++) {
+            let sm = this.modifiers[i];
             state.section = sm.modifySection(state.section, state);
         }
 
@@ -253,8 +253,8 @@ class Section extends AbstractSection {
 
 
 
-            for (var i=0; i<this.modifiers.length; i++) {
-                var sm = this.modifiers[i];
+            for (let i=0; i<this.modifiers.length; i++) {
+                let sm = this.modifiers[i];
                 state.constantHarmony = sm.modifyConstantHarmony(state.constantHarmony, state);
             }
 
@@ -264,15 +264,16 @@ class Section extends AbstractSection {
             // Plan the voices
             state.plannedVoiceLines = this.planVoices(state.constantHarmony, state.voiceLines, state.module);
 
-            for (var i=0; i<this.modifiers.length; i++) {
-                var sm = this.modifiers[i];
+            for (let i=0; i<this.modifiers.length; i++) {
+                let sm = this.modifiers[i];
                 state.plannedVoiceLines = sm.modifyPlannedVoiceLines(state.plannedVoiceLines, state);
             }
+            let che;
 
-            for (var i=0; i<state.constantHarmony.getCount(); i++) {
-                var che = state.constantHarmony.get(i);
-                for (var j=0; j<che.sectionModifiers.length; j++) {
-                    var sm = che.sectionModifiers[j];
+            for (let i=0; i<state.constantHarmony.getCount(); i++) {
+                che = state.constantHarmony.get(i);
+                for (let j=0; j<che.sectionModifiers.length; j++) {
+                    let sm = che.sectionModifiers[j];
                     state.plannedVoiceLines = sm.modifyPlannedVoiceLines(state.plannedVoiceLines, state);
                 }
             }
@@ -284,28 +285,28 @@ class Section extends AbstractSection {
             state.controlLines = state.section.controlLines;
             // Add section tempo
             // logit("Setting tempo event " + state.sectionTempo + " <br />");
-            for (var i=0; i<state.renderLines.length; i++) {
+            for (let i=0; i<state.renderLines.length; i++) {
                 //            logit("Rendering line " + i);
-                var line = state.renderLines[i];
+                let line = state.renderLines[i];
                 line.renderBatch(state);
             }
 
 
-            for (var j=0; j<che.sectionModifiers.length; j++) {
-                var sm = che.sectionModifiers[j];
+            for (let j=0; j<che.sectionModifiers.length; j++) {
+                let sm = che.sectionModifiers[j];
                 sm.beforeControlRender(state);
             }
             perfTimer2.start();
 
     //        logit("fsdf " + state.controlLines.length);
-            for (var i=0; i<state.controlLines.length; i++) {
-                var line = state.controlLines[i];
+            for (let i=0; i<state.controlLines.length; i++) {
+                let line = state.controlLines[i];
                 line.renderBatch(state);
             }
             perfTimer2.pause();
 
-            for (var j=0; j<che.sectionModifiers.length; j++) {
-                var sm = che.sectionModifiers[j];
+            for (let j=0; j<che.sectionModifiers.length; j++) {
+                let sm = che.sectionModifiers[j];
                 sm.afterControlRender(state);
             }
 
@@ -319,17 +320,17 @@ class Section extends AbstractSection {
                 case SectionTempoMode.CONTROL_CHANNEL:
                     const tempoCh = state.module.getControlChannel(this.tempoChannel);
                     if (tempoCh) {
-                        var slotData = state.controlSlotDatas[tempoCh.id];
+                        let slotData = state.controlSlotDatas[tempoCh.id];
                         if (slotData) {
                             const sectionLength = state.constantHarmony.getBeatLength();
                             const slotBeatFraction = 1.0 / tempoCh.slotsPerBeat;
                             let oldTempo = 0;
-                            for (var i=0; i<sectionLength; i++) {
-                                for (var j=0; j<tempoCh.slotsPerBeat; j++) {
+                            for (let i=0; i<sectionLength; i++) {
+                                for (let j=0; j<tempoCh.slotsPerBeat; j++) {
                                     const slot = i * tempoCh.slotsPerBeat + j;
-                                    var tempoValue = tempoCh.readDouble(slot, slotData);
+                                    let tempoValue = tempoCh.readDouble(slot, slotData);
                                     const beat = i + slotBeatFraction * j;
-                                    var newTempo = Math.round(theTempo * tempoValue);
+                                    let newTempo = Math.round(theTempo * tempoValue);
                                     if (newTempo > 10 && newTempo != oldTempo) {
                                         state.data.addEvent(new SetTempoEvent(newTempo, state.sectionTime + beat));
     //                                    logit("Setting tempo to " + newTempo + " value: " + tempoValue + " slot: " + slot);
@@ -340,8 +341,8 @@ class Section extends AbstractSection {
                                 }
                             }
                         } else {
-                            var tempoValue = tempoCh.readDouble(0);
-                            var newTempo = Math.round(theTempo * tempoValue);
+                            let tempoValue = tempoCh.readDouble(0);
+                            let newTempo = Math.round(theTempo * tempoValue);
                             state.data.addEvent(new SetTempoEvent(newTempo, state.sectionTime));
     //                        logit("Could not find slot data for channel " + this.tempoChannel);
                         }
@@ -353,9 +354,9 @@ class Section extends AbstractSection {
             }
 
             const beatLength = state.constantHarmony.getBeatLength();
-            for (var i=0; i<state.module.controlChannels.length; i++) {
+            for (let i=0; i<state.module.controlChannels.length; i++) {
                 const ch = state.module.controlChannels[i];
-                var slotData = state.controlSlotDatas[ch.id];
+                let slotData = state.controlSlotDatas[ch.id];
                 if (!slotData) {
     //                logit("Could not find any slot data for " + ch.id);
                     slotData = ch.createSlotData(beatLength);
@@ -364,21 +365,21 @@ class Section extends AbstractSection {
             }
 
             for (const ctrlCh in state.controlSlotDatas) {
-                var slotData = state.controlSlotDatas[ctrlCh];
+                let slotData = state.controlSlotDatas[ctrlCh];
                 const channel = state.module.getControlChannel(ctrlCh);
                 const ctrlEvents = channel.getControlEvents(slotData, state.sectionTime);
     //            logit("Got " + ctrlEvents.length + " control events from " + ctrlCh);
                 addAll(state.data.addEvents(ctrlEvents));
             }
 
-            for (var i=0; i<this.modifiers.length; i++) {
-                var sm = this.modifiers[i];
+            for (let i=0; i<this.modifiers.length; i++) {
+                let sm = this.modifiers[i];
                 sm.beforeSectionFinalized(state.section, state);
             }
 
 
-            for (var i=0; i<this.modifiers.length; i++) {
-                var sm = this.modifiers[i];
+            for (let i=0; i<this.modifiers.length; i++) {
+                let sm = this.modifiers[i];
                 sm.sectionRendered(state.section, state);
             }
 

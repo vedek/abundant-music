@@ -99,7 +99,7 @@ class ConditionalSuspendSectionModifier extends SectionModifier {
             const pitchClasses = [];
             const prevPitchClasses = [];
 
-            for (var i=0; i<voiceLines.length; i++) {
+            for (let i=0; i<voiceLines.length; i++) {
                 const vl = voiceLines[i];
                 const prevVle = vl.get(this.harmonyIndex);
                 const prevAbsNote = state.constantHarmony.get(this.harmonyIndex).getAbsoluteNoteConstantVoiceLineElement(prevVle);
@@ -119,7 +119,7 @@ class ConditionalSuspendSectionModifier extends SectionModifier {
 
             for (let j=0; j<this.suspendPitchClassPairs.length; j++) {
                 const pair = this.suspendPitchClassPairs[j];
-                for (var i=0; i<absNotes.length; i++) {
+                for (let i=0; i<absNotes.length; i++) {
                     const prevAbs = prevAbsNotes[i];
                     const prevPc = prevAbs % 12;
                     const toAbs = absNotes[i];
@@ -168,7 +168,7 @@ class SetVariableValueSectionModifier extends SectionModifier {
     modifySection(section, state) {
         try {
             this.hasBeenSet = false;
-            var temp = null;
+            let temp = null;
             if (this.valueExpression) {
                 temp = getExpressionValue(this.valueExpression, state.module);
             } else {
@@ -191,7 +191,7 @@ class SetVariableValueSectionModifier extends SectionModifier {
         } catch (ex) {
             logit("" + ex);
             logit(this._constructorName + " Error in modifySection " + this.valueExpression);
-            var temp = getExpressionValue(this.valueExpression, state.module);
+            let temp = getExpressionValue(this.valueExpression, state.module);
     //        logit(this._constructorName + " temp " + temp);
         }
         return section;

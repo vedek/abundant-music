@@ -41,23 +41,23 @@ class MidiRenderer {
         const emptyChannels = {};
 
         const controlChannelMaps = {};
-        for (var i=0; i<this.controlChannelMaps.length; i++) {
-            var map = this.controlChannelMaps[i];
+        for (let i=0; i<this.controlChannelMaps.length; i++) {
+            let map = this.controlChannelMaps[i];
             controlChannelMaps[map.controlChannel] = map;
     //        logit("Adding control channel map " + map.controlChannel);
         }
         const channelMaps = {};
-        for (var i=0; i<this.channelMaps.length; i++) {
-            var map = this.channelMaps[i];
+        for (let i=0; i<this.channelMaps.length; i++) {
+            let map = this.channelMaps[i];
             channelMaps[map.renderChannel] = map;
             emptyChannels[map.channel] = true;
         }
 
         // Avoid adding events to channels that have no notes
-        for (var i=0; i<events.length; i++) {
-            var event = events[i];
+        for (let i=0; i<events.length; i++) {
+            let event = events[i];
             if (event.type == "noteOn" || event.type == "noteOff") {
-                var channelMap = channelMaps[event.renderChannel.id];
+                let channelMap = channelMaps[event.renderChannel.id];
                 if (channelMap) {
                     emptyChannels[channelMap.channel] = false;
                 }
@@ -67,12 +67,12 @@ class MidiRenderer {
         const sentProgramChanges = {};
 
         // Set all initial programs
-        for (var i=0; i<this.channelMaps.length; i++) {
-            var map = this.channelMaps[i];
+        for (let i=0; i<this.channelMaps.length; i++) {
+            let map = this.channelMaps[i];
             if (!emptyChannels[map.channel]) {
 
                 if (!sentProgramChanges[map.channel]) {
-                    var trackEvent = {
+                    let trackEvent = {
                         eventTime: 0,
                         eventMessage: {
                             messageClass: "ProgramChangeMessage",
@@ -87,11 +87,11 @@ class MidiRenderer {
                 for (let j=0; j<map.initialControllerMessages.length; j++) {
                     const message = map.initialControllerMessages[j];
 
-                    var controllerType = MidiControllerType.getValue(message.type);
+                    let controllerType = MidiControllerType.getValue(message.type);
                     if (options.exportEffects && message.type != MidiControllerType.VOLUME ||
                         options.exportVolume && message.type == MidiControllerType.VOLUME) {
 
-                        trackEvent = {
+                        let trackEvent = {
                             eventTime: 0,
                             eventMessage: {
                                 messageClass: "ChannelMessage",
@@ -114,8 +114,8 @@ class MidiRenderer {
 
 
         let ticks = 0;
-        for (var i=0; i<events.length; i++) {
-            var event = events[i];
+        for (let i=0; i<events.length; i++) {
+            let event = events[i];
 
             const deltaTime = event.time - time;
 
@@ -123,9 +123,9 @@ class MidiRenderer {
 
             ticks += eventTime;
 
-            var trackEvent = null;
+            let trackEvent = null;
             if (event.type == "noteOn" || event.type == "noteOff") {
-                var channelMap = channelMaps[event.renderChannel.id];
+                let channelMap = channelMaps[event.renderChannel.id];
                 if (!channelMap) {
                     channelMap = {
                         channel: 0
@@ -134,16 +134,9 @@ class MidiRenderer {
                 }
                 const isNoteOn = event.type == "noteOn";
 
-    //            if (!isNoteOn) {
-    //                if (event.startTime < 8) {
-    //                    logit(" off at " + event.time + " started at " + event.startTime + " ticks: " + ticks + ", " + (ticks / quarterTicks));
-    //                }
-    //            }
-
                 const status = isNoteOn ? "NOTE_ON" : "NOTE_OFF";
                 const dVelocity = isNoteOn ? event.onVelocity : event.offVelocity;
                 const velocity = Math.round(clamp(dVelocity * 127, 0, 127));
-    //            logit("Writing note on " + event.note + " to " + channelMap.channel);
                 trackEvent = {
                     eventTime: eventTime,
                     eventMessage: {
@@ -158,26 +151,15 @@ class MidiRenderer {
 
                 const controlMap = controlChannelMaps[event.controlChannel.id];
                 if (!controlMap) {
-    //                controlMap = {
-    //                    channel: 0,
-    //                    controllerType: MidiControllerType.VOLUME
-    //                };
-    //                logit("Could not find control map for " + event.controlChannel.id);
                     continue;
-                } else {
-    //                logit("Found control map for " + event.controlChannel.id + " " + JSON.stringify(controlMap));
-                }
+                 }
                 const ctrlData = clamp(Math.round(event.value * controlMap.amplitude + controlMap.bias), 0, 127);
-                var controllerType = MidiControllerType.getValue(controlMap.controllerType);
-    //            logit("Writing ctrlData " + ctrlData + " to " + controlMap.channel + " controllerType: " + controllerType);
+                let controllerType = MidiControllerType.getValue(controlMap.controllerType);
 
                 if (controlMap &&
                     (options.exportEffects && controlMap.controllerType != MidiControllerType.VOLUME ||
                     options.exportVolume && controlMap.controllerType == MidiControllerType.VOLUME)) {
 
-                    if (controllerType == MidiControllerType.VOLUME) {
-    //                    logit("Adding volume message");
-                    }
                     if (!emptyChannels[controlMap.channel]) {
                         trackEvent = {
                             eventTime: eventTime,
@@ -190,14 +172,10 @@ class MidiRenderer {
                             }
                         };
                     }
-    //                logit("Adding ctrl change " + map.channel);
-                } else {
-    //                logit("Not adding " + controllerType);
                 }
             } else if (event.type == "setTempo") {
                 const microsPerMinute = 60000000;
                 const microsPerQuarter = Math.round(microsPerMinute / event.bpm);
-    //            logit("midi renderer Writing tempo " + microsPerQuarter);
                 trackEvent = {
                     eventTime: eventTime,
                     eventMessage: {

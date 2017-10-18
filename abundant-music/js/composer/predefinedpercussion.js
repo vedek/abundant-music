@@ -213,7 +213,7 @@ class PredefinedPercussionMotifElement extends PercussionMotifElement {
 
 
         if (positionShift > 0) {
-            var pme = new PrimitivePercussionMotifElement();
+            let pme = new PrimitivePercussionMotifElement();
             pme.rest = true;
             pme.length = positionShift * lengthMultiplier;
             pme.startTime = 0;
@@ -223,7 +223,7 @@ class PredefinedPercussionMotifElement extends PercussionMotifElement {
 
         for (let i=0; i<starts.length; i++) {
 
-            var pme = new PrimitivePercussionMotifElement();
+            let pme = new PrimitivePercussionMotifElement();
             pme.rest = rests[i % rests.length] == 1;
             
             pme.note = this.getNote(drumIndices[i % drumIndices.length], module, defaultDrums);
@@ -364,8 +364,8 @@ class PredefinedPercussionMotifElement extends PercussionMotifElement {
             case PredefinedPercussionMotifType.FILL_EIGHTS_6:
             case PredefinedPercussionMotifType.FILL_EIGHTS_7:
             case PredefinedPercussionMotifType.FILL_EIGHTS_8:
-                var accents = [0];
-                var rests = [0];
+                let accents = [0];
+                let rests = [0];
                 switch (this.type) {
                     case PredefinedPercussionMotifType.FILL_EIGHTS_2:
                         accents = [1, 0, 0, 1, 0, 0, 1, 0];
@@ -399,8 +399,8 @@ class PredefinedPercussionMotifElement extends PercussionMotifElement {
             case PredefinedPercussionMotifType.FILL_QUARTER_TRIPLET_1:
             case PredefinedPercussionMotifType.FILL_QUARTER_TRIPLET_2:
             case PredefinedPercussionMotifType.FILL_QUARTER_TRIPLET_3:
-                var accents = [0];
-                var rests = [0];
+                let accents = [0];
+                let rests = [0];
                 switch (this.type) {
                     case PredefinedPercussionMotifType.FILL_QUARTER_TRIPLET_2:
                         accents = [1, 0, 1, 0, 1, 0];

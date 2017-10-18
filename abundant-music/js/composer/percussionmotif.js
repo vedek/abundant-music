@@ -83,7 +83,7 @@ class PercussionMotif extends AbstractPercussionMotif {
             case PercussionMotifMode.RYTHM_AND_RENDER_PATTERN:
                 const theRythm = module.getRythm(this.rythm);
                 if (theRythm) {
-                    var list = [];
+                    let list = [];
                     const noteRythmElements = theRythm.getNoteRythmElements(module, harmony, harmonyBeatOffset);
                     if (this.mode == PercussionMotifMode.RYTHM_AND_ZONES) {
                         list = this.getPercussionMotifElementsFromRythmAndZones(module, noteRythmElements, harmony, harmonyBeatOffset);
@@ -98,7 +98,7 @@ class PercussionMotif extends AbstractPercussionMotif {
             case PercussionMotifMode.ELEMENTS:
                 for (let i=0; i<this.elements.length; i++) {
                     const e = this.elements[i];
-                    var list = e.getPrimitivePercussionMotifElements(module, harmony, harmonyBeatOffset);
+                    let list = e.getPrimitivePercussionMotifElements(module, harmony, harmonyBeatOffset);
                     addAll(result, list);
                 }
                 break;

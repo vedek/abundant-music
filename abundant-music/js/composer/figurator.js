@@ -72,13 +72,13 @@ class Figurator extends DfsSolver {
             case AdaptiveHorizontalDomainType.ENUMERABLE:
                 offsets = e.horizontalDomainOffsetElements[j];
                 if (likelihoodArr) {
-                    for (var i=0; i<offsets.length; i++) {
+                    for (let i=0; i<offsets.length; i++) {
                         likelihoodArr[i] = e.horizontalDomainOffsetLikelihoods[j][i % e.horizontalDomainOffsetLikelihoods[j].length];
                     }
                 }
                 break;
             case AdaptiveHorizontalDomainType.RANGE:
-                for (var i=e.horizontalDomainOffsetRanges[j][0]; i<= e.horizontalDomainOffsetRanges[j][1]; i++) {
+                for (let i=e.horizontalDomainOffsetRanges[j][0]; i<= e.horizontalDomainOffsetRanges[j][1]; i++) {
                     offsets.push(i);
                     if (likelihoodArr) {
                         likelihoodArr.push(1);
@@ -95,13 +95,13 @@ class Figurator extends DfsSolver {
         switch (e.verticalDomainType) {
             case AdaptiveVerticalDomainType.ENUMERABLE:
                 offsets = e.verticalDomainOffsetElements;
-                for (var i=0; i<offsets.length; i++) {
+                for (let i=0; i<offsets.length; i++) {
                     const l = e.verticalDomainOffsetElementLikelihoods[i % e.verticalDomainOffsetElementLikelihoods.length];
                     likelihoodArr.push(l);
                 }
                 break;
             case AdaptiveVerticalDomainType.RANGE:
-                for (var i=e.verticalDomainOffsetRange[0]; i<= e.verticalDomainOffsetRange[1]; i++) {
+                for (let i=e.verticalDomainOffsetRange[0]; i<= e.verticalDomainOffsetRange[1]; i++) {
                     offsets.push(i);
                     likelihoodArr.push(1);
                 }
@@ -118,7 +118,7 @@ class Figurator extends DfsSolver {
 
                     let curveValue = theCurve.getValue(this.module, fraction);
                     curveValue = SnapMetrics.snap(curveValue, SnapMetrics.ROUND);
-                    for (var i=offsetRange[0]; i<= offsetRange[1]; i++) {
+                    for (let i=offsetRange[0]; i<= offsetRange[1]; i++) {
                         offsets.push(curveValue + i);
                         let lik = 1;
                         if (i != 0) {
@@ -258,12 +258,12 @@ class Figurator extends DfsSolver {
         }
 
         const verticalLikelihoodArr = [];
-        var offsets = this.getVerticalOffsets(currentElement, verticalLikelihoodArr);
+        let offsets = this.getVerticalOffsets(currentElement, verticalLikelihoodArr);
         //        logit("Vertical Offsets: " + JSON.stringify(offsets) + "<br />");
 
-        for (var i=0; i<offsets.length; i++) {
+        for (let i=0; i<offsets.length; i++) {
             const offset = offsets[i];
-            var absNote = harmonyElement.offset(baseAbsNote, currentElement.verticalDomainOffsetType, offset, harmonyElement);
+            let absNote = harmonyElement.offset(baseAbsNote, currentElement.verticalDomainOffsetType, offset, harmonyElement);
 
             if (verticalDomain == null) {
                 verticalDomain = {};
@@ -288,8 +288,8 @@ class Figurator extends DfsSolver {
         let prevToCurrentHorizontalDomain = null;
         const prevToCurrentHorizontalLikelihoods = {};
         if (prevElement) {
-            for (var j=0; j<prevElement.horizontalRelativeTypes.length; j++) {
-                var horizontalRelativeType = prevElement.horizontalRelativeTypes[j];
+            for (let j=0; j<prevElement.horizontalRelativeTypes.length; j++) {
+                let horizontalRelativeType = prevElement.horizontalRelativeTypes[j];
                 switch (horizontalRelativeType) {
                     case HorizontalRelativeType.NEXT_NOTE:
                         // The current element refers forward and influences the possible successors
@@ -297,11 +297,11 @@ class Figurator extends DfsSolver {
                         if (prevToCurrentHorizontalDomain == null) {
                             prevToCurrentHorizontalDomain = {};
                         }
-                        var likelihoodArr = [];
-                        var offsets = this.getHorizontalOffsets(prevElement, j, likelihoodArr);
+                        let likelihoodArr = [];
+                        let offsets = this.getHorizontalOffsets(prevElement, j, likelihoodArr);
 
-                        for (var i=0; i<offsets.length; i++) {
-                            var absNote = prevElementHarmonyElement.offset(previousAbsNote,
+                        for (let i=0; i<offsets.length; i++) {
+                            let absNote = prevElementHarmonyElement.offset(previousAbsNote,
                                 prevElement.horizontalDomainOffsetTypes[j], offsets[i], prevElementHarmonyElement);
                             // Reinterpret this absolute note in the current harmony
                             if (absNote > 1 && absNote < 127) {
@@ -322,7 +322,7 @@ class Figurator extends DfsSolver {
                 domain = prevToCurrentHorizontalDomain;
                 likelihoods = prevToCurrentHorizontalLikelihoods;
             } else {
-                var temp = this.intersectDomainAndLikelihoods(domain, prevToCurrentHorizontalDomain,
+                let temp = this.intersectDomainAndLikelihoods(domain, prevToCurrentHorizontalDomain,
                     likelihoods, prevToCurrentHorizontalLikelihoods);
                 domain = temp[0];
                 likelihoods = temp[1];
@@ -335,8 +335,8 @@ class Figurator extends DfsSolver {
         let currentToPreviousHorizontalDomain = null;
         const currentToPreviousHorizontalLikelihoods = {};
 
-        for (var j=0; j<currentElement.horizontalRelativeTypes.length; j++) {
-            var horizontalRelativeType = currentElement.horizontalRelativeTypes[j];
+        for (let j=0; j<currentElement.horizontalRelativeTypes.length; j++) {
+            let horizontalRelativeType = currentElement.horizontalRelativeTypes[j];
             switch (horizontalRelativeType) {
                 case HorizontalRelativeType.PREVIOUS_NOTE:
                 case HorizontalRelativeType.PREVIOUS_VOICE_LINE_ELEMENT:
@@ -345,9 +345,9 @@ class Figurator extends DfsSolver {
                     if (currentToPreviousHorizontalDomain == null) {
                         currentToPreviousHorizontalDomain = {};
                     }
-                    var likelihoodArr = [];
-                    var offsets = this.getHorizontalOffsets(currentElement, j, likelihoodArr);
-                    var referenceAbsNote = previousAbsNote;
+                    let likelihoodArr = [];
+                    let offsets = this.getHorizontalOffsets(currentElement, j, likelihoodArr);
+                    let referenceAbsNote = previousAbsNote;
 
                     if (referenceAbsNote == null &&
                         currentElement.horizontalRelativeTypes[j] == HorizontalRelativeType.PREVIOUS_NOTE) {
@@ -360,8 +360,8 @@ class Figurator extends DfsSolver {
                         referenceAbsNote = prevHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(prevVoiceLineElement);
                     }
 
-                    for (var i=0; i<offsets.length; i++) {
-                        var absNote = harmonyElement.offset(referenceAbsNote,
+                    for (let i=0; i<offsets.length; i++) {
+                        let absNote = harmonyElement.offset(referenceAbsNote,
                             currentElement.horizontalDomainOffsetTypes[j], offsets[i], harmonyElement);
                         //                        logit("______offset " + offsets[i] + " gave abs note " + absNote + "<br />");
 
@@ -380,7 +380,7 @@ class Figurator extends DfsSolver {
                 domain = currentToPreviousHorizontalDomain;
                 likelihoods = currentToPreviousHorizontalLikelihoods;
             } else {
-                var temp = this.intersectDomainAndLikelihoods(domain, currentToPreviousHorizontalDomain,
+                let temp = this.intersectDomainAndLikelihoods(domain, currentToPreviousHorizontalDomain,
                     likelihoods, currentToPreviousHorizontalLikelihoods);
                 domain = temp[0];
                 likelihoods = temp[1];
@@ -395,16 +395,16 @@ class Figurator extends DfsSolver {
         let currentToNextHorizontalDomain = null;
         const currentToNextHorizontalLikelihoods = {};
 
-        for (var j=0; j<currentElement.horizontalRelativeTypes.length; j++) {
-            var  horizontalRelativeType = currentElement.horizontalRelativeTypes[j];
+        for (let j=0; j<currentElement.horizontalRelativeTypes.length; j++) {
+            let  horizontalRelativeType = currentElement.horizontalRelativeTypes[j];
             switch ( horizontalRelativeType) {
                 case HorizontalRelativeType.NEXT_NOTE:
                 case HorizontalRelativeType.NEXT_VOICE_LINE_ELEMENT:
                     // The next element refers forward
 
-                    var likelihoodArr = [];
-                    var offsets = this.getHorizontalOffsets(currentElement, j, likelihoodArr);
-                    var referenceAbsNote = nextAbsNote;
+                    let likelihoodArr = [];
+                    let offsets = this.getHorizontalOffsets(currentElement, j, likelihoodArr);
+                    let referenceAbsNote = nextAbsNote;
                     if (currentElement.horizontalRelativeTypes[j] == HorizontalRelativeType.NEXT_VOICE_LINE_ELEMENT) {
                         referenceAbsNote = nextHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(nextVoiceLineElement);
                         //                    logit("______getting abs note from previous voice line " + referenceAbsNote + "<br />");
@@ -422,8 +422,8 @@ class Figurator extends DfsSolver {
                         if (currentToNextHorizontalDomain == null) {
                             currentToNextHorizontalDomain = {};
                         }
-                        for (var i=0; i<offsets.length; i++) {
-                            var absNote = harmonyElement.offset(referenceAbsNote,
+                        for (let i=0; i<offsets.length; i++) {
+                            let absNote = harmonyElement.offset(referenceAbsNote,
                                 currentElement.horizontalDomainOffsetTypes[j], offsets[i], harmonyElement);
                             //                        logit("______offset " + offsets[i] + " gave abs note " + absNote + "<br />");
                             if (absNote > 1 && absNote < 127) {
@@ -442,7 +442,7 @@ class Figurator extends DfsSolver {
                 domain = currentToNextHorizontalDomain;
                 likelihoods = currentToNextHorizontalLikelihoods;
             } else {
-                var temp = this.intersectDomainAndLikelihoods(domain, currentToNextHorizontalDomain,
+                let temp = this.intersectDomainAndLikelihoods(domain, currentToNextHorizontalDomain,
                     likelihoods, currentToNextHorizontalLikelihoods);
                 domain = temp[0];
                 likelihoods = temp[1];
@@ -470,7 +470,7 @@ class Figurator extends DfsSolver {
             let isSeventh = false;
             const isSeventhElement = harmonyElement.isSeventh();
             if (isSeventhElement) {
-                var seventhPitchClass = harmonyElement.getAbsoluteNoteFromScaleIndex(scaleIndices[3]) % 12;
+                let seventhPitchClass = harmonyElement.getAbsoluteNoteFromScaleIndex(scaleIndices[3]) % 12;
                 isSeventh = seventhPitchClass == (previousAbsNote % 12);
             }
 
@@ -485,10 +485,11 @@ class Figurator extends DfsSolver {
 
             let prevLeapSize = 0;
             let prevLeapDiff = 0;
+            let prevPrevPitchClasses;
 
             if (index > 1) {
                 const prevPrevScaleIndices = prevPrevElementHarmonyElement.getChordRootPositionScaleIndices();
-                var prevPrevPitchClasses = prevPrevElementHarmonyElement.getPitchClassesFromScaleIndices(prevPrevScaleIndices);
+                prevPrevPitchClasses = prevPrevElementHarmonyElement.getPitchClassesFromScaleIndices(prevPrevScaleIndices);
                 const prevPrevAbsNote = node.previous.state.absoluteNote;
                 prevPrevWasHarmonic = arrayContains(prevPrevPitchClasses, prevPrevAbsNote % 12);
 
@@ -496,7 +497,7 @@ class Figurator extends DfsSolver {
                 prevLeapSize = Math.abs(prevLeapDiff);
             }
 
-            for (var d in likelihoods) {
+            for (let d in likelihoods) {
                 let lik = likelihoods[d];
 
                 d = parseInt(d, 10);
@@ -506,12 +507,12 @@ class Figurator extends DfsSolver {
                     const pitchClass = d % 12;
                     if (!arrayContains(pitchClasses, d) || (prevWasSeventh && pitchClass == seventhPitchClass)) {
                         // Punish leaps into non-harmony or sevenths
-                        var multiplier = 1.0 / (1 + leapSize * 4);
+                        let multiplier = 1.0 / (1 + leapSize * 4);
                         lik = multiplier * lik;
                     }
                     if (!prevWasHarmonic || prevWasSeventh) {
                         // Punish leaps from non-harmony
-                        var multiplier = 1.0 / (1 + leapSize);
+                        let multiplier = 1.0 / (1 + leapSize);
                         lik = multiplier * lik;
                     }
 
@@ -528,7 +529,7 @@ class Figurator extends DfsSolver {
                         // Leaping in the same direction (or stays the same)
                         let prevLeapPenaltyCount = prevLeapSize - 5;
                         prevLeapPenaltyCount += leapSize;
-                        var multiplier = 1.0 / (1 + prevLeapPenaltyCount);
+                        let multiplier = 1.0 / (1 + prevLeapPenaltyCount);
     //                    lik = multiplier * lik;
                     }
                 }
@@ -543,7 +544,7 @@ class Figurator extends DfsSolver {
 
 
 
-        for (var d in likelihoods) {
+        for (let d in likelihoods) {
             resultLikelihoods[d] = likelihoods[d];
         }
 

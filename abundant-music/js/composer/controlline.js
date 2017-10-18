@@ -28,7 +28,7 @@ class ControlLine {
                 continue;
             }
             const elements = controlLine.getPrimitiveControlElements(state.module, state.constantHarmony);
-            for (var i=0; i<elements.length; i++) {
+            for (let i=0; i<elements.length; i++) {
                 allChannels.push(controlChannel);
             }
 
@@ -37,7 +37,7 @@ class ControlLine {
 
         const beatLength = state.constantHarmony.getBeatLength();
 
-        for (var i=0; i<allElements.length; i++) {
+        for (let i=0; i<allElements.length; i++) {
             const e = allElements[i];
             state.controlChannel = allChannels[i];
             state.controlSlotData = state.controlSlotDatas[state.controlChannel.id];
@@ -207,7 +207,7 @@ class MultiStepControlElement extends PositionedControlElement {
             let renderEnd = false;
 
             if (stepIndex < startIndices.length) {
-                var index = startIndices[stepIndex];
+                let index = startIndices[stepIndex];
                 beatStep = getLength([index], currentBeat, this.elements);
                 if (currentBeat + beatStep + endLength <= harmonyBeatLength) {
                     beatStep = appendWithIndex(index, currentBeat, this.elements);
@@ -215,7 +215,7 @@ class MultiStepControlElement extends PositionedControlElement {
                     renderEnd = true;
                 }
             } else if (indices.length > 0) {
-                var index = indices[positiveMod(stepIndex - startIndices.length, indices.length)];
+                let index = indices[positiveMod(stepIndex - startIndices.length, indices.length)];
                 beatStep = getLength([index], currentBeat, this.elements);
                 if (currentBeat + beatStep + endLength <= harmonyBeatLength) {
                     beatStep = appendWithIndex(index, currentBeat, this.elements);
@@ -345,15 +345,15 @@ class PrimitiveControlElement extends PositionedControlElement {
         if (this.batched) {
             const slotIndices = [];
             const slotFractions = [];
-            for (var i=startSlot; i<=endSlot; i++) {
-                var slotFraction = (i - startSlot) / slotCount;
+            for (let i=startSlot; i<=endSlot; i++) {
+                let slotFraction = (i - startSlot) / slotCount;
                 slotFractions.push(slotFraction);
                 slotIndices.push(i);
             }
             this.renderAtSlots(slotIndices, startSlot, endSlot, slotFractions, startBeatTime, endBeatTime, state, slotData);
         } else {
-            for (var i=startSlot; i<=endSlot; i++) {
-                var slotFraction = (i - startSlot) / slotCount;
+            for (let i=startSlot; i<=endSlot; i++) {
+                let slotFraction = (i - startSlot) / slotCount;
                 this.renderAtSlot(i, startSlot, endSlot, slotFraction, startBeatTime, endBeatTime, state, slotData);
             }
         }

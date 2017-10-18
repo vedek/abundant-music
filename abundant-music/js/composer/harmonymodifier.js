@@ -55,9 +55,9 @@ class SuspendHarmonyModifier extends HarmonyModifier {
 
             const minSecondLength = 2;
 
-            for (var i=0; i<result.length-1; i++) {
+            for (let i=0; i<result.length-1; i++) {
 
-                var info = {};
+                let info = {};
 
                 const first = result[i];
                 const second = result[i+1];
@@ -98,7 +98,7 @@ class SuspendHarmonyModifier extends HarmonyModifier {
 
                 if (ok) {
                     // Add all pairs of notes
-                    for (var j=0; j<firstPitchClasses.length; j++) {
+                    for (let j=0; j<firstPitchClasses.length; j++) {
                         const firstPc = firstPitchClasses[j];
                         const closestPc = first.getClosestNoteWithPitchClasses(firstPc + 24, secondPitchClasses) % 12;
                         if (closestPc == firstPc && !allowConsonantSuspension) {
@@ -140,8 +140,8 @@ class SuspendHarmonyModifier extends HarmonyModifier {
             }
 
             const rnd = new MersenneTwister(seed);
-            for (var i=0; i<infos.length; i++) {
-                var info = infos[i];
+            for (let i=0; i<infos.length; i++) {
+                let info = infos[i];
                 if (rnd.random() < probs[i % probs.length]) {
                     let maxCount = 1;
                     if (rnd.random() < this.doubleSuspendProbabilities[i % this.doubleSuspendProbabilities.length]) {
@@ -153,12 +153,12 @@ class SuspendHarmonyModifier extends HarmonyModifier {
                     const toSample = Math.min(info.pairs.length, maxCount);
 
                     const rndInfos = [];
-                    for (var j=0; j<info.pairs.length; j++) {
+                    for (let j=0; j<info.pairs.length; j++) {
                         rndInfos.push({data: j, likelihood: 1});
                     }
                     const indices = sampleNDataWithoutReplacement(rndInfos, toSample, rnd);
 
-                    for (var j=0; j<indices.length; j++) {
+                    for (let j=0; j<indices.length; j++) {
                         const pair = info.pairs[indices[j]]; // info.pairs[Math.floor(rnd.random() * info.pairs.length)];
                         const constraint = new SuspendVoiceLinePlannerConstraint();
                         constraint.onPattern = copyValueDeep(this.voiceLineOnPattern);
@@ -173,7 +173,7 @@ class SuspendHarmonyModifier extends HarmonyModifier {
     //                    logit(this._constructorName + " adding constraint at " + (i+1) + " pair: " + JSON.stringify(pair));
                     }
                 }
-    //            for (var j=0; j<info.pairs.length; j++) {
+    //            for (let j=0; j<info.pairs.length; j++) {
     //
     //            }
             }
@@ -207,7 +207,7 @@ class RandomShortenHarmonyModifier extends HarmonyModifier {
 
         if (result.length > 0) {
             const likelihoods = [];
-            for (var i=0; i<result.length; i++) {
+            for (let i=0; i<result.length; i++) {
                 const likelihood = getItemFromArrayWithStartEndItems(1, this.indexLikelihoods, result.length, i,
                     this.startIndexLikelihoods, this.endIndexLikelihoods);
                 likelihoods.push(likelihood);
@@ -225,7 +225,7 @@ class RandomShortenHarmonyModifier extends HarmonyModifier {
 
                 const crossesArr = [];
 
-    //            var beatStarts = [];
+    //            let beatStarts = [];
 
                 const numerator = elements[0].tsNumerator;
                 const startBeatStrengths = HarmonyGenerator.prototype.getStartBeatStrengthsFromHarmonyElements(module, elements, 0, numerator);
@@ -260,7 +260,7 @@ class RandomShortenHarmonyModifier extends HarmonyModifier {
                 const beatsToTest = this.totalBeats[j];
                 //            logit("Testing " + beatsToTest + " <br />");
                 let success = false;
-                for (var i=0; i<this.maxAttempts; i++) {
+                for (let i=0; i<this.maxAttempts; i++) {
                     const index = sampleIndexIntegerDistribution(rnd, cumulative);
 
                     const toShorten = result[index];
@@ -435,8 +435,8 @@ class ModeMixtureHarmonyModifier extends HarmonyModifier {
         if (index > 0) {
             const prevElement = elements[index - 1];
             const prevRootPitchClass = prevElement.getAbsoluteNoteFromChordRootIndex(0) % 12;
-            for (var i=0; i<fromRoots.length; i++) {
-                var possiblePitchClass = prevElement.getAbsoluteNoteFromScaleIndex(fromRoots[i]) % 12;
+            for (let i=0; i<fromRoots.length; i++) {
+                let possiblePitchClass = prevElement.getAbsoluteNoteFromScaleIndex(fromRoots[i]) % 12;
                 if (possiblePitchClass == prevRootPitchClass) {
                     ok = true;
                     break;
@@ -445,8 +445,8 @@ class ModeMixtureHarmonyModifier extends HarmonyModifier {
         }
         if (ok) {
             ok = false;
-            for (var i=0; i<roots.length; i++) {
-                var possiblePitchClass = element.getAbsoluteNoteFromScaleIndex(roots[i]) % 12;
+            for (let i=0; i<roots.length; i++) {
+                let possiblePitchClass = element.getAbsoluteNoteFromScaleIndex(roots[i]) % 12;
                 if (possiblePitchClass == rootPitchClass) {
                     ok = true;
                     break;
@@ -480,13 +480,13 @@ class ModeMixtureHarmonyModifier extends HarmonyModifier {
         }
 
         const changedIndices = {};
-        for (var i=0; i<this.indexRanges.length; i++) {
+        for (let i=0; i<this.indexRanges.length; i++) {
             if (!changedIndices[i]) {
                 this.modifyHarmonyElement(i, result, module);
                 changedIndices[i] = true;
             }
         }
-        for (var i=0; i<elements.length; i++) {
+        for (let i=0; i<elements.length; i++) {
             const modify = getItemFromArrayWithStartEndItems(0, this.modifyPattern, elements.length, i, this.startModifyPattern, this.endModifyPattern);
             if (modify != 0 && !changedIndices[i]) {
                 this.modifyHarmonyElement(i, result, module);

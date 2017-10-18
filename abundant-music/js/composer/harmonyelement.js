@@ -70,9 +70,9 @@ class SwitchHarmonyElement extends HarmonyElement {
     
     //    if (this.indexExpression) {
     ////        console.log(this._constructorName + " using index " + index + " on " + indexedElements + " " + this.indexExpression);
-    //        var v = module.getVariable(this.indexExpression);
+    //        let v = module.getVariable(this.indexExpression);
     //        if (v) {
-    //            logit("index var " + v.id + " " + v.value + " " + this.indexUseExpression + " " + index);
+    //            logit("index let " + v.id + " " + v.value + " " + this.indexUseExpression + " " + index);
     //        }
     //    }
     
@@ -326,7 +326,7 @@ class ConstantHarmonyElement extends HarmonyElement {
         let result = scaleOffsets;
         if (this.alterations && this.alterations.length > 0) {
             const alterResult = arrayCopy(scaleOffsets);
-            for (var i=0; i<this.alterations.length; i+=2) {
+            for (let i=0; i<this.alterations.length; i+=2) {
                 if (i < this.alterations.length - 1) {
                     const scaleIndex = this.alterations[i];
                     const offset = this.alterations[i + 1];
@@ -342,7 +342,7 @@ class ConstantHarmonyElement extends HarmonyElement {
     //    }
     
         const absScaleMode = Math.abs(scaleMode);
-        for (var i=0; i<absScaleMode; i++) {
+        for (let i=0; i<absScaleMode; i++) {
             const modeResult = arrayCopy(result);
             if (scaleMode > 0) {
                 // Shift everything left
@@ -352,13 +352,13 @@ class ConstantHarmonyElement extends HarmonyElement {
     //            }
                 modeResult.push(12);
                 const toSub = modeResult[0];
-                for (var j=0; j<modeResult.length; j++) {
+                for (let j=0; j<modeResult.length; j++) {
                     modeResult[j] = Math.abs(modeResult[j] - toSub);
                 }
             } else {
                 const last = modeResult.pop();
                 const toAdd = 12 - last;
-                for (var j=0; j<modeResult.length; j++) {
+                for (let j=0; j<modeResult.length; j++) {
                     modeResult[j] = modeResult[j] + toAdd;
                 }
                 modeResult.unshift(0);
@@ -710,7 +710,7 @@ class ConstantHarmonyElement extends HarmonyElement {
     
     
     getAbsoluteNoteFromChordBassIndex(index) {
-        //    var theChord = this.getChordRootPositionScaleIndices();
+        //    let theChord = this.getChordRootPositionScaleIndices();
         const chordOffsets = this.getChordRootPositionAbsoluteOffsets();
         const first = chordOffsets[0];
         for (let i=0; i<chordOffsets.length; i++) {
@@ -723,7 +723,7 @@ class ConstantHarmonyElement extends HarmonyElement {
     
     getAbsoluteNoteFromChordRootIndex(index, maxCount) {
         const chordOffsets = this.getChordRootPositionAbsoluteOffsets(maxCount);
-        //var theChord = this.getChordRootPositionScaleIndices();
+        //let theChord = this.getChordRootPositionScaleIndices();
         const first = chordOffsets[0];
         for (let i=0; i<chordOffsets.length; i++) {
             chordOffsets[i] -= first;
@@ -972,8 +972,8 @@ class ConstantHarmonyElement extends HarmonyElement {
         // public int getAbsoluteNote(ConstantVoiceLineElement e) {
         let result = this.getAbsoluteNoteWithIndexType(e.index, e.indexType);
     
-        //    var beforeSnap = result;
-        //    var beforeSnapPitchClass = beforeSnap % 12;
+        //    let beforeSnap = result;
+        //    let beforeSnapPitchClass = beforeSnap % 12;
     
         result = this.snap(result, e.snapType, this);
     
@@ -981,21 +981,21 @@ class ConstantHarmonyElement extends HarmonyElement {
         //        case SnapType.NONE:
         //            break;
         //        case SnapType.SCALE:
-        //            var pitchClasses = this.getPitchClasses(this.baseNote, this.getScale());
+        //            let pitchClasses = this.getPitchClasses(this.baseNote, this.getScale());
         //            result = this.getClosestNoteWithPitchClasses(result, pitchClasses);
         //            break;
         //        case SnapType.CHORD:
-        //            var scaleIndices = this.getChordRootPositionScaleIndices();
-        //            var pitchClasses = this.getPitchClassesFromScaleIndices(scaleIndices);
+        //            let scaleIndices = this.getChordRootPositionScaleIndices();
+        //            let pitchClasses = this.getPitchClassesFromScaleIndices(scaleIndices);
         //            result = this.getClosestNoteWithPitchClasses(result, pitchClasses);
         //            break;
         //    }
     
-        //    var scalePitchClasses = this.getPitchClassesFromAbsoluteNotes(this.getScaleAbsoluteNotes());
-        //    var chordOffsets = this.getChordRootPositionScaleIndices();
-        //    var chordAbsOffsets = this.getChordRootPositionAbsoluteOffsets();
-        //    var chordPitchClasses = this.getPitchClasses(this.baseNote, chordAbsOffsets);
-        //    var resultPitchClass = result % 12;
+        //    let scalePitchClasses = this.getPitchClassesFromAbsoluteNotes(this.getScaleAbsoluteNotes());
+        //    let chordOffsets = this.getChordRootPositionScaleIndices();
+        //    let chordAbsOffsets = this.getChordRootPositionAbsoluteOffsets();
+        //    let chordPitchClasses = this.getPitchClasses(this.baseNote, chordAbsOffsets);
+        //    let resultPitchClass = result % 12;
         //    logit("Getting VL absolute note. Index: " + e.index +
         //        " index type: " + e.indexType +
         //        " snap type: " + e.snapType +
@@ -1012,32 +1012,31 @@ class ConstantHarmonyElement extends HarmonyElement {
     
     
     
-    snap(absoluteNote,
-                                                     snapType, harmonyElement) {
+    snap(absoluteNote, snapType, harmonyElement) {
         let result = Math.min(127, Math.max(1, absoluteNote));
         switch (snapType) {
             case SnapType.NONE:
                 break;
             case SnapType.SCALE:
-                var pitchClasses = harmonyElement.getPitchClasses(harmonyElement.baseNote, harmonyElement.getScale());
-                result = harmonyElement.getClosestNoteWithPitchClasses(result, pitchClasses);
+                let pitchClasses1 = harmonyElement.getPitchClasses(harmonyElement.baseNote, harmonyElement.getScale());
+                result = harmonyElement.getClosestNoteWithPitchClasses(result, pitchClasses1);
                 break;
             case SnapType.CHORD:
                 const scaleIndices = harmonyElement.getChordRootPositionScaleIndices();
-                var pitchClasses = harmonyElement.getPitchClassesFromScaleIndices(scaleIndices);
-                result = harmonyElement.getClosestNoteWithPitchClasses(result, pitchClasses);
+                let pitchClasses2 = harmonyElement.getPitchClassesFromScaleIndices(scaleIndices);
+                result = harmonyElement.getClosestNoteWithPitchClasses(result, pitchClasses2);
                 break;
         }
         return result;
     };
     
-    offset(absoluteNote,
-                                                       offsetType, offset, harmonyElement) {
+    offset(absoluteNote, offsetType, offset, harmonyElement) {
         let result = absoluteNote;
-    
+        let indexChr;
+
         switch (offsetType) {
             case OffsetType.SCALE:
-                var indexChr = harmonyElement
+                indexChr = harmonyElement
                     .getScaleIndexAndChromaticOffsetForAbsoluteNote(result);
                 const scaleIndex = indexChr[0] + offset;
                 // logit("Absolute note " + absoluteNote + " gives scale index: " + scaleIndex + "<br />");
@@ -1048,15 +1047,15 @@ class ConstantHarmonyElement extends HarmonyElement {
                 result = absoluteNote + offset;
                 break;
             case OffsetType.CHORD:
-                var indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result);
+                indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result);
                 result = harmonyElement.getAbsoluteNoteFromChordRootIndex(indexChr[0] + offset);
                 break;
             case OffsetType.CHORD_TRIAD_ONLY:
-                var indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result, 3);
+                indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result, 3);
                 result = harmonyElement.getAbsoluteNoteFromChordRootIndex(indexChr[0] + offset);
                 break;
             case OffsetType.CHORD_SEVENTH_ONLY:
-                var indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result, 4);
+                indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result, 4);
                 result = harmonyElement.getAbsoluteNoteFromChordRootIndex(indexChr[0] + offset);
                 break;
             case OffsetType.OCTAVE:
@@ -1070,9 +1069,7 @@ class ConstantHarmonyElement extends HarmonyElement {
         return result;
     };
     
-    snapOffsetSnap(absoluteNote,
-                                                               beforeOffsetSnapType, offsetType, afterOffsetSnapType,
-                                                               offset, harmonyElement) {
+    snapOffsetSnap(absoluteNote, beforeOffsetSnapType, offsetType, afterOffsetSnapType, offset, harmonyElement) {
     
         let result = absoluteNote;
         result = harmonyElement.snap(result, beforeOffsetSnapType, harmonyElement);
@@ -1208,148 +1205,5 @@ class SimpleSequenceHarmonyElement extends SequenceHarmonyElement {
 SimpleSequenceHarmonyElement.prototype.voiceLineConstraints_allowedTypes = {"VoiceChordNotesVoiceLinePlannerConstraint": 1};
 
 
-class PlannedHarmonyElement extends SequenceHarmonyElement {
-    constructor() {
-        super();
-
-        this.scaleBaseNote = 60;
-        this.scaleType = ScaleType.MAJOR;
-
-        this.seed = 12345;
-
-        this._constructorName = "PlannedHarmonyElement";
-    }
-}
-
-class StaticSequenceHarmonyElement extends PlannedHarmonyElement {
-    constructor() {
-        super();
-
-        this.baseRoot = 0;
-        this.baseToBaseLikelihood = 0.01;
-        this.baseToNeighbourLikelihood = 1;
-        this.baseToPassingLikelihood = 1;
-        this.baseToAuxiliaryLikelihood = 1;
-        this.auxiliaryToAuxiliaryLikelihood = 0.01;
-        this.auxiliaryToBaseLikelihood = 1;
-        this.auxiliaryToNeighbourLikelihood = 1;
-        this.auxiliaryToPassingLikelihood = 1;
-        this.auxiliaryChordRoots = [3, 4];
-        this.auxiliaryChordRootLikelihoods = [1, 1];
-        this.fromBasePassingChordRoots = [0, 1, 2, 3, 4, 5, 6];
-        this.fromBasePassingChordRootLikelihoods = [1];
-        this.fromBasePassingIncrements = [-2, 1, 1, 2];
-        this.fromBasePassingIncrementLikelihoods = [0.5, 1, 1, 0.5];
-        this.fromBasePassingInversions = [0, 1, 2];
-        this.fromBasePassingInversionLikelihoods = [0.5, 1, 0.5];
-        this.fromBaseNeighbourChordRoots = [0, 1, 2, 3, 4, 5, 6];
-        this.fromBaseNeighbourChordRootLikelihoods = [1];
-        this.fromAuxiliaryPassingChordRoots = [0, 1, 2, 3, 4, 5, 6];
-        this.fromAuxiliaryPassingChordRootLikelihoods = [1];
-        this.fromAuxiliaryPassingIncrements = [-2, -1, 1, 2];
-        this.fromAuxiliaryPassingIncrementLikelihoods = [0.5, 1, 1, 0.5];
-        this.fromAuxiliaryNeighbourChordRoots = [0, 1, 2, 3, 4, 5, 6];
-        this.fromAuxiliaryNeighbourChordRootLikelihoods = [1];
-        this.canEndWithBase = true;
-        this.canEndWithAuxiliary = false;
-        this.possibleAuxiliaryEndRoots = [3, 4];
-        this._constructorName = "StaticSequenceHarmonyElement";
-    }
-}
-
-class DynamicSequenceHarmonyElement extends PlannedHarmonyElement {
-    constructor() {
-        super();
-
-        this.modulate = false;
-        this.majorModulationTarget = DynamicHarmonyModulationTarget.DOMINANT;
-        this.minorModulationTarget = DynamicHarmonyModulationTarget.MEDIANT;
-        this.majorStartRoots = [0];
-        this.majorStartRootLikelihoods = [1];
-
-        this.majorProgressionRoots = [[0, 1, 2, 3, 4, 5]];
-        this.majorProgressionRootLikelihoods = [[1]];
-
-        this.minorProgressionRoots = [[0, 2, 3, 4, 5, 6]];
-        this.minorProgressionRootLikelihoods = [[1]];
-
-        this.majorProgressionMovements = [[-4, -2, 1]];
-        this.startMajorProgressionMovements = [];
-        this.endMajorProgressionMovements = [];
-        this.majorProgressionMovementLikelihoods = [[1]];
-        this.startMajorProgressionMovementLikelihoods = [];
-        this.endMajorProgressionMovementLikelihoods = [];
-
-        this.minorProgressionMovements = [[-4, -2, 1]];
-        this.startMinorProgressionMovements = [];
-        this.endMinorProgressionMovements = [];
-        this.minorProgressionMovementLikelihoods = [[1]];
-        this.startMinorProgressionMovementLikelihoods = [];
-        this.endMinorProgressionMovementLikelihoods = [];
-
-        this.majorPossibleEndRoots = [1, 3];
-        this.minorPossibleEndRoots = [3];
-        this.majorModulationPossibleEndRoots = [1, 3];
-        this.minorModulationPossibleEndRoots = [3];
-
-        this.passingRoots = [0, 1, 2, 3, 4, 5, 6];
-        this.passingRootLikelihoods = [1];
-
-        const options = null;
-        this.passingInversions = getValueOrDefault(options,
-            "passingInversions", [1, 2]);
-        this.passingInversionLikelihoods = getValueOrDefault(options,
-            "passingInversionLikelihoods", [1, 0.5]);
-        this.passingIncrements = getValueOrDefault(options,
-            "passingIncrements", [-2, -1, 1, 2]);
-        this.passingIncrementLikelihoods = getValueOrDefault(options,
-            "passingIncrementLikelihoods", [0.5, 1, 1, 0.5]);
-        this.neighbourRoots = getValueOrDefault(options,
-            "neighbourRoots", [0, 1, 2, 3, 4, 5, 6]);
-        this.neighbourRootLikelihoods = getValueOrDefault(options,
-            "neighbourRootLikelihoods", [1]);
-        this.neighbourInversions = getValueOrDefault(options,
-            "neighbourInversions", [1, 2]);
-        this.neighbourInversionLikelihoods = getValueOrDefault(options,
-            "neighbourInversionLikelihoods", [1, 0.5]);
-        this.expansionRoots = getValueOrDefault(options,
-            "expansionRoots", [0, 1, 2, 3, 4, 5, 6]);
-        this.expansionRootLikelihoods = getValueOrDefault(options,
-            "expansionRootLikelihoods", [1]);
-        this.expansionInversions = getValueOrDefault(options,
-            "expansionInversions", [1]);
-        this.expansionInversionLikelihoods = getValueOrDefault(options,
-            "expansionInversionLikelihoods", [1]);
-
-        this.rootProgressionLikelihood = getValueOrDefault(options,
-            "rootProgressionLikelihood", 1);
-        this.repeatRootLikelihood = getValueOrDefault(options,
-            "repeatRootLikelihood", 0);
-        this.passingLikelihood = getValueOrDefault(options,
-            "passingLikelihood", 1);
-        this.neighbourLikelihood = getValueOrDefault(options,
-            "neighbourLikelihood", 1);
-        this.expansionLikelihood = getValueOrDefault(options,
-            "expansionLikelihood", 1);
-        this.modulateLikelihoods = [1];
-        this.startModulateLikelihoods = [0.01];
-        this.endModulateLikelihoods = [0.01];
 
 
-        this.majorAppliedChords = getValueOrDefault(options,
-            "majorAppliedChords", [AppliedChordType.V, AppliedChordType.V7]);
-        this.majorAppliedChordLikelihoods = getValueOrDefault(options,
-            "majorAppliedChordLikelihoods", [1]);
-        this.minorAppliedChords = getValueOrDefault(options,
-            "minorAppliedChords", [AppliedChordType.V, AppliedChordType.V7]);
-        this.minorAppliedChordLikelihoods = getValueOrDefault(options,
-            "minorAppliedChordLikelihoods", [1]);
-
-        this.addAllMovements = getValueOrDefault(options,
-            "addAllMovements", true); // Adding all possible roots
-        this.addAllStarts = getValueOrDefault(options,
-            "addAllStarts", true);
-
-        this._constructorName = "DynamicSequenceHarmonyElement";
-    }
-}

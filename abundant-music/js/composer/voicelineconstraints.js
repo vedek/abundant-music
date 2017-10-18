@@ -62,15 +62,15 @@ class IndexedVoiceLinePlannerConstraintZone extends AbstractVoiceLinePlannerCons
         if (constraintCount > 0) {
             const harmonyCount = harmony.getCount();
 
-            for (var i=0; i<this.globalIndices.length; i++) {
-                var cIndex = this.globalIndices[i];
+            for (let i=0; i<this.globalIndices.length; i++) {
+                let cIndex = this.globalIndices[i];
                 for (let j=0; j<harmonyCount; j++) {
                     this.checkAndAddConstraint(cIndex, resultConstraints, j)
                 }
             }
             if (this.indexPattern.length > 0) {
-                for (var i=0; i<harmonyCount; i++) {
-                    var cIndex = getItemFromArrayWithStartEndItems(0, this.indexPattern, harmonyCount, i, this.startIndexPattern, this.endIndexPattern);
+                for (let i=0; i<harmonyCount; i++) {
+                    let cIndex = getItemFromArrayWithStartEndItems(0, this.indexPattern, harmonyCount, i, this.startIndexPattern, this.endIndexPattern);
                     this.checkAndAddConstraint(cIndex, resultConstraints, i);
                 }
             }
@@ -110,9 +110,9 @@ class SuspendVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
         let stepCost = 0;
 
         const absNotes = planner.possibleAbsoluteNoteTuples[harmonyIndex][stateIndex];
-    //    var chordPitchClasses = planner.chordPitchClassesArr[harmonyIndex];
+    //    let chordPitchClasses = planner.chordPitchClassesArr[harmonyIndex];
         const prevAbsNotes = planner.possibleAbsoluteNoteTuples[harmonyIndex-1][prevStateIndex];
-    //    var prevChordPitchClasses = planner.chordPitchClassesArr[harmonyIndex-1];
+    //    let prevChordPitchClasses = planner.chordPitchClassesArr[harmonyIndex-1];
 
 
         for (let j=0; j<this.suspendPitchClassPairs.length; j++) {
