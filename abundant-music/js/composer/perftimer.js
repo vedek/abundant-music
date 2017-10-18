@@ -1,29 +1,28 @@
 
-function PerfTimer(name) {
-    this.name = name;
-    this.lastStartTime = 0;
-    this.totalTime = 0;
-    this.intervals = 0;
+class PerfTimer {
+    constructor(name) {
+        this.name = name;
+        this.lastStartTime = 0;
+        this.totalTime = 0;
+        this.intervals = 0;
+    }
+
+    report() {
+        console.log("PerfTimer " + this.name + " total time: " + this.totalTime + " time per interval: " + (this.totalTime / this.intervals) + " intervals: " + this.intervals);
+    }
+
+    start() {
+        this.lastStartTime = Date.now();
+    }
+
+    pause() {
+        var now = Date.now();
+        var diff = now - this.lastStartTime;
+        this.intervals++;
+        this.totalTime += diff;
+        this.lastStartTime = now;
+    }
 }
-
-PerfTimer.prototype.report = function() {
-    console.log("PerfTimer " + this.name + " total time: " + this.totalTime + " time per interval: " + (this.totalTime / this.intervals) + " intervals: " + this.intervals);
-};
-
-
-PerfTimer.prototype.start = function() {
-    this.lastStartTime = Date.now();
-};
-
-
-
-PerfTimer.prototype.pause = function() {
-    var now = Date.now();
-    var diff = now - this.lastStartTime;
-    this.intervals++;
-    this.totalTime += diff;
-    this.lastStartTime = now;
-};
 
 
 

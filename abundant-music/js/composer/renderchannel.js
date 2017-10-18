@@ -6,53 +6,54 @@ function RenderChannel() {
 }
 
 
-function NamedNote() {
-    this.id = "";
-    this._constructorName = "NamedNote";
+class NamedNote {
+    constructor() {
+        this.id = "";
+        this._constructorName = "NamedNote";
+    }
+
+    getNote() {
+        return 60;
+    }
+
+    setId(n) {
+        this.id = n;
+        return this;
+    }
 }
 
-NamedNote.prototype.getNote = function() {
-    return 60;
-};
+class SimpleNamedNote extends NamedNote {
+    constructor() {
+        super();
+        this.note = 60;
+        this._constructorName = "SimpleNamedNote";
+    }
 
-NamedNote.prototype.setId = function(n) {
-    this.id = n;
-    return this;
-};
+    getNote() {
+        return this.note;
+    }
 
-
-function SimpleNamedNote() {
-    NamedNote.call(this);
-    this.note = 60;
-    this._constructorName = "SimpleNamedNote";
+    setNote(n) {
+        this.note = n;
+        return this;
+    }
 }
 
-SimpleNamedNote.prototype = new NamedNote();
+class MidiDrumNamedNote extends NamedNote {
+    constructor() {
+        super();
+        this.note = MidiDrum.BASS_DRUM_1;
+        this._constructorName = "MidiDrumNamedNote";
+    }
 
-SimpleNamedNote.prototype.getNote = function() {
-    return this.note;
-};
+    getNote() {
+        return this.note;
+    }
 
-SimpleNamedNote.prototype.setNote = function(n) {
-    this.note = n;
-    return this;
-};
-
-function MidiDrumNamedNote() {
-    NamedNote.call(this);
-    this.note = MidiDrum.BASS_DRUM_1;
-    this._constructorName = "MidiDrumNamedNote";
+    setNote(n) {
+        this.note = n;
+        return this;
+    }
 }
-
-MidiDrumNamedNote.prototype = new NamedNote();
-
-MidiDrumNamedNote.prototype.getNote = function() {
-    return this.note;
-};
-
-MidiDrumNamedNote.prototype.setNote = function(n) {
-    this.note = n;
-    return this;
-};
 
 

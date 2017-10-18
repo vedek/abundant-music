@@ -30,129 +30,125 @@ function AbstractPercussionMotif() {
 }
 
 
-function PercussionMotif() {
-    AbstractPercussionMotif.call(this);
-    this.mode = PercussionMotifMode.ELEMENTS;
-    this.rythm = "";
-    this.elements = [];
-    this.zones = [];
-    this.modifiers = [];
+class PercussionMotif extends AbstractPercussionMotif {
+    constructor() {
+        super();
+        this.mode = PercussionMotifMode.ELEMENTS;
+        this.rythm = "";
+        this.elements = [];
+        this.zones = [];
+        this.modifiers = [];
 
-    // These are used when mode is RYTHM_AND_RENDER_PATTERN
-    this.namedNotes = []; // Indexed from the render pattern
-    this.renderPattern = [[0]]; // list 2d, negative means rest
-    this.startRenderPattern = []; // list 2d
-    this.endRenderPattern = []; // list 2d
+        // These are used when mode is RYTHM_AND_RENDER_PATTERN
+        this.namedNotes = []; // Indexed from the render pattern
+        this.renderPattern = [[0]]; // list 2d, negative means rest
+        this.startRenderPattern = []; // list 2d
+        this.endRenderPattern = []; // list 2d
 
-    this._constructorName = "PercussionMotif";
-}
-
-PercussionMotif.prototype = new AbstractPercussionMotif();
-
-PercussionMotif.prototype.getPercussionMotifElementsFromRythmAndZones = function(module, noteRythmElements,
-                                                                                 harmony, harmonyBeatOffset) {
-    var result = [];
-
-
-
-//    logit(this._constructorName + " gettting note rythm elements" + JSON.stringify(this.zones));
-
-    // Should have different classes (one-of, non-overlap osv.)
-    for (var i=0; i<this.zones.length; i++) {
-        var zone = this.zones[i];
-        var list = zone.getPercussionMotifElements(module, noteRythmElements, harmony, harmonyBeatOffset);
-
-        addAll(result, list);
+        this._constructorName = "PercussionMotif";
     }
 
-    return result;
-};
+    getPercussionMotifElementsFromRythmAndZones(module, noteRythmElements, harmony, harmonyBeatOffset) {
+        var result = [];
 
 
-PercussionMotif.prototype.getPercussionMotifElementsFromRythmAndRenderPattern = function(module, noteRythmElements,
-                                                                                         harmony, harmonyBeatOffset) {
-    var result = [];
-    return result;
-};
 
-PercussionMotif.prototype.getPrimitivePercussionMotifElements = function(module, harmony, harmonyBeatOffset) {
-    var result = [];
+    //    logit(this._constructorName + " gettting note rythm elements" + JSON.stringify(this.zones));
 
-//    if (this.verbose) {
-//        logit(this._constructorName + " " + harmony.get(0).tsNumerator);
-//    }
-    switch (this.mode) {
-        case PercussionMotifMode.RYTHM_AND_ZONES:
-        case PercussionMotifMode.RYTHM_AND_RENDER_PATTERN:
-            var theRythm = module.getRythm(this.rythm);
-            if (theRythm) {
-                var list = [];
-                var noteRythmElements = theRythm.getNoteRythmElements(module, harmony, harmonyBeatOffset);
-                if (this.mode == PercussionMotifMode.RYTHM_AND_ZONES) {
-                    list = this.getPercussionMotifElementsFromRythmAndZones(module, noteRythmElements, harmony, harmonyBeatOffset);
-                } else if (this.mode == PercussionMotifMode.RYTHM_AND_RENDER_PATTERN) {
-                    list = this.getPercussionMotifElementsFromRythmAndRenderPattern(module, noteRythmElements, harmony, harmonyBeatOffset);
+        // Should have different classes (one-of, non-overlap osv.)
+        for (var i=0; i<this.zones.length; i++) {
+            var zone = this.zones[i];
+            var list = zone.getPercussionMotifElements(module, noteRythmElements, harmony, harmonyBeatOffset);
+
+            addAll(result, list);
+        }
+
+        return result;
+    }
+
+    getPercussionMotifElementsFromRythmAndRenderPattern(module, noteRythmElements, harmony, harmonyBeatOffset) {
+        var result = [];
+        return result;
+    }
+
+    getPrimitivePercussionMotifElements(module, harmony, harmonyBeatOffset) {
+        var result = [];
+
+    //    if (this.verbose) {
+    //        logit(this._constructorName + " " + harmony.get(0).tsNumerator);
+    //    }
+        switch (this.mode) {
+            case PercussionMotifMode.RYTHM_AND_ZONES:
+            case PercussionMotifMode.RYTHM_AND_RENDER_PATTERN:
+                var theRythm = module.getRythm(this.rythm);
+                if (theRythm) {
+                    var list = [];
+                    var noteRythmElements = theRythm.getNoteRythmElements(module, harmony, harmonyBeatOffset);
+                    if (this.mode == PercussionMotifMode.RYTHM_AND_ZONES) {
+                        list = this.getPercussionMotifElementsFromRythmAndZones(module, noteRythmElements, harmony, harmonyBeatOffset);
+                    } else if (this.mode == PercussionMotifMode.RYTHM_AND_RENDER_PATTERN) {
+                        list = this.getPercussionMotifElementsFromRythmAndRenderPattern(module, noteRythmElements, harmony, harmonyBeatOffset);
+                    }
+                    addAll(result, list);
+                } else {
+                    logit(this._constructorName + " Could not find rythm " + this.rythm + "<br />");
                 }
-                addAll(result, list);
-            } else {
-                logit(this._constructorName + " Could not find rythm " + this.rythm + "<br />");
-            }
-            break;
-        case PercussionMotifMode.ELEMENTS:
-            for (var i=0; i<this.elements.length; i++) {
-                var e = this.elements[i];
-                var list = e.getPrimitivePercussionMotifElements(module, harmony, harmonyBeatOffset);
-                addAll(result, list);
-            }
-            break;
+                break;
+            case PercussionMotifMode.ELEMENTS:
+                for (var i=0; i<this.elements.length; i++) {
+                    var e = this.elements[i];
+                    var list = e.getPrimitivePercussionMotifElements(module, harmony, harmonyBeatOffset);
+                    addAll(result, list);
+                }
+                break;
+        }
+        return result;
     }
-    return result;
-};
-
-
-function SingleElementPercussionMotif() {
-    AbstractPercussionMotif.call(this);
-    this.element = new PredefinedPercussionMotifElement();
-
-    this._constructorName = "SingleElementPercussionMotif";
 }
 
-SingleElementPercussionMotif.prototype = new AbstractPercussionMotif();
+class SingleElementPercussionMotif extends AbstractPercussionMotif {
+    constructor() {
+        super();
+        this.element = new PredefinedPercussionMotifElement();
 
+        this._constructorName = "SingleElementPercussionMotif";
+    }
 
-SingleElementPercussionMotif.prototype.getPrimitivePercussionMotifElements = function(module, harmony, harmonyBeatOffset) {
-    return this.element.getPrimitivePercussionMotifElements(module, harmony, harmonyBeatOffset);
-};
-
-function PercussionMotifElement() {
-    this.id = "";
-    this.renderChannel = "";
-    this._constructorName = "PercussionMotifElement";
+    getPrimitivePercussionMotifElements(module, harmony, harmonyBeatOffset) {
+        return this.element.getPrimitivePercussionMotifElements(module, harmony, harmonyBeatOffset);
+    }
 }
 
-PercussionMotifElement.prototype.getPrimitivePercussionMotifElements = function(module, harmony, harmonyBeatOffset) {
-    return [this];
-};
+class PercussionMotifElement {
+    constructor() {
+        this.id = "";
+        this.renderChannel = "";
+        this._constructorName = "PercussionMotifElement";
+    }
 
-
-function PrimitivePercussionMotifElement() {
-    PercussionMotifElement.call(this);
-
-    this.startTime = 0;
-    this.startTimeUnit = PositionUnit.BEATS;
-
-    this.length = 1;
-    this.lengthUnit = PositionUnit.BEATS;
-
-    this.rest = false;
-
-    this.strength = 1.0;
-
-    this.note = 60;
-
-    this._constructorName = "PrimitivePercussionMotifElement";
+    getPrimitivePercussionMotifElements(module, harmony, harmonyBeatOffset) {
+        return [this];
+    }
 }
 
-PrimitivePercussionMotifElement.prototype = new PercussionMotifElement();
+class PrimitivePercussionMotifElement extends PercussionMotifElement {
+    constructor() {
+        super();
+
+        this.startTime = 0;
+        this.startTimeUnit = PositionUnit.BEATS;
+
+        this.length = 1;
+        this.lengthUnit = PositionUnit.BEATS;
+
+        this.rest = false;
+
+        this.strength = 1.0;
+
+        this.note = 60;
+
+        this._constructorName = "PrimitivePercussionMotifElement";
+    }
+}
 
 

@@ -1,10 +1,10 @@
 
 
-function TonicCadenceHarmonyGenerator(options) {
-    StaticHarmonyGenerator.call(this, options);
+class TonicCadenceHarmonyGenerator extends StaticHarmonyGenerator {
+    constructor(options) {
+        super(options);
+    }
 }
-
-TonicCadenceHarmonyGenerator.prototype = new StaticHarmonyGenerator();
 
 
 

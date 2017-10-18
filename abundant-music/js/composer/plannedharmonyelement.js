@@ -103,102 +103,101 @@ var PhraseHarmonyElementShorteningMode = {
 addPossibleValuesFunction(PhraseHarmonyElementShorteningMode, PhraseHarmonyElementShorteningMode.BEATS, PhraseHarmonyElementShorteningMode.BEATS);
 
 
-function PhraseHarmonyElement() {
-    PlannedHarmonyElement.call(this);
+class PhraseHarmonyElement extends PlannedHarmonyElement {
+    constructor() {
+        super();
 
-    this.phraseType = PhraseHarmonyElementType.COMPLETE;
-    this.harmonyReference = ""; // Used for derived consequent phrases
+        this.phraseType = PhraseHarmonyElementType.COMPLETE;
+        this.harmonyReference = ""; // Used for derived consequent phrases
 
-    this.modulate = false;
-    this.modulateInvertScaleType = false;
-    this.majorModulationTarget = DynamicHarmonyModulationTarget.DOMINANT;
-    this.minorModulationTarget = DynamicHarmonyModulationTarget.MEDIANT;
-    this.modulateRemoveDominant = true;
-    this.modulateRemoveInitialTonic = true;
-    this.modulateStaticLengthFactor = 0.2;
-    this.modulateDynamicLengthFactor = 5;
-    this.modulateDominantCadenceLengthFactor = 0.2;
-    this.modulateTonicCadenceLengthFactor = 0.2;
+        this.modulate = false;
+        this.modulateInvertScaleType = false;
+        this.majorModulationTarget = DynamicHarmonyModulationTarget.DOMINANT;
+        this.minorModulationTarget = DynamicHarmonyModulationTarget.MEDIANT;
+        this.modulateRemoveDominant = true;
+        this.modulateRemoveInitialTonic = true;
+        this.modulateStaticLengthFactor = 0.2;
+        this.modulateDynamicLengthFactor = 5;
+        this.modulateDominantCadenceLengthFactor = 0.2;
+        this.modulateTonicCadenceLengthFactor = 0.2;
 
-    this.majorDeceptiveRoot = 5;
-    this.majorDeceptiveInversions = 0;
-    this.minorDeceptiveRoot = 5;
-    this.minorDeceptiveInversions = 0;
+        this.majorDeceptiveRoot = 5;
+        this.majorDeceptiveInversions = 0;
+        this.minorDeceptiveRoot = 5;
+        this.minorDeceptiveInversions = 0;
 
-    // LengthAndCountUnit.LENGTH is interpreted as beats
-    this.staticHarmonyLength = 25;
-    this.staticHarmonyLengthUnit = LengthAndCountUnit.LENGTH_PERCENT;
-    this.staticHarmonyLengthLimits = [0, 100];
-    this.staticHarmonyLengthLimitsUnit = LengthAndCountUnit.LENGTH_PERCENT;
-    this.staticHarmonyLengthImportance = 1.0;
-    this.staticHarmonyUseLocalSeed = false;
-    this.staticHarmonySeed = 12345;
-    this.staticHarmonyRaiseLeadingToneRoots = [4, 6];
-    this.staticHarmonyPassingChordLikelihood = 1;
-    this.staticHarmonyNeighbourChordLikelihood = 1;
-    this.staticHarmonySus2ChordLikelihood = 1;
-    this.staticHarmonySus4ChordLikelihood = 1;
-    this.staticHarmonySimpleMixtureLikelihood = 1;
+        // LengthAndCountUnit.LENGTH is interpreted as beats
+        this.staticHarmonyLength = 25;
+        this.staticHarmonyLengthUnit = LengthAndCountUnit.LENGTH_PERCENT;
+        this.staticHarmonyLengthLimits = [0, 100];
+        this.staticHarmonyLengthLimitsUnit = LengthAndCountUnit.LENGTH_PERCENT;
+        this.staticHarmonyLengthImportance = 1.0;
+        this.staticHarmonyUseLocalSeed = false;
+        this.staticHarmonySeed = 12345;
+        this.staticHarmonyRaiseLeadingToneRoots = [4, 6];
+        this.staticHarmonyPassingChordLikelihood = 1;
+        this.staticHarmonyNeighbourChordLikelihood = 1;
+        this.staticHarmonySus2ChordLikelihood = 1;
+        this.staticHarmonySus4ChordLikelihood = 1;
+        this.staticHarmonySimpleMixtureLikelihood = 1;
 
-    this.dynamicHarmonyLength = 25;
-    this.dynamicHarmonyLengthUnit = LengthAndCountUnit.LENGTH_PERCENT;
-    this.dynamicHarmonyLengthLimits = [0, 100];
-    this.dynamicHarmonyLengthLimitsUnit = LengthAndCountUnit.LENGTH_PERCENT;
-    this.dynamicHarmonyLengthImportance = 1.0;
-    this.dynamicHarmonyUseLocalSeed = false;
-    this.dynamicHarmonySeed = 12345;
-    this.dynamicHarmonyRaiseLeadingToneRoots = [];
-    this.dynamicHarmonyRaiseLeadingToneAppliedRoots = [4, 6]; // Default is to raise for applied chords
-    this.dynamicHarmonyPassingChordLikelihood = 1;
-    this.dynamicHarmonyNeighbourChordLikelihood = 1;
-    this.dynamicHarmonySus2ChordLikelihood = 1;
-    this.dynamicHarmonySus4ChordLikelihood = 1;
-    this.dynamicHarmonySimpleMixtureLikelihood = 1;
+        this.dynamicHarmonyLength = 25;
+        this.dynamicHarmonyLengthUnit = LengthAndCountUnit.LENGTH_PERCENT;
+        this.dynamicHarmonyLengthLimits = [0, 100];
+        this.dynamicHarmonyLengthLimitsUnit = LengthAndCountUnit.LENGTH_PERCENT;
+        this.dynamicHarmonyLengthImportance = 1.0;
+        this.dynamicHarmonyUseLocalSeed = false;
+        this.dynamicHarmonySeed = 12345;
+        this.dynamicHarmonyRaiseLeadingToneRoots = [];
+        this.dynamicHarmonyRaiseLeadingToneAppliedRoots = [4, 6]; // Default is to raise for applied chords
+        this.dynamicHarmonyPassingChordLikelihood = 1;
+        this.dynamicHarmonyNeighbourChordLikelihood = 1;
+        this.dynamicHarmonySus2ChordLikelihood = 1;
+        this.dynamicHarmonySus4ChordLikelihood = 1;
+        this.dynamicHarmonySimpleMixtureLikelihood = 1;
 
-    this.dominantCadenceHarmonyLength = 1;
-    this.dominantCadenceHarmonyLengthUnit = LengthAndCountUnit.COUNT;
-    this.dominantCadenceHarmonyLengthLimits = [0, 100];
-    this.dominantCadenceHarmonyLengthLimitsUnit = LengthAndCountUnit.LENGTH_PERCENT;
-    this.dominantCadenceHarmonyLengthImportance = 1.0;
-    this.dominantCadenceHarmonyUseLocalSeed = false;
-    this.dominantCadenceHarmonySeed = 12345;
-    this.dominantCadenceHarmonyRaiseLeadingToneRoots = [4, 6];
-    this.dominantCadenceHarmonyPassingChordLikelihood = 1;
-    this.dominantCadenceHarmonyNeighbourChordLikelihood = 1;
-    this.dominantCadenceHarmonySus2ChordLikelihood = 1;
-    this.dominantCadenceHarmonySus4ChordLikelihood = 1;
-    this.dominantCadenceHarmonySimpleMixtureLikelihood = 1;
+        this.dominantCadenceHarmonyLength = 1;
+        this.dominantCadenceHarmonyLengthUnit = LengthAndCountUnit.COUNT;
+        this.dominantCadenceHarmonyLengthLimits = [0, 100];
+        this.dominantCadenceHarmonyLengthLimitsUnit = LengthAndCountUnit.LENGTH_PERCENT;
+        this.dominantCadenceHarmonyLengthImportance = 1.0;
+        this.dominantCadenceHarmonyUseLocalSeed = false;
+        this.dominantCadenceHarmonySeed = 12345;
+        this.dominantCadenceHarmonyRaiseLeadingToneRoots = [4, 6];
+        this.dominantCadenceHarmonyPassingChordLikelihood = 1;
+        this.dominantCadenceHarmonyNeighbourChordLikelihood = 1;
+        this.dominantCadenceHarmonySus2ChordLikelihood = 1;
+        this.dominantCadenceHarmonySus4ChordLikelihood = 1;
+        this.dominantCadenceHarmonySimpleMixtureLikelihood = 1;
 
-    this.tonicCadenceHarmonyLength = 1;
-    this.tonicCadenceHarmonyLengthUnit = LengthAndCountUnit.COUNT;
-    this.tonicCadenceHarmonyLengthLimits = [0, 100];
-    this.tonicCadenceHarmonyLengthLimitsUnit = LengthAndCountUnit.LENGTH_PERCENT;
-    this.tonicCadenceHarmonyLengthImportance = 1.0;
-    this.tonicCadenceHarmonyUseLocalSeed = false;
-    this.tonicCadenceHarmonySeed = 12345;
-    this.tonicCadenceHarmonyRaiseLeadingToneRoots = [4, 6];
-    this.tonicCadenceHarmonyPassingChordLikelihood = 1;
-    this.tonicCadenceHarmonyNeighbourChordLikelihood = 1;
-    this.tonicCadenceHarmonySus2ChordLikelihood = 1;
-    this.tonicCadenceHarmonySus4ChordLikelihood = 1;
-    this.tonicCadenceHarmonySimpleMixtureLikelihood = 1;
+        this.tonicCadenceHarmonyLength = 1;
+        this.tonicCadenceHarmonyLengthUnit = LengthAndCountUnit.COUNT;
+        this.tonicCadenceHarmonyLengthLimits = [0, 100];
+        this.tonicCadenceHarmonyLengthLimitsUnit = LengthAndCountUnit.LENGTH_PERCENT;
+        this.tonicCadenceHarmonyLengthImportance = 1.0;
+        this.tonicCadenceHarmonyUseLocalSeed = false;
+        this.tonicCadenceHarmonySeed = 12345;
+        this.tonicCadenceHarmonyRaiseLeadingToneRoots = [4, 6];
+        this.tonicCadenceHarmonyPassingChordLikelihood = 1;
+        this.tonicCadenceHarmonyNeighbourChordLikelihood = 1;
+        this.tonicCadenceHarmonySus2ChordLikelihood = 1;
+        this.tonicCadenceHarmonySus4ChordLikelihood = 1;
+        this.tonicCadenceHarmonySimpleMixtureLikelihood = 1;
 
-    this.overrideDefaultPhraseStructure = false; // Set this to true to use the phrase structure counts instead
+        this.overrideDefaultPhraseStructure = false; // Set this to true to use the phrase structure counts instead
 
-    // For shortening the phrase, for example in antecedent/consequent phrases
-    this.phraseShorteningMode = PhraseHarmonyElementShorteningMode.BEATS;
-    this.phraseShorteningBeats = [[4], [4], [2], [2], [2], [1], [1], [1]];
-    this.phraseShorteningMinLengths = [1];
-    this.phraseShorteningMinLengthUnit = PositionUnit.BEATS;
+        // For shortening the phrase, for example in antecedent/consequent phrases
+        this.phraseShorteningMode = PhraseHarmonyElementShorteningMode.BEATS;
+        this.phraseShorteningBeats = [[4], [4], [2], [2], [2], [1], [1], [1]];
+        this.phraseShorteningMinLengths = [1];
+        this.phraseShorteningMinLengthUnit = PositionUnit.BEATS;
 
-    this.raiseLeadingTone = true;
+        this.raiseLeadingTone = true;
 
-    this.maxLengthSearchSteps = 200;
+        this.maxLengthSearchSteps = 200;
 
-    this._constructorName = "PhraseHarmonyElement";
+        this._constructorName = "PhraseHarmonyElement";
+    }
 }
-
-
-PhraseHarmonyElement.prototype = new PlannedHarmonyElement();
 
 
