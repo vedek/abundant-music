@@ -5,9 +5,9 @@
 
     <property name="libs.dir" value="C:/Users/Per/Dropbox/private/libs" />
 
-    <property name="build.dir" value="C:/users/per/Dropbox/private/webmusic/distribution" />
+    <property name="build.dir" value="build" />
     <property name="src.dir" value="." />
-    <property name="java" value="C:/Program Files/Java/jre7/bin/java" />
+    <property name="java" value="java" />
     <property name="rhino.jar" value="${libs.dir}/Rhino/js.jar" />
     <property name="jslint.js" value="${libs.dir}/JSLint/jslint.js" />
     <property name="yuicompressor.jar" value="${libs.dir}/yuicompressor/yuicompressor-2.4.7.jar" />

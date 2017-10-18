@@ -6,13 +6,85 @@ function logit(str) {
 }
 
 
-importScripts("composeworkersource-min.js");
+importScripts(
+    "composer/random.js",
+    "composer/mersennetwister.js",
+    "composer/utils.js",
+    "composer/constants.js",
+    "composer/interpolation.js",
+    "composer/splineinterpolation.js",
+    "composer/map.js",
+    "composer/latticenoise.js",
+    "composer/perlinnoise.js",
+    "composer/variables.js",
+    "composer/soundfont.js",
+    "composer/perftimer.js",
+    "composer/procedures.js",
+    "composer/dfssolver.js",
+    "composer/controlchannel.js",
+    "composer/renderchannel.js",
+    "composer/curve.js",
+    "composer/figurationgrid.js",
+    "composer/figurator.js",
+    "composer/renderline.js",
+    "composer/motifrenderelement.js",
+    "composer/controlline.js",
+    "composer/genmusicmodule.js",
+    "composer/splitzone.js",
+    "composer/rythm.js",
+    "composer/section.js",
+    "composer/sectionmodifier.js",
+    "composer/motifzone.js",
+    "composer/percussionmotifzone.js",
+    "composer/motif.js",
+    "composer/percussionmotif.js",
+    "composer/predefinedpercussion.js",
+    "composer/harmonicrythm.js",
+    "composer/harmonyelementinclude.js",
+    "composer/harmonyelement.js",
+    "composer/harmonymodifier.js",
+    "composer/sequenceharmonyelement.js",
+    "composer/plannedharmonyelement.js",
+    "composer/phraseharmonyelement.js",
+    "composer/voiceline.js",
+    "composer/structure.js",
+    "composer/renderstate.js",
+    "composer/renderdata.js",
+    "composer/harmonygenerator.js",
+    "composer/staticharmonygenerator.js",
+    "composer/dynamicharmonygeneratorconstants.js",
+    "composer/dynamicharmonygenerator.js",
+    "composer/chromatictransitionharmonygenerator.js",
+    "composer/chromaticoscillationharmonygenerator.js",
+    "composer/dominantharmonygenerator.js",
+    "composer/toniccadenceharmonygenerator.js",
+    "composer/suspantstrategies.js",
+    "composer/voicelinegenerator.js",
+    "composer/classicalvoicelinegenerator.js",
+    "composer/voicelineconstraintsinclude.js",
+    "composer/voicelineconstraints.js",
+    "composer/classicalvoicelineplanner.js",
+    "composer/midiconstants.js",
+    "composer/midirenderer.js",
+    "composer/datasample.js",
+    "composer/geninfo.js",
+    "composer/testmoduleconstants.js",
+    "composer/testmodule.js");
+
+//importScripts("composeworkersource-min.js");
 
 //importScripts("composeworkersource.js");
 
 //importScripts("midisynthsourceconcat.js");
 
-importScripts("riffwave.js", "midisynthsource.js", "midisynthenvelope.js", "midisynthfilter.js", "midisynthoscillator.js", "midisynthvoice.js", "midisynthinstrument.js", "midisynth.js");
+importScripts("midisynth/riffwave.js", 
+    "midisynth/midisynthsource.js", 
+    "midisynth/midisynthenvelope.js", 
+    "midisynth/midisynthfilter.js", 
+    "midisynth/midisynthoscillator.js", 
+    "midisynth/midisynthvoice.js", 
+    "midisynth/midisynthinstrument.js", 
+    "midisynth/midisynth.js");
 
 importScripts("stacktrace.js");
 

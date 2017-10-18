@@ -7,16 +7,53 @@ function updateLoaderProgress(progress) {
 }
 
 
-var useDevSources = true;
-var clientSources = ["css/style.css", "js/composeeditoronlinesource2-min.js"];
-if (useDevSources) {
-    clientSources = "css/style.css js/midi.js js/fakebytearray.js js/tween.js js/classicalnoise.js js/jquerycomponents.js js/guiproperties.js js/guipropertiescomponent.js js/valuecomponents.js js/guiobjectlistcomponent.js js/uniqueidmanager.js js/propertyinfoprovider.js js/songsettingscomponents.js js/asyncoperation.js js/noterepr.js js/audioplayer.js js/sm2player.js js/webaudioplayer.js js/frustumcullingchunks.js js/composevisualizer.js js/composemain.js".split(" ");
-}
+
+clientSources = `
+    css/style.css 
+    js/midi.js 
+    js/fakebytearray.js 
+    js/tween.js 
+    js/classicalnoise.js 
+    js/jquerycomponents.js 
+    js/guiproperties.js 
+    js/guipropertiescomponent.js 
+    js/valuecomponents.js 
+    js/guiobjectlistcomponent.js 
+    js/uniqueidmanager.js 
+    js/propertyinfoprovider.js 
+    js/songsettingscomponents.js 
+    js/asyncoperation.js 
+    js/noterepr.js 
+    js/audioplayer.js 
+    js/sm2player.js 
+    js/webaudioplayer.js 
+    js/frustumcullingchunks.js 
+    js/composevisualizer.js 
+    js/composemain.js`.split(/\s+/);
+
+    //    js/testmoduleconstants.js 
+
+composeEditorSources=`
+    js/stacktrace.js 
+    js/composer/utils.js 
+    js/composer/constants.js 
+    js/composer/map.js 
+    js/composer/mersennetwister.js 
+    js/composer/midiconstants.js 
+    js/composer/voicelineconstraintsinclude.js 
+    js/composer/harmonyelementinclude.js 
+    js/composer/dynamicharmonygeneratorconstants.js 
+    js/composer/plannedharmonyelement.js 
+    js/composer/datasample.js 
+    js/composer/testmoduleconstants.js
+    js/composer/geninfo.js 
+    js/composer/soundfont.js 
+    js/songsettings.js`.split(/\s+/)
 
 Modernizr.load(
     [
         {
-            both: ["js/jquery-1.8.3.min.js", "js/jquery-ui-1.9.2.custom.min.js", "css/base/jquery-ui.css"],
+            both: ["js/jquery-1.8.3.min.js", "js/jquery-ui-1.9.2.custom.js", "css/base/jquery-ui.css"],
             complete: function() {
                 console.log("Loaded jQuery!");
 
@@ -28,7 +65,7 @@ Modernizr.load(
             }
         },
         {
-            both: ["js/composeeditoronlinesource-min.js", "js/songsettings.js"],
+            both: composeEditorSources,
             complete: function() {
                 loadSettingsFromLocalStorage();
                 var theme = JQueryUITheme.toUrlString(themeSettings.theme);
